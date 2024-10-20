@@ -1,0 +1,106 @@
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\appsettings.Development.json
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\appsettings.json
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\asp.exe
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\asp.deps.json
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\asp.runtimeconfig.json
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\asp.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\asp.pdb
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\AWSSDK.Core.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\AWSSDK.SecurityToken.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\DnsClient.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Microsoft.OpenApi.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\MongoDB.Bson.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\MongoDB.Driver.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\MongoDB.Driver.Core.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\MongoDB.Libmongocrypt.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\SharpCompress.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Snappier.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\ZstdSharp.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\runtimes\linux\native\libmongocrypt.so
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\runtimes\osx\native\libmongocrypt.dylib
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\runtimes\win\native\mongocrypt.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.csproj.AssemblyReference.cache
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.GeneratedMSBuildEditorConfig.editorconfig
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.AssemblyInfoInputs.cache
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.AssemblyInfo.cs
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.csproj.CoreCompileInputs.cache
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.MvcApplicationPartsAssemblyInfo.cs
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.MvcApplicationPartsAssemblyInfo.cache
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\staticwebassets\msbuild.asp.Microsoft.AspNetCore.StaticWebAssets.props
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\staticwebassets\msbuild.build.asp.props
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.asp.props
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.asp.props
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\staticwebassets.pack.json
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\staticwebassets.build.json
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\staticwebassets.development.json
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\scopedcss\bundle\asp.styles.css
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.csproj.CopyComplete
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\refint\asp.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.pdb
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\asp.genruntimeconfig.cache
+D:\Git Uploads\Ho_so_DV\asp\asp\obj\Debug\net6.0\ref\asp.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+D:\Git Uploads\Ho_so_DV\asp\asp\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.dll
+E:\project-gradution-service\asp\obj\Debug\net6.0\refint\asp.dll
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.pdb
+E:\project-gradution-service\asp\bin\Debug\net6.0\appsettings.Development.json
+E:\project-gradution-service\asp\bin\Debug\net6.0\appsettings.json
+E:\project-gradution-service\asp\bin\Debug\net6.0\asp.exe
+E:\project-gradution-service\asp\bin\Debug\net6.0\asp.deps.json
+E:\project-gradution-service\asp\bin\Debug\net6.0\asp.runtimeconfig.json
+E:\project-gradution-service\asp\bin\Debug\net6.0\asp.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\asp.pdb
+E:\project-gradution-service\asp\bin\Debug\net6.0\AWSSDK.Core.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\AWSSDK.SecurityToken.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\DnsClient.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Microsoft.OpenApi.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\MongoDB.Bson.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\MongoDB.Driver.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\MongoDB.Driver.Core.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\MongoDB.Libmongocrypt.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\SharpCompress.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Snappier.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Swashbuckle.AspNetCore.Swagger.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Swashbuckle.AspNetCore.SwaggerUI.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\ZstdSharp.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\runtimes\linux\native\libmongocrypt.so
+E:\project-gradution-service\asp\bin\Debug\net6.0\runtimes\osx\native\libmongocrypt.dylib
+E:\project-gradution-service\asp\bin\Debug\net6.0\runtimes\win\native\mongocrypt.dll
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.csproj.AssemblyReference.cache
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.GeneratedMSBuildEditorConfig.editorconfig
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.AssemblyInfoInputs.cache
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.AssemblyInfo.cs
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.csproj.CoreCompileInputs.cache
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.MvcApplicationPartsAssemblyInfo.cs
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.MvcApplicationPartsAssemblyInfo.cache
+E:\project-gradution-service\asp\obj\Debug\net6.0\staticwebassets.build.json
+E:\project-gradution-service\asp\obj\Debug\net6.0\staticwebassets.development.json
+E:\project-gradution-service\asp\obj\Debug\net6.0\staticwebassets\msbuild.asp.Microsoft.AspNetCore.StaticWebAssets.props
+E:\project-gradution-service\asp\obj\Debug\net6.0\staticwebassets\msbuild.build.asp.props
+E:\project-gradution-service\asp\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.asp.props
+E:\project-gradution-service\asp\obj\Debug\net6.0\staticwebassets\msbuild.buildTransitive.asp.props
+E:\project-gradution-service\asp\obj\Debug\net6.0\staticwebassets.pack.json
+E:\project-gradution-service\asp\obj\Debug\net6.0\scopedcss\bundle\asp.styles.css
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.csproj.Up2Date
+E:\project-gradution-service\asp\obj\Debug\net6.0\asp.genruntimeconfig.cache
+E:\project-gradution-service\asp\obj\Debug\net6.0\ref\asp.dll
