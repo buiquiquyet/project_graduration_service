@@ -1,16 +1,9 @@
 ﻿/*using asp.Services;*/
 using asp.Models;
 using asp.Respositories;
-using asp.Models;
 using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
-using System.Threading.Tasks;
 using MongoDB.Bson;
 using asp.Services;
-using Microsoft.IdentityModel.Tokens;
-using System.Text;
-using Microsoft.AspNetCore.Authorization;
-using System.Data;
 
 namespace asp.Controllers 
 {
@@ -115,13 +108,13 @@ namespace asp.Controllers
                 return BadRequest(new { errorMessage = "Tên đăng nhập hoặc mật khẩu không chính xác. Xin vui lòng thử lại." });
             }
 
-            var user = await _resp.GetUserByTenDangNhapAndPassword(model.tendangnhap, model.matkhau);
+            var user = await _resp.GetUserByTenDangNhapAndPassword(model.email, model.pass);
             if (user == null)
             {
                 return Ok(new { errorMessage = "Tên đăng nhập hoặc mật khẩu không chính xác. Xin vui lòng thử lại." });
             }
             var token = _jwtService.GenerateToken(user.Id);
-            return Ok(new { token, role = user.nhom_id });
+            return Ok(new { token, role = user.Id });
             
         }
         [HttpGet("validate")]

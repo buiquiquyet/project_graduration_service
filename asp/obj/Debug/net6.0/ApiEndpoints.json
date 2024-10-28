@@ -626,6 +626,43 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "asp.Controllers.RegisterAuthController",
+    "Method": "Create",
+    "RelativePath": "api/registerAuth/create",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "asp.Controllers.RegisterAuthController",
+    "Method": "Verify",
+    "RelativePath": "api/registerAuth/verify",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "email",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "code",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "asp.Controllers.SemesterController",
     "Method": "GetAllSemesters",
     "RelativePath": "api/semester",

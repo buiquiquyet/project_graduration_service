@@ -18,6 +18,7 @@ builder.Services.AddSingleton<SemesterService>();
 builder.Services.AddSingleton<FileService>();
 builder.Services.AddSingleton<InstructorService>();
 builder.Services.AddSingleton<SubjectService>();
+builder.Services.AddSingleton<RegisterAuthService>();
 //JWT
 //var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 string key = KeyGenerator.Generate256BitKey();
