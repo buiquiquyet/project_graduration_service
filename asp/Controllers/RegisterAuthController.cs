@@ -1,4 +1,5 @@
-﻿using asp.Models;
+﻿using asp.Helper;
+using asp.Models;
 using asp.Respositories;
 using asp.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -17,26 +18,38 @@ namespace asp.Controllers
         }
 
         // POST: api/registerAuth/create
-        [HttpPost("create")] 
-        public async Task<IActionResult> Create([FromBody] string email)
+        [HttpPost("create")]
+        public async Task<ActionResult<ApiResponseDTO<string>>> Create([FromBody] string email)
         {
             try
             {
-                // Tạo mã xác thực ngẫu nhiên
-                string verificationCode = _resp.GenerateVerificationCode();
+                string verificationCode; // mã xác thực
+                bool checkVerificationCode; // check mã xác thực có tồn tại trong db
+
+                bool checkEmailExitDb = await _resp.EmailExistsAsync(email);
+                if(checkEmailExitDb)
+                {
+                    return BadRequest(new ApiResponseDTO<string> {  message = "Email đã được dùng để đăng ký." });
+                }
+                // Tạo mã xác thực ban đầu
+                do
+                {
+                    verificationCode = _resp.GenerateVerificationCode();
+                    checkVerificationCode = await _resp.VerificationCodeExistsAsync(verificationCode);
+                } while (checkVerificationCode); // Tiếp tục tạo mã mới nếu mã hiện tại đã tồn tại
 
                 // Gửi mã xác thực qua email
-                 _resp.SendVerificationEmail(email, verificationCode);
+                _resp.SendVerificationEmail(email, verificationCode);
 
-                // Lưu mã xác thực vào cơ sở dữ liệu hoặc bộ nhớ tạm (tuỳ ý)
+                // Lưu mã xác thực vào cơ sở dữ liệu
                 await _resp.Create(email, verificationCode);
 
-                return Ok("Đăng ký thành công. Vui lòng kiểm tra email để lấy mã xác thực.");
+                return Ok(new ApiResponseDTO<string> {  data = "Đăng ký thành công. Vui lòng kiểm tra email để lấy mã xác thực." });
             }
             catch (Exception ex)
             {
                 // Log lỗi nếu có
-                return BadRequest("Error sending verification email: " + ex.Message);
+                return BadRequest(new ApiResponseDTO<string> { message = "Error sending verification email: " + ex.Message });
             }
         }
 

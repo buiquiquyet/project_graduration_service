@@ -1,4 +1,5 @@
-﻿using asp.Models;
+﻿using asp.Helper;
+using asp.Models;
 using asp.Respositories;
 using asp.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -9,7 +10,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
+
 builder.Services.Configure<MongoDbSetting>(builder.Configuration.GetSection("MongoDB"));
+// Đăng ký ConnectDbHelper
+builder.Services.AddSingleton<ConnectDbHelper>();
 builder.Services.AddSingleton<UserService>();
 builder.Services.AddSingleton<DepartmentService>();
 builder.Services.AddSingleton<ClassService>();
@@ -18,6 +22,7 @@ builder.Services.AddSingleton<SemesterService>();
 builder.Services.AddSingleton<FileService>();
 builder.Services.AddSingleton<InstructorService>();
 builder.Services.AddSingleton<SubjectService>();
+// controlName đăng ký login
 builder.Services.AddSingleton<RegisterAuthService>();
 //JWT
 //var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);

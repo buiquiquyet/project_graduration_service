@@ -33,7 +33,7 @@
                                 font-weight: bold;
                                 color: #2196F3;
                                 font-size: 30px;
-                                letter-spacing: 3px; 
+                                letter-spacing: 5px; 
                             }}
                             p {{
                                 color: #333;
