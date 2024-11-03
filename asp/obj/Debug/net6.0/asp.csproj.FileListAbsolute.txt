@@ -104,4 +104,3 @@ E:\project-gradution-service\asp\obj\Debug\net6.0\scopedcss\bundle\asp.styles.cs
 E:\project-gradution-service\asp\obj\Debug\net6.0\asp.csproj.Up2Date
 E:\project-gradution-service\asp\obj\Debug\net6.0\asp.genruntimeconfig.cache
 E:\project-gradution-service\asp\obj\Debug\net6.0\ref\asp.dll
-E:\project-gradution-service\asp\obj\Debug\net6.0\asp.sourcelink.json

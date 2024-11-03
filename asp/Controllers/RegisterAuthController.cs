@@ -23,50 +23,69 @@ namespace asp.Controllers
         {
             try
             {
-                string verificationCode; // mã xác thực
-                bool checkVerificationCode; // check mã xác thực có tồn tại trong db
-
-                bool checkEmailExitDb = await _resp.EmailExistsAsync(email);
-                if(checkEmailExitDb)
+                if (string.IsNullOrEmpty(email))
                 {
-                    return BadRequest(new ApiResponseDTO<string> {  message = "Email đã được dùng để đăng ký." });
+                    return BadRequest(new ApiResponseDTO<string> { message = "Email không được để trống." });
                 }
-                // Tạo mã xác thực ban đầu
-                do
+
+                // Kiểm tra sự tồn tại của email
+                bool checkEmailExists = await _resp.EmailExistsAsync(email);
+                if (checkEmailExists)
                 {
-                    verificationCode = _resp.GenerateVerificationCode();
-                    checkVerificationCode = await _resp.VerificationCodeExistsAsync(verificationCode);
-                } while (checkVerificationCode); // Tiếp tục tạo mã mới nếu mã hiện tại đã tồn tại
+                    // Nếu email đã tồn tại, cập nhật mã xác thực nếu hết hạn
+                    bool isUpdated = await _resp.UpdateVerificationCodeIfExpiredAsync(email);
+                    if (!isUpdated)
+                    {
+                        return BadRequest(new ApiResponseDTO<string> { message = "Email đã được dùng để đăng ký." });
+                    }
+                }
+                else
+                {
+                    // Tạo mã xác thực mới
+                    string verificationCode = _resp.GenerateVerificationCode();
+                    DateTime expirationTime = DateTime.UtcNow.AddSeconds(20); // Thời gian mới
 
-                // Gửi mã xác thực qua email
-                _resp.SendVerificationEmail(email, verificationCode);
+                    // Lưu mã xác thực mới vào cơ sở dữ liệu
+                    await _resp.Create(email, verificationCode); // Cần cập nhật phương thức Create để nhận thêm expirationTime
+                }
 
-                // Lưu mã xác thực vào cơ sở dữ liệu
-                await _resp.Create(email, verificationCode);
-
-                return Ok(new ApiResponseDTO<string> {  data = "Đăng ký thành công. Vui lòng kiểm tra email để lấy mã xác thực." });
+                return Ok(new ApiResponseDTO<Object> { data = new { email }, message = "Kiểm tra email để nhận mã xác thực." });
             }
             catch (Exception ex)
             {
                 // Log lỗi nếu có
-                return BadRequest(new ApiResponseDTO<string> { message = "Error sending verification email: " + ex.Message });
+                return BadRequest(new ApiResponseDTO<string> { message = "Lỗi khi gửi mã xác thực qua email: " + ex.Message });
             }
         }
 
+
         // POST: api/registerAuth/verify
-        [HttpPost("verify")] 
-        public IActionResult Verify(string email, string code)
+        [HttpPost("verify")]
+        public IActionResult Verify([FromBody] Dictionary<string, object> request)
         {
+            // Kiểm tra nếu request null hoặc không có giá trị email và code
+            if (request == null ||
+                !request.ContainsKey("email") ||
+                !request.ContainsKey("code") ||
+                string.IsNullOrWhiteSpace(request["email"]?.ToString()) ||
+                string.IsNullOrWhiteSpace(request["code"]?.ToString()))
+            {
+                return BadRequest(new ApiResponseDTO<string> { message = "Email và mã xác thực không được để trống." });
+            }
+
+            // Truyền các giá trị vào biến
+            string email = request["email"].ToString();
+            string code = request["code"].ToString();
+
             // Kiểm tra mã xác thực
             bool isValid = _resp.CheckVerificationCode(email, code);
             if (isValid)
             {
-                // Xác thực thành công, hoàn tất đăng ký
-                return Ok("Xác thực thành công.");
+                return Ok(new ApiResponseDTO<Object> { message = "Xác thực thành công." });
             }
 
-            // Mã xác thực không hợp lệ
-            return BadRequest("Mã xác thực không hợp lệ.");
+            return BadRequest(new ApiResponseDTO<string> { message = "Mã xác thực không hợp lệ." });
         }
+
     }
 }

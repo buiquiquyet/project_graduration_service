@@ -125,7 +125,7 @@ namespace asp.Respositories
         {
             if (string.IsNullOrEmpty(email))
             {
-                throw new ArgumentNullException(nameof(email), "Mã xác thực không được để trống.");
+                throw new ArgumentNullException(nameof(email), "Email không được để trống.");
             }
 
             // Tìm kiếm trong DB
@@ -133,8 +133,54 @@ namespace asp.Respositories
                 .Find(r => r.email == email)
                 .FirstOrDefaultAsync();
 
-            return existingRecord != null; // Trả về true nếu tìm thấy
+            // Trả về true nếu tìm thấy email
+            return existingRecord != null;
         }
+        // update lại DTO email sau khi check email tồn tại và hết thời gian hiệu lực
+        public async Task<bool> UpdateVerificationCodeIfExpiredAsync(string email)
+        {
+            if (string.IsNullOrEmpty(email))
+            {
+                throw new ArgumentNullException(nameof(email), "Email không được để trống.");
+            }
+
+            // Tìm kiếm bản ghi email trong DB
+            var existingRecord = await _registerAuthCollection
+                .Find(r => r.email == email)
+                .FirstOrDefaultAsync();
+
+            // Kiểm tra nếu tồn tại email
+            if (existingRecord != null)
+            {
+                // Kiểm tra xem expirationTime có vượt quá 20 giây hay không
+                if (existingRecord.expirationTime < DateTime.UtcNow)
+                {
+                    // Nếu hết hạn, tạo mã xác thực mới và cập nhật thời gian
+                    string newVerificationCode = GenerateVerificationCode(); // Tạo mã xác thực mới
+                    DateTime newExpirationTime = DateTime.UtcNow.AddMinutes(5); // Thời gian mới
+
+                    // Cập nhật vào DB
+                    existingRecord.verificationCode = newVerificationCode; // Cập nhật mã xác thực mới
+                    existingRecord.expirationTime = newExpirationTime; // Cập nhật thời gian hết hạn mới
+
+                    await _registerAuthCollection.ReplaceOneAsync(
+                        r => r.email == email,
+                        existingRecord
+                    );
+
+                    // Gửi mã xác thực mới qua email
+                    SendVerificationEmail(email, newVerificationCode);
+
+                    return true; // Đã cập nhật mã xác thực thành công
+                }
+
+                return false; // Nếu mã xác thực vẫn còn hiệu lực
+            }
+
+            return false; // Không tìm thấy email
+        }
+
+
         //==================
         //lưu mã xác thực vào cơ sở dữ liệu
         public async Task Create(string email, string verificationCode)

@@ -3,24 +3,40 @@
   "WorkspaceRootPath": "E:\\project-gradution-service\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\registerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\registerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\controllers\\registerauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\controllers\\registerauthcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\helper\\apiresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\helper\\apiresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\jwtservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\keygenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\keygenerator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\controllers\\semestercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\controllers\\semestercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\registerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\registerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\helper\\apiresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\helper\\apiresponsedto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\helper\\connectdbhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -41,10 +57,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\fileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\fileservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     }
   ],
   "DocumentGroupContainers": [
@@ -58,7 +70,147 @@
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "KeyGenerator.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\KeyGenerator.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\KeyGenerator.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\KeyGenerator.cs",
+              "RelativeToolTip": "asp\\Services\\KeyGenerator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T16:08:22.915Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\UserService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\UserService.cs",
+              "RelativeToolTip": "asp\\Services\\UserService.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T16:08:17.395Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 2,
+              "Title": "JWTService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\JWTService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\JWTService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\JWTService.cs",
+              "RelativeToolTip": "asp\\Services\\JWTService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-03T16:07:41.58Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "FileService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\FileService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\FileService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\FileService.cs",
+              "RelativeToolTip": "asp\\Services\\FileService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T14:50:22.185Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "MongoDBService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\MongoDBService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\MongoDBService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\MongoDBService.cs",
+              "RelativeToolTip": "asp\\Services\\MongoDBService.cs",
+              "ViewState": "AgIAACQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T14:50:03.95Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\appsettings.json",
+              "RelativeDocumentMoniker": "asp\\appsettings.json",
+              "ToolTip": "E:\\project-gradution-service\\asp\\appsettings.json",
+              "RelativeToolTip": "asp\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-29T14:46:44.43Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Program.cs",
+              "RelativeDocumentMoniker": "asp\\Program.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Program.cs",
+              "RelativeToolTip": "asp\\Program.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAYwEYAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T14:46:43.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "RegisterAuthController.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\RegisterAuthController.cs",
+              "RelativeDocumentMoniker": "asp\\Controllers\\RegisterAuthController.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Controllers\\RegisterAuthController.cs",
+              "RelativeToolTip": "asp\\Controllers\\RegisterAuthController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAowDMAAABxAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T14:42:29.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RegisterAuthService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\RegisterAuthService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\RegisterAuthService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\RegisterAuthService.cs",
+              "RelativeToolTip": "asp\\Services\\RegisterAuthService.cs",
+              "ViewState": "AgIAAIcAAAAAAAAAAAAAwJoAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T12:54:03.936Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ConnectDbHelper.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Helper\\ConnectDbHelper.cs",
+              "RelativeDocumentMoniker": "asp\\Helper\\ConnectDbHelper.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Helper\\ConnectDbHelper.cs",
+              "RelativeToolTip": "asp\\Helper\\ConnectDbHelper.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBMAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T15:11:42.151Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ApiResponseDTO.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Helper\\ApiResponseDTO.cs",
+              "RelativeDocumentMoniker": "asp\\Helper\\ApiResponseDTO.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Helper\\ApiResponseDTO.cs",
+              "RelativeToolTip": "asp\\Helper\\ApiResponseDTO.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-29T16:00:21.921Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "SemesterController.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\SemesterController.cs",
               "RelativeDocumentMoniker": "asp\\Controllers\\SemesterController.cs",
@@ -71,33 +223,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ApiResponseDTO.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Helper\\ApiResponseDTO.cs",
-              "RelativeDocumentMoniker": "asp\\Helper\\ApiResponseDTO.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Helper\\ApiResponseDTO.cs",
-              "RelativeToolTip": "asp\\Helper\\ApiResponseDTO.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAAQAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T16:00:21.921Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "ConnectDbHelper.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Helper\\ConnectDbHelper.cs",
-              "RelativeDocumentMoniker": "asp\\Helper\\ConnectDbHelper.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Helper\\ConnectDbHelper.cs",
-              "RelativeToolTip": "asp\\Helper\\ConnectDbHelper.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBMAAAA0AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T15:11:42.151Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "MongoDbSetting.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\MongoDbSetting.cs",
               "RelativeDocumentMoniker": "asp\\Models\\MongoDbSetting.cs",
@@ -105,77 +231,11 @@
               "RelativeToolTip": "asp\\Models\\MongoDbSetting.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAAWAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T15:11:13.514Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T15:11:13.514Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "FileService.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\FileService.cs",
-              "RelativeDocumentMoniker": "asp\\Services\\FileService.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\FileService.cs",
-              "RelativeToolTip": "asp\\Services\\FileService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA2AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T14:50:22.185Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "MongoDBService.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\MongoDBService.cs",
-              "RelativeDocumentMoniker": "asp\\Services\\MongoDBService.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\MongoDBService.cs",
-              "RelativeToolTip": "asp\\Services\\MongoDBService.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T14:50:03.95Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\appsettings.json",
-              "RelativeDocumentMoniker": "asp\\appsettings.json",
-              "ToolTip": "E:\\project-gradution-service\\asp\\appsettings.json",
-              "RelativeToolTip": "asp\\appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-29T14:46:44.43Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Program.cs",
-              "RelativeDocumentMoniker": "asp\\Program.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Program.cs",
-              "RelativeToolTip": "asp\\Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAxAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T14:46:43.197Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "RegisterAuthController.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\RegisterAuthController.cs",
-              "RelativeDocumentMoniker": "asp\\Controllers\\RegisterAuthController.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Controllers\\RegisterAuthController.cs",
-              "RelativeToolTip": "asp\\Controllers\\RegisterAuthController.cs",
-              "ViewState": "AgIAABEAAAAAAAAAAAAnwB8AAABkAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T14:42:29.012Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 12,
               "Title": "SendMail.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Helper\\SendMail.cs",
               "RelativeDocumentMoniker": "asp\\Helper\\SendMail.cs",
@@ -183,21 +243,7 @@
               "RelativeToolTip": "asp\\Helper\\SendMail.cs",
               "ViewState": "AgIAAAoAAAAAAAAAAAAgwCMAAAAxAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T12:58:13.715Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "RegisterAuthService.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\RegisterAuthService.cs",
-              "RelativeDocumentMoniker": "asp\\Services\\RegisterAuthService.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\RegisterAuthService.cs",
-              "RelativeToolTip": "asp\\Services\\RegisterAuthService.cs",
-              "ViewState": "AgIAAF0AAAAAAAAAAAAowA4AAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-29T12:54:03.936Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-29T12:58:13.715Z"
             }
           ]
         }
