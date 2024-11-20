@@ -7,6 +7,7 @@ using System.Net;
 using asp.Helper;
 using asp.DTO;
 using System.Text.RegularExpressions;
+using asp.Constants;
 
 namespace asp.Respositories
 {
@@ -14,11 +15,11 @@ namespace asp.Respositories
 
     public class RegisterAuthService
     {
-        private readonly IMongoCollection<RegisterAuth> _registerAuthCollection;
+        private readonly IMongoCollection<Users> _registerAuthCollection;
 
         public RegisterAuthService(ConnectDbHelper dbHelper)
         {
-            _registerAuthCollection = dbHelper.GetCollection<RegisterAuth>();
+            _registerAuthCollection = dbHelper.GetCollection<Users>();
         }
         public string GenerateVerificationCode()
         {
@@ -146,7 +147,7 @@ namespace asp.Respositories
 
             // Tìm kiếm bản ghi email trong DB
             var existingRecord = await _registerAuthCollection
-                .Find(r => r.email == email)
+                .Find(r => r.email == email && r.isVerified != true)
                 .FirstOrDefaultAsync();
 
             // Kiểm tra nếu tồn tại email
@@ -174,7 +175,7 @@ namespace asp.Respositories
                     return true; // Đã cập nhật mã xác thực thành công
                 }
 
-                return false; // Nếu mã xác thực vẫn còn hiệu lực
+                return true; // Nếu mã xác thực vẫn còn hiệu lực
             }
 
             return false; // Không tìm thấy email
@@ -183,32 +184,44 @@ namespace asp.Respositories
 
         //==================
         //lưu mã xác thực vào cơ sở dữ liệu
-        public async Task Create(string email, string verificationCode)
+        public async Task<Users> Create(Users request)
         {
             // Kiểm tra null hoặc chuỗi rỗng
-            if (string.IsNullOrEmpty(email))
+            if (string.IsNullOrEmpty(request?.email))
             {
-                throw new ArgumentNullException(nameof(email), "Email không được để trống.");
+                throw new ArgumentNullException(nameof(request.email), "Email không được để trống.");
             }
 
-            if (string.IsNullOrEmpty(verificationCode))
-            {
-                throw new ArgumentNullException(nameof(verificationCode), "Mã xác thực không được để trống.");
-            }
-
+            //if (string.IsNullOrEmpty(verificationCode))
+            //{
+            //    throw new ArgumentNullException(nameof(verificationCode), "Mã xác thực không được để trống.");
+            //}
+            // key secret decode
+            //EncryptionHelper helper = new EncryptionHelper();
+            //// key secret decode
+            //string decodePassWord = helper.Decrypt(passWord);
+            //string decodePassWord = passWord;
             // Tạo đối tượng RegisterAuth
-            var registerAuth = new RegisterAuth
+            var registerAuth = new Users
             {
-                email = email,
-                verificationCode = verificationCode,
+                email = request.email,
+                fullName = request.fullName,
+                avatar = request.avatar,
+                passWord = request.passWord,
+                verificationCode = request.verificationCode,
                 expirationTime = DateTime.UtcNow.AddMinutes(5), // Mã xác thực sẽ hết hạn sau 5 phút
-                isVerified = false
+                isVerified = request.isVerified,
+                city = request.city,
+                createdAt = DateTime.UtcNow,
+                updatedAt = DateTime.UtcNow,
+                role = UserRole.USER,
             };
 
             try
             {
                 // Chèn dữ liệu vào collection
                 await _registerAuthCollection.InsertOneAsync(registerAuth);
+                return registerAuth;
             }
             catch (Exception ex)
             {
@@ -219,27 +232,69 @@ namespace asp.Respositories
 
         //==================
         // kiểm tra mã xác thực có hợp lệ không
-        public bool CheckVerificationCode(string email, string code)
+        public async Task<Users> CheckVerificationCode(string email, string code)
         {
-            // Lấy bản ghi từ MongoDB với email và mã xác thực khớp
-            var filter = Builders<RegisterAuth>.Filter.And(
-                Builders<RegisterAuth>.Filter.Eq(x => x.email, email),
-                Builders<RegisterAuth>.Filter.Eq(x => x.verificationCode, code)
-            );
-
-            var registerAuth = _registerAuthCollection.Find(filter).FirstOrDefault();
-
-            // Kiểm tra nếu mã tồn tại và chưa hết hạn
-            if (registerAuth != null && registerAuth.expirationTime > DateTime.UtcNow)
+            try
             {
-                // Cập nhật trạng thái xác thực
-                var update = Builders<RegisterAuth>.Update.Set(x => x.isVerified, true);
-                _registerAuthCollection.UpdateOne(filter, update);
+                // Lấy bản ghi từ MongoDB với email và mã xác thực khớp
+                var filter = Builders<Users>.Filter.And(
+                    Builders<Users>.Filter.Eq(x => x.email, email),
+                    Builders<Users>.Filter.Eq(x => x.verificationCode, code)
+                );
 
-                return true; // Mã hợp lệ
+                var registerAuth = _registerAuthCollection.Find(filter).FirstOrDefault();
+
+                // Kiểm tra nếu mã tồn tại và chưa hết hạn
+                if (registerAuth != null && registerAuth.expirationTime > DateTime.UtcNow)
+                {
+                    // Cập nhật trạng thái xác thực
+                    var update = Builders<Users>.Update.Set(x => x.isVerified, true);
+                    _registerAuthCollection.UpdateOne(filter, update);
+
+                    return registerAuth; // Mã hợp lệ
+                }
+
+                return null; // Mã không hợp lệ hoặc đã hết hạn
+            }catch (Exception ex) { throw new Exception(ex.Message); }
+        }
+        // kiểm tra login
+        public async Task<Users> Login(string email, string passWord, bool isCheckPassWord = true)
+        {
+            if (isCheckPassWord && (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(passWord)))
+            {
+                throw new ArgumentNullException(nameof(email), "Thông tin không được để trống.");
             }
 
-            return false; // Mã không hợp lệ hoặc đã hết hạn
+            try
+            {
+                //EncryptionHelper helper = new EncryptionHelper();
+                //// key secret decode
+                //string decodePassWord = helper.Decrypt(passWord);
+                //string decodePassWord = passWord;
+                // Tìm kiếm bản ghi email trong DB
+                Users existingRecord = null;
+                if (isCheckPassWord)
+                {
+                     existingRecord = await _registerAuthCollection
+                    .Find(r => r.email == email && r.passWord == passWord && r.isVerified == true)
+                    .FirstOrDefaultAsync();
+                }
+                else
+                {
+                    existingRecord = await _registerAuthCollection
+                   .Find(r => r.email == email )
+                   .FirstOrDefaultAsync();
+                }
+
+                // Kiểm tra nếu tồn tại email hoặc mật khẩu
+                if (existingRecord != null)
+                {
+                    return existingRecord; // Đã cập nhật mã xác thực thành công
+                }
+                return null;
+
+            }
+            catch (Exception ex) { throw new Exception(ex.Message); }
         }
     }
 }

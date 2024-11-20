@@ -20,7 +20,7 @@ namespace asp.Services
             _key = key;
         }
 
-        public string GenerateToken(string userId)
+        public string GenerateToken(string id)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(_key);
@@ -28,10 +28,10 @@ namespace asp.Services
             {
                 Subject = new ClaimsIdentity(new Claim[]
                 {
-                    new Claim("ID", userId)
+                    new Claim("ID", id)
 
                 }),
-                Expires = DateTime.UtcNow.AddHours(12),
+                Expires = DateTime.UtcNow.AddHours(5),
                 Issuer = _issuer,
                 Audience = _audience,
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
