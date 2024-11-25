@@ -9,6 +9,6 @@ namespace asp.DTO
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
         public string? profile_id { get; set; }
-        public IFormFile? ten { get; set; }
+        public IFormFile? name { get; set; }
     }
 }

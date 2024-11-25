@@ -55,11 +55,21 @@ namespace asp.Respositories
                 throw new ArgumentException("Invalid id or entity.");
             }
 
+            // Loại bỏ _id từ updatedEntity trước khi sử dụng
+            var updatedEntityDoc = updatedEntity.ToBsonDocument();
+            updatedEntityDoc.Remove("_id"); // Xóa trường _id để không cập nhật nó
+
+            // Tạo filter để tìm tài liệu cần cập nhật theo _id
             var filter = Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id));
-            var result = await _collection.ReplaceOneAsync(filter, updatedEntity);
+
+            // Thực hiện cập nhật tài liệu
+            var result = await _collection.UpdateOneAsync(filter, new BsonDocument { { "$set", updatedEntityDoc } });
 
             return result.MatchedCount > 0;
         }
+
+
+
 
 
         //        private readonly IMongoCollection<Users> _collection;
@@ -126,7 +136,7 @@ namespace asp.Respositories
         //    var filter = Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id));
         //    await _collection.ReplaceOneAsync(filter, updatedEntity);
         //}
-        
+
 
 
         //public async Task RemoveAsync(string id)

@@ -1,0 +1,29 @@
+{
+  "Files": [
+    {
+      "Id": "E:\\project-gradution-service\\asp\\wwwroot\\uploads\\3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg",
+      "PackagePath": "staticwebassets\\uploads\\3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg"
+    },
+    {
+      "Id": "E:\\project-gradution-service\\asp\\wwwroot\\uploads\\97bbe9f1-399a-4110-9285-6845407042d5.jpg",
+      "PackagePath": "staticwebassets\\uploads\\97bbe9f1-399a-4110-9285-6845407042d5.jpg"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.asp.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.build.asp.props",
+      "PackagePath": "build\\asp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildMultiTargeting.asp.props",
+      "PackagePath": "buildMultiTargeting\\asp.props"
+    },
+    {
+      "Id": "obj\\Debug\\net6.0\\staticwebassets\\msbuild.buildTransitive.asp.props",
+      "PackagePath": "buildTransitive\\asp.props"
+    }
+  ],
+  "ElementsToRemove": []
+}

@@ -202,11 +202,20 @@ namespace asp.Respositories
             //string decodePassWord = helper.Decrypt(passWord);
             //string decodePassWord = passWord;
             // Tạo đối tượng RegisterAuth
+            // Kiểm tra nếu có file avatar được tải lên
+
+            // Biến lưu tên file avatar
+            string avatarFileName = null;
+            if (request.avatar != null)
+            {
+                // Lưu file avatar và lấy tên file
+                avatarFileName = await SaveFileFromUrlAsync(request.avatar);
+            }
             var registerAuth = new Users
             {
                 email = request.email,
                 fullName = request.fullName,
-                avatar = request.avatar,
+                avatar = avatarFileName,
                 passWord = request.passWord,
                 verificationCode = request.verificationCode,
                 expirationTime = DateTime.UtcNow.AddMinutes(5), // Mã xác thực sẽ hết hạn sau 5 phút
@@ -267,6 +276,7 @@ namespace asp.Respositories
 
             try
             {
+
                 //EncryptionHelper helper = new EncryptionHelper();
                 //// key secret decode
                 //string decodePassWord = helper.Decrypt(passWord);
@@ -295,6 +305,96 @@ namespace asp.Respositories
 
             }
             catch (Exception ex) { throw new Exception(ex.Message); }
+        }
+        // lưu ảnh khi đăng nhập bằng google lấy url
+        private async Task<string> SaveFileFromUrlAsync(string avatarUrl)
+        {
+            try
+            {
+                // Đường dẫn thư mục lưu trữ file trên server (sửa lại để lưu vào thư mục "Files")
+                var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Files");
+
+                // Kiểm tra và tạo thư mục nếu chưa tồn tại
+                if (!Directory.Exists(uploadFolder))
+                {
+                    Directory.CreateDirectory(uploadFolder);
+                }
+
+                // Tạo tên file duy nhất cho ảnh
+                var fileName = $"{Guid.NewGuid()}.jpg";  // Lấy đuôi jpg, nếu ảnh không phải jpg cần phải xác định loại đuôi thích hợp
+                var filePath = Path.Combine(uploadFolder, fileName);
+
+                // Tải ảnh từ URL về và lưu vào thư mục server
+                using (var client = new HttpClient())
+                {
+                    var imageBytes = await client.GetByteArrayAsync(avatarUrl);  // Tải ảnh từ URL
+
+                    // Lưu ảnh vào file trên server
+                    await File.WriteAllBytesAsync(filePath, imageBytes);
+                }
+
+                // Trả về URL của ảnh đã lưu trên server
+                return fileName;  // URL công khai của ảnh
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Có lỗi xảy ra khi tải ảnh về server: " + ex.Message);
+            }
+        }
+
+
+        // lưu file vào server khi đẩy lên
+        private async Task<string> SaveFileAsync(IFormFile file)
+        {
+            // Mã lưu file giữ nguyên không đổi
+            var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Files");
+
+            // Tạo thư mục lưu trữ nếu chưa tồn tại
+            if (!Directory.Exists(uploadFolder))
+            {
+                Directory.CreateDirectory(uploadFolder);
+            }
+
+            // Lấy tên file không kèm đuôi mở rộng
+            var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+
+            // Lấy đuôi mở rộng của file
+            var fileExtension = Path.GetExtension(file.FileName);
+
+            // Tạo tên file mới để tránh trùng lặp
+            var uniqueFileName = $"{fileName}_{DateTime.Now:yyyyMMddHHmmssfff}{fileExtension}";
+
+            var filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+            // Lưu file vào đường dẫn
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream); // Sử dụng CopyToAsync để đợi hoàn tất
+            }
+
+            return uniqueFileName;
+        }
+        // xoá file
+        private void DeleteProjectFile(Files file)
+        {
+            // Kiểm tra xem project có file liên quan không
+            if (!string.IsNullOrEmpty(file.ten))
+            {
+                // Đường dẫn đến file
+                string filePath = Path.Combine("Files", file.ten);
+
+                try
+                {
+                    // Xóa file từ hệ thống tệp
+                    File.Delete(filePath);
+
+                    Console.WriteLine($"Đã xóa file: {file.ten}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Lỗi khi xóa file: {ex.Message}");
+                }
+            }
         }
     }
 }

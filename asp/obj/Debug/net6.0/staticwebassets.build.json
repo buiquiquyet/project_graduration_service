@@ -1,11 +1,58 @@
 {
   "Version": 1,
-  "Hash": "VZyVsKJoWcmamRChsgVIaG2VvFtoqzEnVUxUgA5vY6c=",
+  "Hash": "MvrfcgQ6zVW4vuNYc7OKHHpPNWrNdGlVIvUYq0ijMzA=",
   "Source": "asp",
   "BasePath": "_content/asp",
   "Mode": "Default",
   "ManifestType": "Build",
   "ReferencedProjectsConfiguration": [],
-  "DiscoveryPatterns": [],
-  "Assets": []
+  "DiscoveryPatterns": [
+    {
+      "Name": "asp\\wwwroot",
+      "Source": "asp",
+      "ContentRoot": "E:\\project-gradution-service\\asp\\wwwroot\\",
+      "BasePath": "_content/asp",
+      "Pattern": "**"
+    }
+  ],
+  "Assets": [
+    {
+      "Identity": "E:\\project-gradution-service\\asp\\wwwroot\\uploads\\3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg",
+      "SourceId": "asp",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\project-gradution-service\\asp\\wwwroot\\",
+      "BasePath": "_content/asp",
+      "RelativePath": "uploads/3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg"
+    },
+    {
+      "Identity": "E:\\project-gradution-service\\asp\\wwwroot\\uploads\\97bbe9f1-399a-4110-9285-6845407042d5.jpg",
+      "SourceId": "asp",
+      "SourceType": "Discovered",
+      "ContentRoot": "E:\\project-gradution-service\\asp\\wwwroot\\",
+      "BasePath": "_content/asp",
+      "RelativePath": "uploads/97bbe9f1-399a-4110-9285-6845407042d5.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\97bbe9f1-399a-4110-9285-6845407042d5.jpg"
+    }
+  ]
 }

@@ -41,9 +41,9 @@ namespace asp.Respositories
             {
                /* foreach (var entity in newEntities)
                 {*/
-                    if (newEntities.ten != null)
+                    if (newEntities.name != null)
                     {
-                        var fileName = await SaveFileAsync(newEntities.ten);
+                        var fileName = await SaveFileAsync(newEntities.name);
 
                         var fileToAdd = new Files
                         {

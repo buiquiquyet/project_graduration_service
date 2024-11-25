@@ -27,17 +27,31 @@ namespace asp.Controllers
         {
             if (string.IsNullOrEmpty(token))
             {
-                return Ok(new ApiResponseDTO<object> { data = new { error = "Lỗi" }, message = "Xác thực thất bại" });
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Xác thực thất bại." });
             }
 
             var userId = _jwtService.DecodeToken(token);
             if (string.IsNullOrEmpty(userId))
             {
-                return Ok(new ApiResponseDTO<object> { data = new { error = "Lỗi" }, message = "Xác thực thất bại" });
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Xác thực thất bại." });
             }
             var dataUser = await _resp.GetByIdAsync(userId);
 
-            return Ok(new ApiResponseDTO<Object> { data = new { userId, dataUser }, message = "Xác thực thành công" });
+            return Ok(new ApiResponseDTO<Object> { data = new { userId, dataUser }, message = "Xác thực thành công." });
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> updateUser(string id, [FromBody] Users updatedUser)
+        {
+
+            try
+            {
+                await _resp.UpdateAsync(id, updatedUser);
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = "Cập nhật thông tin thành công." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
         //[HttpGet]
         //public async Task<IActionResult> GetAllUsers(int page = 1 , int size = 10 )
@@ -176,20 +190,7 @@ namespace asp.Controllers
         //}
 
 
-        //[HttpPut("{id}")]
-        //public async Task<IActionResult> UpdateUser(string id, [FromBody] Users updatedUser)
-        //{
 
-        //    try
-        //    {
-        //        await _resp.UpdateAsync(id, updatedUser);
-        //        return Ok(new { message = "Cập nhật người dùng thành công." });
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return StatusCode(500, $"Internal server error: {ex.Message}");
-        //    }
-        //}
 
         //[HttpDelete("{id}")]
         //public async Task<IActionResult> DeleteUser(string id)
