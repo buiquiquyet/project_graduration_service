@@ -46,11 +46,45 @@ namespace asp.Controllers
             try
             {
                 await _resp.UpdateAsync(id, updatedUser);
-                return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = "Cập nhật thông tin thành công." });
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = "Cập nhật thành công." });
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"Internal server error: {ex.Message}");
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Cập nhật thất bại." });
+            }
+        }
+        [HttpPost("update-avatar/{id}")]
+        public async Task<IActionResult> UpdateAvatarAsync(string id, [FromForm] IFormFile avatar)
+        {
+            // Kiểm tra file và id có hợp lệ không
+            if (avatar == null)
+            {
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Upload thất bại." });
+            }
+
+            if (string.IsNullOrEmpty(id))
+            {
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Upload thất bại." });
+            }
+
+            try
+            {
+                // Gọi service để cập nhật avatar
+                var isUpdated = await _resp.UpdateAvatarAsync(id, avatar);
+
+                if (isUpdated)
+                {
+                    return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = "Cập nhật thành công." });
+                }
+                else
+                {
+                    return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Cập nhật thất bại." });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Upload thất bại." });
             }
         }
         //[HttpGet]

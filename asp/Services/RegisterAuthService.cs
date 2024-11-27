@@ -343,59 +343,7 @@ namespace asp.Respositories
         }
 
 
-        // lưu file vào server khi đẩy lên
-        private async Task<string> SaveFileAsync(IFormFile file)
-        {
-            // Mã lưu file giữ nguyên không đổi
-            var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Files");
-
-            // Tạo thư mục lưu trữ nếu chưa tồn tại
-            if (!Directory.Exists(uploadFolder))
-            {
-                Directory.CreateDirectory(uploadFolder);
-            }
-
-            // Lấy tên file không kèm đuôi mở rộng
-            var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-
-            // Lấy đuôi mở rộng của file
-            var fileExtension = Path.GetExtension(file.FileName);
-
-            // Tạo tên file mới để tránh trùng lặp
-            var uniqueFileName = $"{fileName}_{DateTime.Now:yyyyMMddHHmmssfff}{fileExtension}";
-
-            var filePath = Path.Combine(uploadFolder, uniqueFileName);
-
-            // Lưu file vào đường dẫn
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await file.CopyToAsync(stream); // Sử dụng CopyToAsync để đợi hoàn tất
-            }
-
-            return uniqueFileName;
-        }
-        // xoá file
-        private void DeleteProjectFile(Files file)
-        {
-            // Kiểm tra xem project có file liên quan không
-            if (!string.IsNullOrEmpty(file.ten))
-            {
-                // Đường dẫn đến file
-                string filePath = Path.Combine("Files", file.ten);
-
-                try
-                {
-                    // Xóa file từ hệ thống tệp
-                    File.Delete(filePath);
-
-                    Console.WriteLine($"Đã xóa file: {file.ten}");
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine($"Lỗi khi xóa file: {ex.Message}");
-                }
-            }
-        }
+        
     }
 }
 

@@ -23,7 +23,7 @@ namespace asp.Models
         [BsonElement("role")]
         public string role { get; set; } = UserRole.NONE;  // phân quyền
 
-        //public IFormFile avatarFile { get; set; } // File avatar
+        //public IFormFile? avatarFile { get; set; } // File avatar
 
         [BsonElement("avatar")]
         public string avatar { get; set; } = ""; // ảnh

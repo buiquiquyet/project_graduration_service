@@ -10,7 +10,7 @@ namespace asp.Models
         [BsonRepresentation(BsonType.ObjectId)]
         public string? Id { get; set; }
         public string? profile_id { get; set; }
-        public string? ten { get; set; }
+        public string? name { get; set; }
 
     }
 }

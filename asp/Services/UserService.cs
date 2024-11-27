@@ -67,10 +67,107 @@ namespace asp.Respositories
 
             return result.MatchedCount > 0;
         }
+        // hàm update avatar
+        public async Task<bool> UpdateAvatarAsync(string id, IFormFile avatarFile)
+        {
+            if (string.IsNullOrEmpty(id) || avatarFile == null)
+            {
+                throw new ArgumentException("Invalid id or avatar file.");
+            }
+
+            // Tìm người dùng theo id
+            var user = await _collection.Find(Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id))).FirstOrDefaultAsync();
+
+            if (user == null)
+            {
+                // Nếu không tìm thấy người dùng, trả về lỗi
+                return false; // Có thể trả về một mã lỗi tùy theo yêu cầu của ứng dụng
+            }
+
+            // Lưu file avatar mới và lấy tên file
+            var avatarFileName = await SaveFileAsync(avatarFile);  // Đảm bảo rằng SaveFileAsync trả về tên file hợp lệ
+
+            // Xoá file avatar cũ nếu tồn tại
+            if (!string.IsNullOrEmpty(user.avatar))
+            {
+                // Kiểm tra xem avatar cũ có tồn tại trong hệ thống không
+                var oldFilePath = Path.Combine("Files", user.avatar);  // Đường dẫn tới file cũ
+                if (File.Exists(oldFilePath))
+                {
+                    DeleteProjectFile(user);  // Xóa file cũ
+                }
+            }
+
+            // Tạo filter để tìm người dùng cần cập nhật theo _id
+            var filter = Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id));
+
+            // Tạo định nghĩa cập nhật cho trường avatar
+            var update = Builders<Users>.Update.Set("avatar", avatarFileName);
+
+            // Thực hiện cập nhật trường avatar
+            var result = await _collection.UpdateOneAsync(filter, update);
+
+            // Kiểm tra nếu có tài liệu nào bị cập nhật
+            return result.MatchedCount > 0;
+        }
 
 
 
 
+
+        // lưu file vào server khi đẩy lên
+        private async Task<string> SaveFileAsync(IFormFile file)
+        {
+            // Mã lưu file giữ nguyên không đổi
+            var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Files");
+
+            // Tạo thư mục lưu trữ nếu chưa tồn tại
+            if (!Directory.Exists(uploadFolder))
+            {
+                Directory.CreateDirectory(uploadFolder);
+            }
+
+            // Lấy tên file không kèm đuôi mở rộng
+            var fileName = Path.GetFileNameWithoutExtension(file.FileName);
+
+            // Lấy đuôi mở rộng của file
+            var fileExtension = Path.GetExtension(file.FileName);
+
+            // Tạo tên file mới để tránh trùng lặp
+            var uniqueFileName = $"{fileName}_{DateTime.Now:yyyyMMddHHmmssfff}{fileExtension}";
+
+            var filePath = Path.Combine(uploadFolder, uniqueFileName);
+
+            // Lưu file vào đường dẫn
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await file.CopyToAsync(stream); // Sử dụng CopyToAsync để đợi hoàn tất
+            }
+
+            return uniqueFileName;
+        }
+        // xoá file
+        private void DeleteProjectFile(Users user)
+        {
+            // Kiểm tra xem project có file liên quan không
+            if (!string.IsNullOrEmpty(user.avatar))
+            {
+                // Đường dẫn đến file
+                string filePath = Path.Combine("Files", user.avatar);
+
+                try
+                {
+                    // Xóa file từ hệ thống tệp
+                    File.Delete(filePath);
+
+                    Console.WriteLine($"Đã xóa file: {user.avatar}");
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Lỗi khi xóa file: {ex.Message}");
+                }
+            }
+        }
 
         //        private readonly IMongoCollection<Users> _collection;
 

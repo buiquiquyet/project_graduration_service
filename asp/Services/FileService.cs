@@ -48,7 +48,7 @@ namespace asp.Respositories
                         var fileToAdd = new Files
                         {
                             profile_id = newEntities.profile_id,
-                            ten = fileName
+                            name = fileName
                         };
                         await _collection.InsertOneAsync(fileToAdd);
                     }
@@ -134,17 +134,17 @@ namespace asp.Respositories
         private void DeleteProjectFile(Files file)
         {
             // Kiểm tra xem project có file liên quan không
-            if (!string.IsNullOrEmpty(file.ten))
+            if (!string.IsNullOrEmpty(file.name))
             {
                 // Đường dẫn đến file
-                string filePath = Path.Combine("Files", file.ten);
+                string filePath = Path.Combine("Files", file.name);
 
                 try
                 {
                     // Xóa file từ hệ thống tệp
                     File.Delete(filePath);
 
-                    Console.WriteLine($"Đã xóa file: {file.ten}");
+                    Console.WriteLine($"Đã xóa file: {file.name}");
                 }
                 catch (Exception ex)
                 {
