@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "MvrfcgQ6zVW4vuNYc7OKHHpPNWrNdGlVIvUYq0ijMzA=",
+  "Hash": "DpPIBaCrKcxRL+5qPMb6slYuAY4b4ILGI7rkyQi0hC4=",
   "Source": "asp",
   "BasePath": "_content/asp",
   "Mode": "Default",
@@ -10,49 +10,219 @@
     {
       "Name": "asp\\wwwroot",
       "Source": "asp",
-      "ContentRoot": "E:\\project-gradution-service\\asp\\wwwroot\\",
+      "ContentRoot": "D:\\be-graduration\\project_graduration_service\\asp\\wwwroot\\",
       "BasePath": "_content/asp",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "E:\\project-gradution-service\\asp\\wwwroot\\uploads\\3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg",
+      "Identity": "D:\\be-graduration\\project_graduration_service\\asp\\wwwroot\\uploads\\3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg",
       "SourceId": "asp",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\project-gradution-service\\asp\\wwwroot\\",
+      "ContentRoot": "D:\\be-graduration\\project_graduration_service\\asp\\wwwroot\\",
       "BasePath": "_content/asp",
-      "RelativePath": "uploads/3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg",
+      "RelativePath": "uploads/3cfbdb9a-30fe-4866-af4c-07a5eed4b39a#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "6wenlg49hs",
+      "Integrity": "2l8tNS2f2N+Tm6Oz4mkv09td/VxEw7vtgELlznoQTjQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg"
     },
     {
-      "Identity": "E:\\project-gradution-service\\asp\\wwwroot\\uploads\\97bbe9f1-399a-4110-9285-6845407042d5.jpg",
+      "Identity": "D:\\be-graduration\\project_graduration_service\\asp\\wwwroot\\uploads\\97bbe9f1-399a-4110-9285-6845407042d5.jpg",
       "SourceId": "asp",
       "SourceType": "Discovered",
-      "ContentRoot": "E:\\project-gradution-service\\asp\\wwwroot\\",
+      "ContentRoot": "D:\\be-graduration\\project_graduration_service\\asp\\wwwroot\\",
       "BasePath": "_content/asp",
-      "RelativePath": "uploads/97bbe9f1-399a-4110-9285-6845407042d5.jpg",
+      "RelativePath": "uploads/97bbe9f1-399a-4110-9285-6845407042d5#[.{fingerprint}]?.jpg",
       "AssetKind": "All",
       "AssetMode": "All",
       "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeBehavior": "",
       "AssetMergeSource": "",
       "RelatedAsset": "",
       "AssetTraitName": "",
       "AssetTraitValue": "",
+      "Fingerprint": "6wenlg49hs",
+      "Integrity": "2l8tNS2f2N+Tm6Oz4mkv09td/VxEw7vtgELlznoQTjQ=",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\97bbe9f1-399a-4110-9285-6845407042d5.jpg"
+    }
+  ],
+  "Endpoints": [
+    {
+      "Route": "uploads/3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.6wenlg49hs.jpg",
+      "AssetFile": "D:\\be-graduration\\project_graduration_service\\asp\\wwwroot\\uploads\\3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4589"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2l8tNS2f2N+Tm6Oz4mkv09td/VxEw7vtgELlznoQTjQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 27 Nov 2024 01:56:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6wenlg49hs"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2l8tNS2f2N+Tm6Oz4mkv09td/VxEw7vtgELlznoQTjQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg",
+      "AssetFile": "D:\\be-graduration\\project_graduration_service\\asp\\wwwroot\\uploads\\3cfbdb9a-30fe-4866-af4c-07a5eed4b39a.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4589"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2l8tNS2f2N+Tm6Oz4mkv09td/VxEw7vtgELlznoQTjQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 27 Nov 2024 01:56:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2l8tNS2f2N+Tm6Oz4mkv09td/VxEw7vtgELlznoQTjQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/97bbe9f1-399a-4110-9285-6845407042d5.6wenlg49hs.jpg",
+      "AssetFile": "D:\\be-graduration\\project_graduration_service\\asp\\wwwroot\\uploads\\97bbe9f1-399a-4110-9285-6845407042d5.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4589"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2l8tNS2f2N+Tm6Oz4mkv09td/VxEw7vtgELlznoQTjQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 27 Nov 2024 01:56:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=31536000, immutable"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "fingerprint",
+          "Value": "6wenlg49hs"
+        },
+        {
+          "Name": "label",
+          "Value": "uploads/97bbe9f1-399a-4110-9285-6845407042d5.jpg"
+        },
+        {
+          "Name": "integrity",
+          "Value": "sha256-2l8tNS2f2N+Tm6Oz4mkv09td/VxEw7vtgELlznoQTjQ="
+        }
+      ]
+    },
+    {
+      "Route": "uploads/97bbe9f1-399a-4110-9285-6845407042d5.jpg",
+      "AssetFile": "D:\\be-graduration\\project_graduration_service\\asp\\wwwroot\\uploads\\97bbe9f1-399a-4110-9285-6845407042d5.jpg",
+      "Selectors": [],
+      "ResponseHeaders": [
+        {
+          "Name": "Accept-Ranges",
+          "Value": "bytes"
+        },
+        {
+          "Name": "Content-Length",
+          "Value": "4589"
+        },
+        {
+          "Name": "Content-Type",
+          "Value": "image/jpeg"
+        },
+        {
+          "Name": "ETag",
+          "Value": "\"2l8tNS2f2N+Tm6Oz4mkv09td/VxEw7vtgELlznoQTjQ=\""
+        },
+        {
+          "Name": "Last-Modified",
+          "Value": "Wed, 27 Nov 2024 01:56:43 GMT"
+        },
+        {
+          "Name": "Cache-Control",
+          "Value": "max-age=3600, must-revalidate"
+        }
+      ],
+      "EndpointProperties": [
+        {
+          "Name": "integrity",
+          "Value": "sha256-2l8tNS2f2N+Tm6Oz4mkv09td/VxEw7vtgELlznoQTjQ="
+        }
+      ]
     }
   ]
 }

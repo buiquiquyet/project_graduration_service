@@ -1,30 +1,69 @@
-﻿using asp.Helper;
+﻿using asp.Constants;
+using asp.Helper;
 using asp.Models;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
 using System.Linq.Expressions;
 using System.Net;
+using System.Numerics;
 using System.Text.RegularExpressions;
 
 namespace asp.Respositories
 {
    
    
-    public class UserService
+    public class CharityFundService
     {
-        private readonly IMongoCollection<Users> _collection;
+        private readonly IMongoCollection<CharityFunds> _collection;
 
-        public UserService(ConnectDbHelper dbHelper)
+        public CharityFundService(ConnectDbHelper dbHelper)
         {
-            _collection = dbHelper.GetCollection<Users>();
+            _collection = dbHelper.GetCollection<CharityFunds>();
         }
-        public async Task<Users> GetByIdAsync(string id)
+        //tạo quỹ
+        public async Task<CharityFunds> Create(CharityFunds request)
+        {
+
+            // Biến lưu tên file avatar
+            string avatarFileName = null;
+            if (request.imagesIFormFile != null)
+            {
+                // Lưu file và lấy tên file
+                avatarFileName = await SaveFileHelper.SaveFileAsync(request.imagesIFormFile);
+            }
+            var registerAuth = new CharityFunds
+            {
+                email = request.email,
+                name = request.name,
+                images = avatarFileName,
+                description = request.description,
+                address = request.address,
+                phone = request.phone,
+                createdAt = DateTime.UtcNow,
+                updatedAt = DateTime.UtcNow,
+            };
+
+            try
+            {
+                // Chèn dữ liệu vào collection
+                await _collection.InsertOneAsync(registerAuth);
+                return registerAuth;
+            }
+            catch (Exception ex)
+            {
+                // Xử lý lỗi (ghi log, ném ngoại lệ, v.v.)
+                throw new Exception("Có lỗi xảy ra trong quá trình chèn dữ liệu vào cơ sở dữ liệu: " + ex.Message);
+            }
+        }
+
+        // lấy 1 quỹ
+        public async Task<CharityFunds> GetByIdAsync(string id)
         {
             try
             {
                 var objectId = ObjectId.Parse(id);
-                var filter = Builders<Users>.Filter.Eq("_id", objectId);
+                var filter = Builders<CharityFunds>.Filter.Eq("_id", objectId);
 
                 // Chỉ lấy các trường không bao gồm password
                 //var projection = Builders<Users>.Projection.Exclude("passWord");
@@ -48,7 +87,7 @@ namespace asp.Respositories
             }
         }
         // hàm update thông tin user
-        public async Task<bool> UpdateAsync(string id, Users updatedEntity)
+        public async Task<bool> UpdateAsync(string id, CharityFunds updatedEntity)
         {
             if (string.IsNullOrEmpty(id) || updatedEntity == null)
             {
@@ -60,55 +99,28 @@ namespace asp.Respositories
             updatedEntityDoc.Remove("_id"); // Xóa trường _id để không cập nhật nó
 
             // Tạo filter để tìm tài liệu cần cập nhật theo _id
-            var filter = Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id));
+            var filter = Builders<CharityFunds>.Filter.Eq("_id", ObjectId.Parse(id));
 
             // Thực hiện cập nhật tài liệu
             var result = await _collection.UpdateOneAsync(filter, new BsonDocument { { "$set", updatedEntityDoc } });
 
             return result.MatchedCount > 0;
         }
-        // hàm update avatar
-        public async Task<bool> UpdateAvatarAsync(string id, IFormFile avatarFile)
+        // lấy list các quỹ
+        public async Task<List<CharityFunds>> GetAllAsync(int skipAmount, int pageSize)
         {
-            if (string.IsNullOrEmpty(id) || avatarFile == null)
-            {
-                throw new ArgumentException("Invalid id or avatar file.");
-            }
+            var sortDefinition = Builders<CharityFunds>.Sort.Descending(x => x.Id);
 
-            // Tìm người dùng theo id
-            var user = await _collection.Find(Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id))).FirstOrDefaultAsync();
-
-            if (user == null)
-            {
-                // Nếu không tìm thấy người dùng, trả về lỗi
-                return false; // Có thể trả về một mã lỗi tùy theo yêu cầu của ứng dụng
-            }
-
-            // Lưu file avatar mới và lấy tên file
-            var avatarFileName = await SaveFileHelper.SaveFileAsync(avatarFile);  // Đảm bảo rằng SaveFileAsync trả về tên file hợp lệ
-
-            // Xoá file avatar cũ nếu tồn tại
-            if (!string.IsNullOrEmpty(user.avatar))
-            {
-                // Kiểm tra xem avatar cũ có tồn tại trong hệ thống không
-                var oldFilePath = Path.Combine("Files", user.avatar);  // Đường dẫn tới file cũ
-                if (File.Exists(oldFilePath))
-                {
-                    SaveFileHelper.DeleteProjectFile(user.avatar);  // Xóa file cũ
-                }
-            }
-
-            // Tạo filter để tìm người dùng cần cập nhật theo _id
-            var filter = Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id));
-
-            // Tạo định nghĩa cập nhật cho trường avatar
-            var update = Builders<Users>.Update.Set("avatar", avatarFileName);
-
-            // Thực hiện cập nhật trường avatar
-            var result = await _collection.UpdateOneAsync(filter, update);
-
-            // Kiểm tra nếu có tài liệu nào bị cập nhật
-            return result.MatchedCount > 0;
+            return await _collection.Find(_ => true)
+                                    .Skip(skipAmount)
+                                    .Sort(sortDefinition)
+                                    .Limit(pageSize)
+                                    .ToListAsync();
+        }
+        // đếm số lượng bản ghi
+        public async Task<long> CountAsync()
+        {
+            return await _collection.CountDocumentsAsync(_ => true);
         }
 
 
