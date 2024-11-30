@@ -164,3 +164,5 @@ D:\be-graduration\project_graduration_service\asp\bin\Debug\net6.0\asp.staticweb
 D:\be-graduration\project_graduration_service\asp\obj\Debug\net6.0\staticwebassets.build.endpoints.json
 D:\be-graduration\project_graduration_service\asp\obj\Debug\net6.0\staticwebassets\msbuild.asp.Microsoft.AspNetCore.StaticWebAssetEndpoints.props
 D:\be-graduration\project_graduration_service\asp\obj\Debug\net6.0\staticwebassets.upToDateCheck.txt
+E:\project-gradution-service\asp\bin\Debug\net6.0\Newtonsoft.Json.dll
+E:\project-gradution-service\asp\bin\Debug\net6.0\Newtonsoft.Json.Bson.dll

@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using asp.Services;
 using asp.Helper;
-
+using MongoDB.Bson;
 namespace asp.Controllers 
 {
     [ApiController]
@@ -25,7 +25,7 @@ namespace asp.Controllers
         {
             if (request == null)
             {
-                return BadRequest("Dữ liệu không hợp lệ.");
+                return BadRequest(new ApiResponseDTO<object> { data = new { success = "Sucess" }, message = "Dữ liệu không hợp lệ." });
             }
 
             try
@@ -39,7 +39,7 @@ namespace asp.Controllers
             catch (ArgumentNullException ex)
             {
                 // Nếu có lỗi về việc thiếu tham số, trả về mã lỗi 400
-                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Tạo quỹ mới thất bại." });
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Tạo quỹ mới thất bại." });
             }
             catch (Exception ex)
             {
@@ -71,10 +71,67 @@ namespace asp.Controllers
             }
             else
             {
-                var errorObject = new { error = "Đã xảy ra lỗi" };
-                return Json(errorObject);
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi." });
             }
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCharityFundById(string id)
+        {
+            if (!ObjectId.TryParse(id, out _))
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Lấy thông tin thất bại." });
+            }
+
+            var user = await _resp.GetByIdAsync(id);
+            if (user == null)
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Lấy thông tin thất bại." });
+            }
+            var response = new
+            {
+                message = "success",
+                data = user
+            };
+            return Ok(response);
+        }
+        [HttpPut("{id}")]
+        public async Task<IActionResult> updateCharityFund(string id, [FromForm] CharityFunds updatedCharityFund)
+        {
+
+            try
+            {
+                await _resp.UpdateAsync(id, updatedCharityFund);
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = "Cập nhật thành công." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Cập nhật thất bại." });
+            }
+        }
+
+        [HttpDelete("deleteByIds")]
+        public async Task<IActionResult> DeleteRecords([FromBody] List<string> ids)
+        {
+            if (ids == null || ids.Count == 0)
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Danh sách ID không được để trống." });
+            }
+
+            try
+            {
+                var deletedCount = await _resp.DeleteByIdsAsync(ids);
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = $"Xóa thành công {deletedCount} quỹ." });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi trong quá trình xử lý yêu cầu." });
+            }
+        }
+
         //[HttpPut("{id}")]
         //public async Task<IActionResult> updateUser(string id, [FromBody] Users updatedUser)
         //{
@@ -153,26 +210,7 @@ namespace asp.Controllers
         //        return Json(errorObject);
         //    }
         //}
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetUserById(string id)
-        //{
-        //    if (!IsValidObjectId(id))
-        //    {
-        //        return BadRequest("Invalid ObjectId format.");
-        //    }
 
-        //    var user = await _resp.GetByIdAsync(id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var response = new
-        //    {
-        //        message = "success",
-        //        data = user
-        //    };
-        //    return Ok(response);
-        //}
         //[HttpGet("tendangnhap/{tendangnhap}")]
         //public async Task<IActionResult> GetByTenDangNhapAsync(string tendangnhap)
         //{

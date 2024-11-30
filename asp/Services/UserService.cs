@@ -62,8 +62,19 @@ namespace asp.Respositories
             // Tạo filter để tìm tài liệu cần cập nhật theo _id
             var filter = Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id));
 
+            // Tạo danh sách các cập nhật
+            var updates = new List<UpdateDefinition<Users>>();
+
+            foreach (var element in updatedEntityDoc.Elements)
+            {
+                updates.Add(Builders<Users>.Update.Set(element.Name, element.Value));
+            }
+
+            // Kết hợp các cập nhật thành một UpdateDefinition
+            var updateDefinition = Builders<Users>.Update.Combine(updates);
+
             // Thực hiện cập nhật tài liệu
-            var result = await _collection.UpdateOneAsync(filter, new BsonDocument { { "$set", updatedEntityDoc } });
+            var result = await _collection.UpdateOneAsync(filter, updateDefinition);
 
             return result.MatchedCount > 0;
         }

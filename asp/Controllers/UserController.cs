@@ -27,13 +27,13 @@ namespace asp.Controllers
         {
             if (string.IsNullOrEmpty(token))
             {
-                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Xác thực thất bại." });
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Xác thực thất bại." });
             }
 
             var userId = _jwtService.DecodeToken(token);
             if (string.IsNullOrEmpty(userId))
             {
-                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Xác thực thất bại." });
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Xác thực thất bại." });
             }
             var dataUser = await _resp.GetByIdAsync(userId);
 
@@ -50,7 +50,7 @@ namespace asp.Controllers
             }
             catch (Exception ex)
             {
-                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Cập nhật thất bại." });
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Cập nhật thất bại." });
             }
         }
         [HttpPost("update-avatar/{id}")]
@@ -64,7 +64,7 @@ namespace asp.Controllers
 
             if (string.IsNullOrEmpty(id))
             {
-                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Upload thất bại." });
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Upload thất bại." });
             }
 
             try
@@ -78,13 +78,13 @@ namespace asp.Controllers
                 }
                 else
                 {
-                    return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Cập nhật thất bại." });
+                    return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Cập nhật thất bại." });
                 }
             }
             catch (Exception ex)
             {
                 // Xử lý lỗi
-                return Ok(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Upload thất bại." });
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Upload thất bại." });
             }
         }
         //[HttpGet]

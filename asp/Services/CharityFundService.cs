@@ -86,7 +86,7 @@ namespace asp.Respositories
                 return null;
             }
         }
-        // hàm update thông tin user
+        // hàm update thông tin quỹ
         public async Task<bool> UpdateAsync(string id, CharityFunds updatedEntity)
         {
             if (string.IsNullOrEmpty(id) || updatedEntity == null)
@@ -94,18 +94,58 @@ namespace asp.Respositories
                 throw new ArgumentException("Invalid id or entity.");
             }
 
-            // Loại bỏ _id từ updatedEntity trước khi sử dụng
-            var updatedEntityDoc = updatedEntity.ToBsonDocument();
-            updatedEntityDoc.Remove("_id"); // Xóa trường _id để không cập nhật nó
-
             // Tạo filter để tìm tài liệu cần cập nhật theo _id
             var filter = Builders<CharityFunds>.Filter.Eq("_id", ObjectId.Parse(id));
 
-            // Thực hiện cập nhật tài liệu
-            var result = await _collection.UpdateOneAsync(filter, new BsonDocument { { "$set", updatedEntityDoc } });
+            // Tìm tài liệu trước khi cập nhật để lấy ảnh cũ
+            var existingEntity = await _collection.Find(filter).FirstOrDefaultAsync();
 
+            // Danh sách các cập nhật
+            var updates = new List<UpdateDefinition<CharityFunds>>();
+
+            // Tạo một phương thức để thêm các trường vào danh sách cập nhật chỉ khi chúng khác null hoặc không rỗng
+            void AddUpdate(Expression<Func<CharityFunds, object>> field, object value)
+            {
+                if (value != null && !string.IsNullOrEmpty(value.ToString())) // Kiểm tra null hoặc chuỗi rỗng
+                {
+                    updates.Add(Builders<CharityFunds>.Update.Set(field, value));
+                }
+            }
+
+            // Thêm các trường vào danh sách cập nhật
+            AddUpdate(x => x.name, updatedEntity.name);
+            AddUpdate(x => x.email, updatedEntity.email);
+            AddUpdate(x => x.phone, updatedEntity.phone);
+            AddUpdate(x => x.description, updatedEntity.description);
+            AddUpdate(x => x.address, updatedEntity.address);
+
+            // Xử lý ảnh mới nếu có
+            if (updatedEntity.imagesIFormFile != null)
+            {
+                // Lưu ảnh mới và lấy đường dẫn của ảnh
+                var newImageFilePath = await SaveFileHelper.SaveFileAsync(updatedEntity.imagesIFormFile);
+
+                // Nếu có ảnh cũ trong cơ sở dữ liệu và có ảnh mới, xóa ảnh cũ
+                if (existingEntity != null && !string.IsNullOrEmpty(existingEntity.images))
+                {
+                    // Xóa ảnh cũ
+                    SaveFileHelper.DeleteProjectFile(existingEntity.images);
+                }
+
+                // Cập nhật file ảnh mới
+                updates.Add(Builders<CharityFunds>.Update.Set(x => x.images, newImageFilePath));
+            }
+
+            // Kết hợp tất cả các cập nhật thành một UpdateDefinition
+            var updateDefinition = Builders<CharityFunds>.Update.Combine(updates);
+
+            // Thực hiện cập nhật tài liệu
+            var result = await _collection.UpdateOneAsync(filter, updateDefinition);
+
+            // Kiểm tra xem có tài liệu nào được cập nhật không
             return result.MatchedCount > 0;
         }
+
         // lấy list các quỹ
         public async Task<List<CharityFunds>> GetAllAsync(int skipAmount, int pageSize)
         {
@@ -123,63 +163,35 @@ namespace asp.Respositories
             return await _collection.CountDocumentsAsync(_ => true);
         }
 
+        // xoá danh sách các quỹ
+        public async Task<long> DeleteByIdsAsync(List<string> ids)
+        {
+            if (ids == null || ids.Count == 0)
+            {
+                throw new ArgumentException("The list of ids cannot be null or empty.");
+            }
+
+            var objectIdList = new List<ObjectId>();
+
+            foreach (var id in ids)
+            {
+                if (ObjectId.TryParse(id, out var objectId))
+                {
+                    objectIdList.Add(objectId);
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid id format: {id}");
+                }
+            }
+
+            var filter = Builders<CharityFunds>.Filter.In("_id", objectIdList);
+            var result = await _collection.DeleteManyAsync(filter);
+
+            return result.DeletedCount;
+        }
 
 
-
-
-        //// lưu file vào server khi đẩy lên
-        //private async Task<string> SaveFileAsync(IFormFile file)
-        //{
-        //    // Mã lưu file giữ nguyên không đổi
-        //    var uploadFolder = Path.Combine(Directory.GetCurrentDirectory(), "Files");
-
-        //    // Tạo thư mục lưu trữ nếu chưa tồn tại
-        //    if (!Directory.Exists(uploadFolder))
-        //    {
-        //        Directory.CreateDirectory(uploadFolder);
-        //    }
-
-        //    // Lấy tên file không kèm đuôi mở rộng
-        //    var fileName = Path.GetFileNameWithoutExtension(file.FileName);
-
-        //    // Lấy đuôi mở rộng của file
-        //    var fileExtension = Path.GetExtension(file.FileName);
-
-        //    // Tạo tên file mới để tránh trùng lặp
-        //    var uniqueFileName = $"{fileName}_{DateTime.Now:yyyyMMddHHmmssfff}{fileExtension}";
-
-        //    var filePath = Path.Combine(uploadFolder, uniqueFileName);
-
-        //    // Lưu file vào đường dẫn
-        //    using (var stream = new FileStream(filePath, FileMode.Create))
-        //    {
-        //        await file.CopyToAsync(stream); // Sử dụng CopyToAsync để đợi hoàn tất
-        //    }
-
-        //    return uniqueFileName;
-        //}
-        //// xoá file
-        //private void DeleteProjectFile(Users user)
-        //{
-        //    // Kiểm tra xem project có file liên quan không
-        //    if (!string.IsNullOrEmpty(user.avatar))
-        //    {
-        //        // Đường dẫn đến file
-        //        string filePath = Path.Combine("Files", user.avatar);
-
-        //        try
-        //        {
-        //            // Xóa file từ hệ thống tệp
-        //            File.Delete(filePath);
-
-        //            Console.WriteLine($"Đã xóa file: {user.avatar}");
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine($"Lỗi khi xóa file: {ex.Message}");
-        //        }
-        //    }
-        //}
 
         //        private readonly IMongoCollection<Users> _collection;
 
