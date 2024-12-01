@@ -9,19 +9,19 @@ using MongoDB.Bson;
 namespace asp.Controllers 
 {
     [ApiController]
-    [Route("api/charity")]
-    public class CharityFundController : Controller
+    [Route("api/category")]
+    public class CategoryController : Controller
     {
-        private readonly CharityFundService _resp;
+        private readonly CategoryService _resp;
 
 
        
-        public CharityFundController(CharityFundService resp )
+        public CategoryController(CategoryService resp )
         {
             _resp = resp;
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CharityFunds request)
+        public async Task<IActionResult> Create([FromForm] Categorys request)
         {
             if (request == null)
             {
@@ -48,10 +48,10 @@ namespace asp.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllCharityFunds(int page = 1, int size = 10)
+        public async Task<IActionResult> GetAllCategorys(int page = 1, int size = 10)
         {
             var skipAmount = (page - 1) * size;
-            List<CharityFunds> datas;
+            List<Categorys> datas;
             long totalCharityFunds;
             datas = await _resp.GetAllAsync(skipAmount, size);
             totalCharityFunds = await _resp.CountAsync();
@@ -74,35 +74,9 @@ namespace asp.Controllers
                 return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi." });
             }
         }
-        [HttpGet("selectionOptions")]
-        public async Task<IActionResult> GetAllCharityFundsForOptions(int page = 1, int size = 10)
-        {
-            var skipAmount = (page - 1) * size;
-            List<CharityFundsv2> datas;
-            long totalCharityFunds;
-            datas = await _resp.GetAllAsyncForOptions(skipAmount, size);
-            totalCharityFunds = await _resp.CountAsync();
-
-            if (datas != null && datas.Count > 0)
-            {
-                var response = new
-                {
-                    message = "success",
-                    datas,
-                    totalPages = (int)Math.Ceiling((double)totalCharityFunds / size),
-                    currentPage = page,
-                    totalRecords = totalCharityFunds
-                };
-
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi." });
-            }
-        }
+       
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCharityFundById(string id)
+        public async Task<IActionResult> GetCategoryById(string id)
         {
             if (!ObjectId.TryParse(id, out _))
             {
@@ -122,7 +96,7 @@ namespace asp.Controllers
             return Ok(response);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> updateCharityFund(string id, [FromForm] CharityFunds updatedCharityFund)
+        public async Task<IActionResult> updateCategory(string id, [FromForm] Categorys updatedCharityFund)
         {
 
             try

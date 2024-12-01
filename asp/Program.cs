@@ -25,6 +25,8 @@ builder.Services.AddSingleton<SubjectService>();
 // controlName đăng ký login
 builder.Services.AddSingleton<RegisterAuthService>();
 builder.Services.AddSingleton<CharityFundService>();
+builder.Services.AddSingleton<ProjectFundService>();
+builder.Services.AddSingleton<CategoryService>();
 //JWT
 //var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 string key = KeyGenerator.Generate256BitKey();

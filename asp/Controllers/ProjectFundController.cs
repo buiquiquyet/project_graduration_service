@@ -6,22 +6,23 @@ using MongoDB.Bson;
 using asp.Services;
 using asp.Helper;
 using MongoDB.Bson;
+using asp.Constants;
 namespace asp.Controllers 
 {
     [ApiController]
-    [Route("api/charity")]
-    public class CharityFundController : Controller
+    [Route("api/project-fund")]
+    public class ProjectFundController : Controller
     {
-        private readonly CharityFundService _resp;
+        private readonly ProjectFundService _resp;
 
 
        
-        public CharityFundController(CharityFundService resp )
+        public ProjectFundController(ProjectFundService resp )
         {
             _resp = resp;
         }
         [HttpPost]
-        public async Task<IActionResult> Create([FromForm] CharityFunds request)
+        public async Task<IActionResult> Create([FromForm] ProjectFunds request)
         {
             if (request == null)
             {
@@ -34,12 +35,12 @@ namespace asp.Controllers
                 var result = await _resp.Create(request);
 
                 // Trả về mã 201 nếu tạo thành công
-                return Ok(new ApiResponseDTO<object> { data = new { success = "Sucess" }, message = "Tạo quỹ mới thành công." });
+                return Ok(new ApiResponseDTO<object> { data = new { success = "Sucess" }, message = "Tạo dự án mới thành công." });
             }
             catch (ArgumentNullException ex)
             {
                 // Nếu có lỗi về việc thiếu tham số, trả về mã lỗi 400
-                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Tạo quỹ mới thất bại." });
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Tạo dự án mới thất bại." });
             }
             catch (Exception ex)
             {
@@ -48,13 +49,13 @@ namespace asp.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllCharityFunds(int page = 1, int size = 10)
+        public async Task<IActionResult> GetAllProjectFunds(int page = 1, int size = 10, string filterType = FilterListProjectFund.ALL)
         {
             var skipAmount = (page - 1) * size;
-            List<CharityFunds> datas;
-            long totalCharityFunds;
-            datas = await _resp.GetAllAsync(skipAmount, size);
-            totalCharityFunds = await _resp.CountAsync();
+            List<ProjectFunds> datas;
+            long totalProjectFunds;
+            datas = await _resp.GetAllAsync(skipAmount, size, filterType);
+            totalProjectFunds = await _resp.CountAsync();
 
             if (datas != null && datas.Count > 0)
             {
@@ -62,9 +63,9 @@ namespace asp.Controllers
                 {
                     message = "success",
                     datas,
-                    totalPages = (int)Math.Ceiling((double)totalCharityFunds / size),
+                    totalPages = (int)Math.Ceiling((double)totalProjectFunds / size),
                     currentPage = page,
-                    totalRecords = totalCharityFunds
+                    totalRecords = totalProjectFunds
                 };
 
                 return Ok(response);
@@ -74,35 +75,9 @@ namespace asp.Controllers
                 return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi." });
             }
         }
-        [HttpGet("selectionOptions")]
-        public async Task<IActionResult> GetAllCharityFundsForOptions(int page = 1, int size = 10)
-        {
-            var skipAmount = (page - 1) * size;
-            List<CharityFundsv2> datas;
-            long totalCharityFunds;
-            datas = await _resp.GetAllAsyncForOptions(skipAmount, size);
-            totalCharityFunds = await _resp.CountAsync();
-
-            if (datas != null && datas.Count > 0)
-            {
-                var response = new
-                {
-                    message = "success",
-                    datas,
-                    totalPages = (int)Math.Ceiling((double)totalCharityFunds / size),
-                    currentPage = page,
-                    totalRecords = totalCharityFunds
-                };
-
-                return Ok(response);
-            }
-            else
-            {
-                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi." });
-            }
-        }
+        
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCharityFundById(string id)
+        public async Task<IActionResult> GetProjectFundById(string id)
         {
             if (!ObjectId.TryParse(id, out _))
             {
@@ -122,12 +97,12 @@ namespace asp.Controllers
             return Ok(response);
         }
         [HttpPut("{id}")]
-        public async Task<IActionResult> updateCharityFund(string id, [FromForm] CharityFunds updatedCharityFund)
+        public async Task<IActionResult> updateProjectFund(string id, [FromForm] ProjectFunds updatedProjectFund)
         {
 
             try
             {
-                await _resp.UpdateAsync(id, updatedCharityFund);
+                await _resp.UpdateAsync(id, updatedProjectFund);
                 return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = "Cập nhật thành công." });
             }
             catch (Exception ex)

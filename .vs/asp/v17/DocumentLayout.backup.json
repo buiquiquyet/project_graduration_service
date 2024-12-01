@@ -3,32 +3,80 @@
   "WorkspaceRootPath": "E:\\project-gradution-service\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\controllers\\projectfundcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\controllers\\projectfundcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\constants\\filterlistprojectfund.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\constants\\filterlistprojectfund.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\projectfundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\projectfundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\registerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\registerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\categoryservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\controllers\\categorycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\controllers\\charityfundcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\controllers\\charityfundcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\charityfundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\charityfundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\models\\categorys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\models\\categorys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\models\\charityfunds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\models\\charityfunds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\controllers\\usercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\controllers\\recordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\controllers\\recordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\charityfundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\charityfundservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\models\\projectfunds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\models\\projectfunds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\models\\charityfunds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\models\\charityfunds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\recordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\recordservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\classservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\classservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\models\\charityfundsv2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\models\\charityfundsv2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\controllers\\recordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\controllers\\recordcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\helper\\savefilehelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -45,18 +93,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\subjectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\subjectservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\models\\users.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\services\\registerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|solutionrelative:asp\\services\\registerauthservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{40291BF2-8271-4206-B5B7-E22A398D6706}|asp\\asp.csproj|e:\\project-gradution-service\\asp\\models\\instructors.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -90,28 +126,210 @@
       "DocumentGroups": [
         {
           "DockedHeight": 442,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 9,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "FilterListProjectFund.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Constants\\FilterListProjectFund.cs",
+              "RelativeDocumentMoniker": "asp\\Constants\\FilterListProjectFund.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Constants\\FilterListProjectFund.cs",
+              "RelativeToolTip": "asp\\Constants\\FilterListProjectFund.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAIAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-01T17:23:25.739Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "CategoryController.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\CategoryController.cs",
+              "RelativeDocumentMoniker": "asp\\Controllers\\CategoryController.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Controllers\\CategoryController.cs",
+              "RelativeToolTip": "asp\\Controllers\\CategoryController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADIAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-01T16:23:34.543Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "CategoryService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\CategoryService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\CategoryService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\CategoryService.cs",
+              "RelativeToolTip": "asp\\Services\\CategoryService.cs",
+              "ViewState": "AgIAALIAAAAAAAAAAAAAwKwAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-01T11:26:54.601Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Categorys.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\Categorys.cs",
+              "RelativeDocumentMoniker": "asp\\Models\\Categorys.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Models\\Categorys.cs",
+              "RelativeToolTip": "asp\\Models\\Categorys.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-01T11:21:35.889Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Bookmark",
               "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "RecordController.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\RecordController.cs",
-              "RelativeDocumentMoniker": "asp\\Controllers\\RecordController.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Controllers\\RecordController.cs",
-              "RelativeToolTip": "asp\\Controllers\\RecordController.cs",
-              "ViewState": "AgIAALcAAAAAAAAAAAAkwNwAAAAJAAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "ProjectFundService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\ProjectFundService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\ProjectFundService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\ProjectFundService.cs",
+              "RelativeToolTip": "asp\\Services\\ProjectFundService.cs",
+              "ViewState": "AgIAAOIAAAAAAAAAAAAAAPQAAABpAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-30T07:38:55.393Z",
+              "WhenOpened": "2024-12-01T08:13:02.04Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 4,
+              "Title": "RegisterAuthService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\RegisterAuthService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\RegisterAuthService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\RegisterAuthService.cs",
+              "RelativeToolTip": "asp\\Services\\RegisterAuthService.cs",
+              "ViewState": "AgIAAMQAAAAAAAAAAAAkwOEAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T02:43:43.331Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Users.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\Users.cs",
+              "RelativeDocumentMoniker": "asp\\Models\\Users.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Models\\Users.cs",
+              "RelativeToolTip": "asp\\Models\\Users.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T01:54:07.461Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\UserService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\UserService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\UserService.cs",
+              "RelativeToolTip": "asp\\Services\\UserService.cs",
+              "ViewState": "AgIAAFYAAAAAAAAAAAAIwDIAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T02:34:38.131Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "ProjectFundController.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\ProjectFundController.cs",
+              "RelativeDocumentMoniker": "asp\\Controllers\\ProjectFundController.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Controllers\\ProjectFundController.cs",
+              "RelativeToolTip": "asp\\Controllers\\ProjectFundController.cs",
+              "ViewState": "AgIAACAAAAAAAAAAAAAtwDMAAACGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-01T08:25:40.301Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "UserController.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\UserController.cs",
+              "RelativeDocumentMoniker": "asp\\Controllers\\UserController.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Controllers\\UserController.cs",
+              "RelativeToolTip": "asp\\Controllers\\UserController.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAADwvy8AAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T08:10:00.751Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CharityFundService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\CharityFundService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\CharityFundService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\CharityFundService.cs",
+              "RelativeToolTip": "asp\\Services\\CharityFundService.cs",
+              "ViewState": "AgIAAGEAAAAAAAAAAAAUwHgAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T02:41:42.773Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Program.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Program.cs",
+              "RelativeDocumentMoniker": "asp\\Program.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Program.cs",
+              "RelativeToolTip": "asp\\Program.cs",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABwAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T02:42:49.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ProjectFunds.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\ProjectFunds.cs",
+              "RelativeDocumentMoniker": "asp\\Models\\ProjectFunds.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Models\\ProjectFunds.cs",
+              "RelativeToolTip": "asp\\Models\\ProjectFunds.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-01T08:13:46.082Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CharityFundController.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\CharityFundController.cs",
+              "RelativeDocumentMoniker": "asp\\Controllers\\CharityFundController.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Controllers\\CharityFundController.cs",
+              "RelativeToolTip": "asp\\Controllers\\CharityFundController.cs",
+              "ViewState": "AgIAAEAAAAAAAAAAAAAtwFAAAAAeAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T02:33:33.7Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "CharityFunds.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\CharityFunds.cs",
+              "RelativeDocumentMoniker": "asp\\Models\\CharityFunds.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Models\\CharityFunds.cs",
+              "RelativeToolTip": "asp\\Models\\CharityFunds.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-29T02:31:10.289Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
               "Title": "RecordService.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\RecordService.cs",
               "RelativeDocumentMoniker": "asp\\Services\\RecordService.cs",
@@ -124,44 +342,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "SubjectService.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\SubjectService.cs",
-              "RelativeDocumentMoniker": "asp\\Services\\SubjectService.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\SubjectService.cs",
-              "RelativeToolTip": "asp\\Services\\SubjectService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA3AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T14:09:07.101Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "CharityFundService.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\CharityFundService.cs",
-              "RelativeDocumentMoniker": "asp\\Services\\CharityFundService.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\CharityFundService.cs",
-              "RelativeToolTip": "asp\\Services\\CharityFundService.cs",
-              "ViewState": "AgIAAJkAAAAAAAAAAAAIwK8AAAAjAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T02:41:42.773Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "SaveFileHelper.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Helper\\SaveFileHelper.cs",
-              "RelativeDocumentMoniker": "asp\\Helper\\SaveFileHelper.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Helper\\SaveFileHelper.cs",
-              "RelativeToolTip": "asp\\Helper\\SaveFileHelper.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAkwCYAAAAbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T02:35:20.795Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 21,
               "Title": "SendMail.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Helper\\SendMail.cs",
               "RelativeDocumentMoniker": "asp\\Helper\\SendMail.cs",
@@ -173,59 +354,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "CharityFundController.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\CharityFundController.cs",
-              "RelativeDocumentMoniker": "asp\\Controllers\\CharityFundController.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Controllers\\CharityFundController.cs",
-              "RelativeToolTip": "asp\\Controllers\\CharityFundController.cs",
-              "ViewState": "AgIAAGEAAAAAAAAAAAAIwHoAAABBAAAAAAAAAA==",
+              "DocumentIndex": 19,
+              "Title": "SaveFileHelper.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Helper\\SaveFileHelper.cs",
+              "RelativeDocumentMoniker": "asp\\Helper\\SaveFileHelper.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Helper\\SaveFileHelper.cs",
+              "RelativeToolTip": "asp\\Helper\\SaveFileHelper.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAkwCYAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T02:33:33.7Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-29T02:35:20.795Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CharityFunds.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\CharityFunds.cs",
-              "RelativeDocumentMoniker": "asp\\Models\\CharityFunds.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Models\\CharityFunds.cs",
-              "RelativeToolTip": "asp\\Models\\CharityFunds.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAQAAAANAAAAAAAAAA==",
+              "DocumentIndex": 22,
+              "Title": "SubjectService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\SubjectService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\SubjectService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\SubjectService.cs",
+              "RelativeToolTip": "asp\\Services\\SubjectService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABYAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T02:31:10.289Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-29T14:09:07.101Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "UserController.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\UserController.cs",
-              "RelativeDocumentMoniker": "asp\\Controllers\\UserController.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Controllers\\UserController.cs",
-              "RelativeToolTip": "asp\\Controllers\\UserController.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAswB0AAAAhAAAAAAAAAA==",
+              "DocumentIndex": 18,
+              "Title": "RecordController.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\RecordController.cs",
+              "RelativeDocumentMoniker": "asp\\Controllers\\RecordController.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Controllers\\RecordController.cs",
+              "RelativeToolTip": "asp\\Controllers\\RecordController.cs",
+              "ViewState": "AgIAALcAAAAAAAAAAAAkwNwAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T08:10:00.751Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-30T07:38:55.393Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "UserService.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\UserService.cs",
-              "RelativeDocumentMoniker": "asp\\Services\\UserService.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\UserService.cs",
-              "RelativeToolTip": "asp\\Services\\UserService.cs",
-              "ViewState": "AgIAAJUAAAAAAAAAAAAqwJ8AAAAVAAAAAAAAAA==",
+              "DocumentIndex": 17,
+              "Title": "CharityFundsV2.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\CharityFundsV2.cs",
+              "RelativeDocumentMoniker": "asp\\Models\\CharityFundsV2.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Models\\CharityFundsV2.cs",
+              "RelativeToolTip": "asp\\Models\\CharityFundsV2.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T02:34:38.131Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-11-30T18:30:19.587Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 16,
+              "Title": "ClassService.cs",
+              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\ClassService.cs",
+              "RelativeDocumentMoniker": "asp\\Services\\ClassService.cs",
+              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\ClassService.cs",
+              "RelativeToolTip": "asp\\Services\\ClassService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-12-01T08:02:30.684Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
               "Title": "RegisterAuthController.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Controllers\\RegisterAuthController.cs",
               "RelativeDocumentMoniker": "asp\\Controllers\\RegisterAuthController.cs",
@@ -237,7 +426,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 24,
               "Title": "MongoDbSetting.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\MongoDbSetting.cs",
               "RelativeDocumentMoniker": "asp\\Models\\MongoDbSetting.cs",
@@ -249,7 +438,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 27,
               "Title": "EncryptionHelper.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Helper\\EncryptionHelper.cs",
               "RelativeDocumentMoniker": "asp\\Helper\\EncryptionHelper.cs",
@@ -261,31 +450,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Program.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Program.cs",
-              "RelativeDocumentMoniker": "asp\\Program.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Program.cs",
-              "RelativeToolTip": "asp\\Program.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAIBJwDAAAAAhAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T02:42:49.94Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "RegisterAuthService.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Services\\RegisterAuthService.cs",
-              "RelativeDocumentMoniker": "asp\\Services\\RegisterAuthService.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Services\\RegisterAuthService.cs",
-              "RelativeToolTip": "asp\\Services\\RegisterAuthService.cs",
-              "ViewState": "AgIAAM4AAAAAAAAAAAAAwBEAAABJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T02:43:43.331Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 26,
               "Title": "Files.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\Files.cs",
               "RelativeDocumentMoniker": "asp\\Models\\Files.cs",
@@ -297,7 +462,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 25,
               "Title": "Records.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\Records.cs",
               "RelativeDocumentMoniker": "asp\\Models\\Records.cs",
@@ -309,7 +474,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 23,
               "Title": "Instructors.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\Instructors.cs",
               "RelativeDocumentMoniker": "asp\\Models\\Instructors.cs",
@@ -321,19 +486,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Users.cs",
-              "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\Users.cs",
-              "RelativeDocumentMoniker": "asp\\Models\\Users.cs",
-              "ToolTip": "E:\\project-gradution-service\\asp\\Models\\Users.cs",
-              "RelativeToolTip": "asp\\Models\\Users.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAaAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-11-29T01:54:07.461Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 28,
               "Title": "CharityPost.cs",
               "DocumentMoniker": "E:\\project-gradution-service\\asp\\Models\\CharityPost.cs",
               "RelativeDocumentMoniker": "asp\\Models\\CharityPost.cs",

@@ -11,59 +11,55 @@ using System.Text.RegularExpressions;
 
 namespace asp.Respositories
 {
-   
-   
-    public class CharityFundService
-    {
-        private readonly IMongoCollection<CharityFunds> _collection;
 
-        public CharityFundService(ConnectDbHelper dbHelper)
+
+    public class CategoryService
+    {
+        private readonly IMongoCollection<Categorys> _collection;
+
+        public CategoryService(ConnectDbHelper dbHelper)
         {
-            _collection = dbHelper.GetCollection<CharityFunds>();
+            _collection = dbHelper.GetCollection<Categorys>();
         }
         //tạo quỹ
-        public async Task<CharityFunds> Create(CharityFunds request)
+        public async Task<Categorys> Create(Categorys request)
         {
+         
 
-            // Biến lưu tên file avatar
-            string avatarFileName = null;
-            if (request.imagesIFormFile != null)
+           
+            // Tạo đối tượng ProjectFunds từ dữ liệu request
+            var registerAuth = new Categorys
             {
-                // Lưu file và lấy tên file
-                avatarFileName = await SaveFileHelper.SaveFileAsync(request.imagesIFormFile);
-            }
-            var registerAuth = new CharityFunds
-            {
-                email = request.email,
                 name = request.name,
-                images = avatarFileName,
-                description = request.description,
-                address = request.address,
-                phone = request.phone,
+          
                 createdAt = DateTime.UtcNow,
                 updatedAt = DateTime.UtcNow,
             };
 
             try
             {
-                // Chèn dữ liệu vào collection
+                // Chèn dữ liệu vào collection MongoDB
                 await _collection.InsertOneAsync(registerAuth);
+
+                // Trả về đối tượng đã chèn, bao gồm cả Id từ MongoDB nếu có
                 return registerAuth;
             }
             catch (Exception ex)
             {
                 // Xử lý lỗi (ghi log, ném ngoại lệ, v.v.)
-                throw new Exception("Có lỗi xảy ra trong quá trình chèn dữ liệu vào cơ sở dữ liệu: " + ex.Message);
+                // Ví dụ: ghi log chi tiết (có thể dùng log framework như NLog, Serilog)
+                throw new Exception("Có lỗi xảy ra trong quá trình chèn dữ liệu vào cơ sở dữ liệu: " + ex.Message, ex);
             }
         }
 
-        // lấy 1 quỹ
-        public async Task<CharityFunds> GetByIdAsync(string id)
+
+        // lấy 1 danh mục
+        public async Task<Categorys> GetByIdAsync(string id)
         {
             try
             {
                 var objectId = ObjectId.Parse(id);
-                var filter = Builders<CharityFunds>.Filter.Eq("_id", objectId);
+                var filter = Builders<Categorys>.Filter.Eq("_id", objectId);
 
                 // Chỉ lấy các trường không bao gồm password
                 //var projection = Builders<Users>.Projection.Exclude("passWord");
@@ -87,7 +83,68 @@ namespace asp.Respositories
             }
         }
         // hàm update thông tin quỹ
-        public async Task<bool> UpdateAsync(string id, CharityFunds updatedEntity)
+        //public async Task<bool> UpdateAsync(string id, ProjectFunds updatedEntity)
+        //{
+        //    if (string.IsNullOrEmpty(id) || updatedEntity == null)
+        //    {
+        //        throw new ArgumentException("Invalid id or entity.");
+        //    }
+
+        //    // Tạo filter để tìm tài liệu cần cập nhật theo _id
+        //    var filter = Builders<ProjectFunds>.Filter.Eq("_id", ObjectId.Parse(id));
+
+        //    // Tìm tài liệu trước khi cập nhật để lấy ảnh cũ
+        //    var existingEntity = await _collection.Find(filter).FirstOrDefaultAsync();
+
+        //    // Danh sách các cập nhật
+        //    var updates = new List<UpdateDefinition<ProjectFunds>>();
+
+        //    // Tạo một phương thức để thêm các trường vào danh sách cập nhật chỉ khi chúng khác null hoặc không rỗng
+        //    void AddUpdate(Expression<Func<ProjectFunds, object>> field, object value)
+        //    {
+        //        if (value != null && !string.IsNullOrEmpty(value.ToString())) // Kiểm tra null hoặc chuỗi rỗng
+        //        {
+        //            updates.Add(Builders<ProjectFunds>.Update.Set(field, value));
+        //        }
+        //    }
+
+        //    // Thêm các trường vào danh sách cập nhật
+        //    AddUpdate(x => x.name, updatedEntity.name);
+        //    AddUpdate(x => x.idFund, updatedEntity.idFund);
+        //    AddUpdate(x => x.nameFund, updatedEntity.nameFund);
+        //    AddUpdate(x => x.description, updatedEntity.description);
+        //    AddUpdate(x => x.targetAmount, updatedEntity.targetAmount);
+        //    AddUpdate(x => x.currentAmount, updatedEntity.currentAmount);
+        //    AddUpdate(x => x.startDate, updatedEntity.startDate);
+        //    AddUpdate(x => x.endDate, updatedEntity.endDate);
+
+        //    // Xử lý ảnh mới nếu có
+        //    if (updatedEntity.imagesIFormFile != null)
+        //    {
+        //        // Lưu ảnh mới và lấy đường dẫn của ảnh
+        //        var newImageFilePath = await SaveFileHelper.SaveFileAsync(updatedEntity.imagesIFormFile);
+
+        //        // Nếu có ảnh cũ trong cơ sở dữ liệu và có ảnh mới, xóa ảnh cũ
+        //        if (existingEntity != null && !string.IsNullOrEmpty(existingEntity.images))
+        //        {
+        //            // Xóa ảnh cũ
+        //            SaveFileHelper.DeleteProjectFile(existingEntity.images);
+        //        }
+
+        //        // Cập nhật file ảnh mới
+        //        updates.Add(Builders<ProjectFunds>.Update.Set(x => x.images, newImageFilePath));
+        //    }
+
+        //    // Kết hợp tất cả các cập nhật thành một UpdateDefinition
+        //    var updateDefinition = Builders<ProjectFunds>.Update.Combine(updates);
+
+        //    // Thực hiện cập nhật tài liệu
+        //    var result = await _collection.UpdateOneAsync(filter, updateDefinition);
+
+        //    // Kiểm tra xem có tài liệu nào được cập nhật không
+        //    return result.MatchedCount > 0;
+        //}
+        public async Task<bool> UpdateAsync(string id, Categorys updatedEntity)
         {
             if (string.IsNullOrEmpty(id) || updatedEntity == null)
             {
@@ -95,50 +152,30 @@ namespace asp.Respositories
             }
 
             // Tạo filter để tìm tài liệu cần cập nhật theo _id
-            var filter = Builders<CharityFunds>.Filter.Eq("_id", ObjectId.Parse(id));
+            var filter = Builders<Categorys>.Filter.Eq("_id", ObjectId.Parse(id));
 
             // Tìm tài liệu trước khi cập nhật để lấy ảnh cũ
             var existingEntity = await _collection.Find(filter).FirstOrDefaultAsync();
 
             // Danh sách các cập nhật
-            var updates = new List<UpdateDefinition<CharityFunds>>();
+            var updates = new List<UpdateDefinition<Categorys>>();
 
             // Tạo một phương thức để thêm các trường vào danh sách cập nhật chỉ khi chúng khác null hoặc không rỗng
-            void AddUpdate(Expression<Func<CharityFunds, object>> field, object value)
+            void AddUpdate(Expression<Func<Categorys, object>> field, object value)
             {
                 if (value != null && !string.IsNullOrEmpty(value.ToString())) // Kiểm tra null hoặc chuỗi rỗng
                 {
-                    updates.Add(Builders<CharityFunds>.Update.Set(field, value));
+                    updates.Add(Builders<Categorys>.Update.Set(field, value));
                 }
             }
 
             // Thêm các trường vào danh sách cập nhật
             AddUpdate(x => x.name, updatedEntity.name);
-            AddUpdate(x => x.email, updatedEntity.email);
-            AddUpdate(x => x.phone, updatedEntity.phone);
-            AddUpdate(x => x.description, updatedEntity.description);
-            AddUpdate(x => x.address, updatedEntity.address);
             AddUpdate(x => x.updatedAt, DateTime.UtcNow);
 
-            // Xử lý ảnh mới nếu có
-            if (updatedEntity.imagesIFormFile != null)
-            {
-                // Lưu ảnh mới và lấy đường dẫn của ảnh
-                var newImageFilePath = await SaveFileHelper.SaveFileAsync(updatedEntity.imagesIFormFile);
-
-                // Nếu có ảnh cũ trong cơ sở dữ liệu và có ảnh mới, xóa ảnh cũ
-                if (existingEntity != null && !string.IsNullOrEmpty(existingEntity.images))
-                {
-                    // Xóa ảnh cũ
-                    SaveFileHelper.DeleteProjectFile(existingEntity.images);
-                }
-
-                // Cập nhật file ảnh mới
-                updates.Add(Builders<CharityFunds>.Update.Set(x => x.images, newImageFilePath));
-            }
 
             // Kết hợp tất cả các cập nhật thành một UpdateDefinition
-            var updateDefinition = Builders<CharityFunds>.Update.Combine(updates);
+            var updateDefinition = Builders<Categorys>.Update.Combine(updates);
 
             // Thực hiện cập nhật tài liệu
             var result = await _collection.UpdateOneAsync(filter, updateDefinition);
@@ -147,37 +184,25 @@ namespace asp.Respositories
             return result.MatchedCount > 0;
         }
 
-        // lấy list các quỹ
-        public async Task<List<CharityFunds>> GetAllAsync(int skipAmount, int pageSize)
+
+        // lấy list các dự án
+        public async Task<List<Categorys>> GetAllAsync(int skipAmount, int pageSize)
         {
-            var sortDefinition = Builders<CharityFunds>.Sort.Descending(x => x.Id);
+            var sortDefinition = Builders<Categorys>.Sort.Descending(x => x.Id);
 
-            return await _collection.Find(_ => true)
-                                    .Skip(skipAmount)
-                                    .Sort(sortDefinition)
-                                    .Limit(pageSize)
-                                    .ToListAsync();
+            // Lấy tất cả ProjectFunds với các trang (skip và limit)
+            var projectFunds = await _collection.Find(_ => true)
+                                                .Skip(skipAmount)
+                                                .Sort(sortDefinition)
+                                                .Limit(pageSize)
+                                                .ToListAsync();
+
+            // Lấy danh sách các idFund duy nhất từ ProjectFunds
+
+            return projectFunds;
         }
-        // lấy list các quỹ để fill vào options
-        public async Task<List<CharityFundsv2>> GetAllAsyncForOptions(int skipAmount, int pageSize)
-        {
-            var sortDefinition = Builders<CharityFunds>.Sort.Descending(x => x.Id);
 
-            // Projection chỉ lấy Id và Name
-            var projection = Builders<CharityFunds>.Projection
-                                                   .Include(cf => cf.Id)  // Bao gồm Id
-                                                   .Include(cf => cf.name); // Bao gồm name
-                                              
 
-            var result = await _collection.Find(_ => true)
-                                          .Skip(skipAmount)
-                                          .Sort(sortDefinition)
-                                          .Limit(pageSize)
-                                          .Project<CharityFundsv2>(projection) // Ánh xạ vào DTO
-                                          .ToListAsync();
-
-            return result;
-        }
 
 
         // đếm số lượng bản ghi
@@ -200,18 +225,6 @@ namespace asp.Respositories
             {
                 if (ObjectId.TryParse(id, out var objectId))
                 {
-                    // Tạo filter để tìm tài liệu cần cập nhật theo _id
-                    var filterFund = Builders<CharityFunds>.Filter.Eq("_id", ObjectId.Parse(id));
-
-                    // Tìm tài liệu trước khi cập nhật để lấy ảnh cũ
-                    var existingEntity = await _collection.Find(filterFund).FirstOrDefaultAsync();
-                    // Nếu có ảnh cũ trong cơ sở dữ liệu và có ảnh mới, xóa ảnh cũ
-                    if (existingEntity != null && !string.IsNullOrEmpty(existingEntity.images))
-                    {
-                        // Xóa ảnh cũ
-                        SaveFileHelper.DeleteProjectFile(existingEntity.images);
-                    }
-
                     objectIdList.Add(objectId);
                 }
                 else
@@ -220,11 +233,53 @@ namespace asp.Respositories
                 }
             }
 
-            var filter = Builders<CharityFunds>.Filter.In("_id", objectIdList);
+            // Tạo filter để xóa tất cả các quỹ theo danh sách ObjectId
+            var filter = Builders<Categorys>.Filter.In("_id", objectIdList);
+
+            // Thực hiện xóa các quỹ
             var result = await _collection.DeleteManyAsync(filter);
 
             return result.DeletedCount;
         }
+
+        //public async Task<long> DeleteByIdsAsync(List<string> ids)
+        //{
+        //    if (ids == null || ids.Count == 0)
+        //    {
+        //        throw new ArgumentException("The list of ids cannot be null or empty.");
+        //    }
+
+        //    var objectIdList = new List<ObjectId>();
+
+        //    foreach (var id in ids)
+        //    {
+        //        if (ObjectId.TryParse(id, out var objectId))
+        //        {
+        //            // Tạo filter để tìm tài liệu cần cập nhật theo _id
+        //            var filterFund = Builders<ProjectFunds>.Filter.Eq("_id", ObjectId.Parse(id));
+
+        //            // Tìm tài liệu trước khi cập nhật để lấy ảnh cũ
+        //            var existingEntity = await _collection.Find(filterFund).FirstOrDefaultAsync();
+        //            // Nếu có ảnh cũ trong cơ sở dữ liệu và có ảnh mới, xóa ảnh cũ
+        //            if (existingEntity != null && !string.IsNullOrEmpty(existingEntity.images))
+        //            {
+        //                // Xóa ảnh cũ
+        //                SaveFileHelper.DeleteProjectFile(existingEntity.images);
+        //            }
+
+        //            objectIdList.Add(objectId);
+        //        }
+        //        else
+        //        {
+        //            throw new ArgumentException($"Invalid id format: {id}");
+        //        }
+        //    }
+
+        //    var filter = Builders<ProjectFunds>.Filter.In("_id", objectIdList);
+        //    var result = await _collection.DeleteManyAsync(filter);
+
+        //    return result.DeletedCount;
+        //}
 
 
 

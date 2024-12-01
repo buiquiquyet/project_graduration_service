@@ -206,7 +206,7 @@ namespace asp.Respositories
 
             // Biến lưu tên file avatar
             string avatarFileName = null;
-            if (request.avatar != null)
+            if (!string.IsNullOrEmpty(request?.avatar))
             {
                 // Lưu file avatar và lấy tên file
                 avatarFileName = await SaveFileFromUrlAsync(request.avatar);
