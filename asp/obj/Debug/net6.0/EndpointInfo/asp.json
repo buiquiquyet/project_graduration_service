@@ -5,6 +5,208 @@
     "version": "1.0"
   },
   "paths": {
+    "/api/category": {
+      "post": {
+        "tags": [
+          "Category"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "name": {
+                  "style": "form"
+                },
+                "createdAt": {
+                  "style": "form"
+                },
+                "updatedAt": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/category/{id}": {
+      "get": {
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Category"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "name": {
+                  "style": "form"
+                },
+                "createdAt": {
+                  "style": "form"
+                },
+                "updatedAt": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/category/deleteByIds": {
+      "delete": {
+        "tags": [
+          "Category"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/charity": {
       "post": {
         "tags": [
@@ -116,6 +318,196 @@
             }
           }
         ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/charity/selectionOptions": {
+      "get": {
+        "tags": [
+          "CharityFund"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/charity/{id}": {
+      "get": {
+        "tags": [
+          "CharityFund"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "CharityFund"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "images": {
+                    "type": "string"
+                  },
+                  "imagesIFormFile": {
+                    "type": "string",
+                    "format": "binary"
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "address": {
+                    "type": "string"
+                  },
+                  "phone": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "name": {
+                  "style": "form"
+                },
+                "images": {
+                  "style": "form"
+                },
+                "imagesIFormFile": {
+                  "style": "form"
+                },
+                "description": {
+                  "style": "form"
+                },
+                "address": {
+                  "style": "form"
+                },
+                "phone": {
+                  "style": "form"
+                },
+                "email": {
+                  "style": "form"
+                },
+                "createdAt": {
+                  "style": "form"
+                },
+                "updatedAt": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/charity/deleteByIds": {
+      "delete": {
+        "tags": [
+          "CharityFund"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Success"
@@ -742,6 +1134,386 @@
       "delete": {
         "tags": [
           "Instructor"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/project-fund": {
+      "post": {
+        "tags": [
+          "ProjectFund"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "idFund": {
+                    "type": "string"
+                  },
+                  "nameFund": {
+                    "type": "string"
+                  },
+                  "imageFund": {
+                    "type": "string"
+                  },
+                  "idCategory": {
+                    "type": "string"
+                  },
+                  "nameCategory": {
+                    "type": "string"
+                  },
+                  "percent": {
+                    "type": "string"
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "imagesIFormFile": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "targetAmount": {
+                    "type": "string"
+                  },
+                  "currentAmount": {
+                    "type": "string"
+                  },
+                  "startDate": {
+                    "type": "string"
+                  },
+                  "endDate": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "name": {
+                  "style": "form"
+                },
+                "idFund": {
+                  "style": "form"
+                },
+                "nameFund": {
+                  "style": "form"
+                },
+                "imageFund": {
+                  "style": "form"
+                },
+                "idCategory": {
+                  "style": "form"
+                },
+                "nameCategory": {
+                  "style": "form"
+                },
+                "percent": {
+                  "style": "form"
+                },
+                "images": {
+                  "style": "form"
+                },
+                "imagesIFormFile": {
+                  "style": "form"
+                },
+                "description": {
+                  "style": "form"
+                },
+                "targetAmount": {
+                  "style": "form"
+                },
+                "currentAmount": {
+                  "style": "form"
+                },
+                "startDate": {
+                  "style": "form"
+                },
+                "endDate": {
+                  "style": "form"
+                },
+                "createdAt": {
+                  "style": "form"
+                },
+                "updatedAt": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "ProjectFund"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          },
+          {
+            "name": "filterType",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "all"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/project-fund/{id}": {
+      "get": {
+        "tags": [
+          "ProjectFund"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "ProjectFund"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "idFund": {
+                    "type": "string"
+                  },
+                  "nameFund": {
+                    "type": "string"
+                  },
+                  "imageFund": {
+                    "type": "string"
+                  },
+                  "idCategory": {
+                    "type": "string"
+                  },
+                  "nameCategory": {
+                    "type": "string"
+                  },
+                  "percent": {
+                    "type": "string"
+                  },
+                  "images": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "imagesIFormFile": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "binary"
+                    }
+                  },
+                  "description": {
+                    "type": "string"
+                  },
+                  "targetAmount": {
+                    "type": "string"
+                  },
+                  "currentAmount": {
+                    "type": "string"
+                  },
+                  "startDate": {
+                    "type": "string"
+                  },
+                  "endDate": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "name": {
+                  "style": "form"
+                },
+                "idFund": {
+                  "style": "form"
+                },
+                "nameFund": {
+                  "style": "form"
+                },
+                "imageFund": {
+                  "style": "form"
+                },
+                "idCategory": {
+                  "style": "form"
+                },
+                "nameCategory": {
+                  "style": "form"
+                },
+                "percent": {
+                  "style": "form"
+                },
+                "images": {
+                  "style": "form"
+                },
+                "imagesIFormFile": {
+                  "style": "form"
+                },
+                "description": {
+                  "style": "form"
+                },
+                "targetAmount": {
+                  "style": "form"
+                },
+                "currentAmount": {
+                  "style": "form"
+                },
+                "startDate": {
+                  "style": "form"
+                },
+                "endDate": {
+                  "style": "form"
+                },
+                "createdAt": {
+                  "style": "form"
+                },
+                "updatedAt": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/project-fund/deleteByIds": {
+      "delete": {
+        "tags": [
+          "ProjectFund"
         ],
         "requestBody": {
           "content": {
@@ -1712,7 +2484,8 @@
             "format": "date-time"
           },
           "isVerified": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "city": {
             "type": "string",

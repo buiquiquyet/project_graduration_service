@@ -754,12 +754,22 @@
         "IsRequired": false
       },
       {
+        "Name": "imageFund",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "idCategory",
         "Type": "System.String",
         "IsRequired": false
       },
       {
         "Name": "nameCategory",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "percent",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -887,12 +897,22 @@
         "IsRequired": false
       },
       {
+        "Name": "imageFund",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
         "Name": "idCategory",
         "Type": "System.String",
         "IsRequired": false
       },
       {
         "Name": "nameCategory",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "percent",
         "Type": "System.String",
         "IsRequired": false
       },

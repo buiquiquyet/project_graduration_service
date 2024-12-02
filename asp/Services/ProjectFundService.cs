@@ -17,11 +17,13 @@ namespace asp.Respositories
     {
         private readonly IMongoCollection<ProjectFunds> _collection;
         private readonly IMongoCollection<CharityFunds> _collectionCharityFund;
+        private readonly IMongoCollection<Categorys> _collectionCategory;
 
         public ProjectFundService(ConnectDbHelper dbHelper)
         {
             _collection = dbHelper.GetCollection<ProjectFunds>();
             _collectionCharityFund = dbHelper.GetCollection<CharityFunds>();
+            _collectionCategory = dbHelper.GetCollection<Categorys>();
         }
         //tạo dự án
         public async Task<ProjectFunds> Create(ProjectFunds request)
@@ -107,68 +109,7 @@ namespace asp.Respositories
                 return null;
             }
         }
-        // hàm update thông tin quỹ
-        //public async Task<bool> UpdateAsync(string id, ProjectFunds updatedEntity)
-        //{
-        //    if (string.IsNullOrEmpty(id) || updatedEntity == null)
-        //    {
-        //        throw new ArgumentException("Invalid id or entity.");
-        //    }
-
-        //    // Tạo filter để tìm tài liệu cần cập nhật theo _id
-        //    var filter = Builders<ProjectFunds>.Filter.Eq("_id", ObjectId.Parse(id));
-
-        //    // Tìm tài liệu trước khi cập nhật để lấy ảnh cũ
-        //    var existingEntity = await _collection.Find(filter).FirstOrDefaultAsync();
-
-        //    // Danh sách các cập nhật
-        //    var updates = new List<UpdateDefinition<ProjectFunds>>();
-
-        //    // Tạo một phương thức để thêm các trường vào danh sách cập nhật chỉ khi chúng khác null hoặc không rỗng
-        //    void AddUpdate(Expression<Func<ProjectFunds, object>> field, object value)
-        //    {
-        //        if (value != null && !string.IsNullOrEmpty(value.ToString())) // Kiểm tra null hoặc chuỗi rỗng
-        //        {
-        //            updates.Add(Builders<ProjectFunds>.Update.Set(field, value));
-        //        }
-        //    }
-
-        //    // Thêm các trường vào danh sách cập nhật
-        //    AddUpdate(x => x.name, updatedEntity.name);
-        //    AddUpdate(x => x.idFund, updatedEntity.idFund);
-        //    AddUpdate(x => x.nameFund, updatedEntity.nameFund);
-        //    AddUpdate(x => x.description, updatedEntity.description);
-        //    AddUpdate(x => x.targetAmount, updatedEntity.targetAmount);
-        //    AddUpdate(x => x.currentAmount, updatedEntity.currentAmount);
-        //    AddUpdate(x => x.startDate, updatedEntity.startDate);
-        //    AddUpdate(x => x.endDate, updatedEntity.endDate);
-
-        //    // Xử lý ảnh mới nếu có
-        //    if (updatedEntity.imagesIFormFile != null)
-        //    {
-        //        // Lưu ảnh mới và lấy đường dẫn của ảnh
-        //        var newImageFilePath = await SaveFileHelper.SaveFileAsync(updatedEntity.imagesIFormFile);
-
-        //        // Nếu có ảnh cũ trong cơ sở dữ liệu và có ảnh mới, xóa ảnh cũ
-        //        if (existingEntity != null && !string.IsNullOrEmpty(existingEntity.images))
-        //        {
-        //            // Xóa ảnh cũ
-        //            SaveFileHelper.DeleteProjectFile(existingEntity.images);
-        //        }
-
-        //        // Cập nhật file ảnh mới
-        //        updates.Add(Builders<ProjectFunds>.Update.Set(x => x.images, newImageFilePath));
-        //    }
-
-        //    // Kết hợp tất cả các cập nhật thành một UpdateDefinition
-        //    var updateDefinition = Builders<ProjectFunds>.Update.Combine(updates);
-
-        //    // Thực hiện cập nhật tài liệu
-        //    var result = await _collection.UpdateOneAsync(filter, updateDefinition);
-
-        //    // Kiểm tra xem có tài liệu nào được cập nhật không
-        //    return result.MatchedCount > 0;
-        //}
+        // hàm update thông tin dự án
         public async Task<bool> UpdateAsync(string id, ProjectFunds updatedEntity)
         {
             if (string.IsNullOrEmpty(id) || updatedEntity == null)
@@ -197,7 +138,7 @@ namespace asp.Respositories
             // Thêm các trường vào danh sách cập nhật
             AddUpdate(x => x.name, updatedEntity.name);
             AddUpdate(x => x.idFund, updatedEntity.idFund);
-            AddUpdate(x => x.nameFund, updatedEntity.nameFund);
+            AddUpdate(x => x.idCategory, updatedEntity.idCategory);
             AddUpdate(x => x.description, updatedEntity.description);
             AddUpdate(x => x.targetAmount, updatedEntity.targetAmount);
             AddUpdate(x => x.currentAmount, updatedEntity.currentAmount);
@@ -255,14 +196,22 @@ namespace asp.Respositories
 
             // Lấy danh sách các idFund duy nhất từ ProjectFunds
             var fundIds = projectFunds.Select(p => p.idFund).Distinct().ToList();
+            // Lấy danh sách các idCategory duy nhất từ ProjectFunds
+            var categoryIds = projectFunds.Select(p => p.idCategory).Distinct().ToList();
 
             // Truy vấn CharityFunds theo danh sách fundIds
             var charityFunds = await _collectionCharityFund
                 .Find(fund => fundIds.Contains(fund.Id))
                 .ToListAsync();
+            // Truy vấn Categorys theo danh sách categoryIds
+            var categorys = await _collectionCategory
+                .Find(fund => categoryIds.Contains(fund.Id))
+                .ToListAsync();
 
             // Tạo một dictionary ánh xạ idFund -> name từ CharityFunds
-            var fundNamesMapping = charityFunds.ToDictionary(fund => fund.Id, fund => fund.name);
+            var fundNamesMapping = charityFunds.ToDictionary(fund => fund.Id,  fund => new { fund.name, fund.images });
+            // Tạo một dictionary ánh xạ idFund -> name từ Categorys
+            var categoryNamesMapping = categorys.ToDictionary(category => category.Id, category => category.name);
 
             // Gán tên của CharityFund vào ProjectFunds
             foreach (var project in projectFunds)
@@ -270,7 +219,14 @@ namespace asp.Respositories
                 // Kiểm tra xem idFund có phải là null không
                 if (project.idFund != null && fundNamesMapping.ContainsKey(project.idFund))
                 {
-                    project.nameFund = fundNamesMapping[project.idFund]; // Gán tên vào thuộc tính nameFund
+                    var fund = fundNamesMapping[project.idFund];
+                    project.nameFund = fund.name; // Gán tên vào thuộc tính nameFund
+                    project.imageFund = fund.images; // Gán danh sách ảnh vào thuộc tính imageFund
+                }
+                // Kiểm tra xem idFund có phải là null không
+                if (project.idCategory != null && categoryNamesMapping.ContainsKey(project.idCategory))
+                {
+                    project.nameCategory = categoryNamesMapping[project.idCategory]; // Gán tên vào thuộc tính nameFund
                 }
                 else
                 {

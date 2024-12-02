@@ -14,8 +14,10 @@ public class ProjectFunds
     [BsonRepresentation(BsonType.ObjectId)]
     public string? idFund { get; set; } // id của quỹ
     public string? nameFund { get; set; } // Tên quỹ
+    public string? imageFund { get; set; } // ảnh của quỹ
     public string? idCategory { get; set; } // id của danh mục
     public string? nameCategory{ get; set; } // Tên danh mục
+    public string? percent { get; set; } // phần trăm đang đạt được
 
 
     //public string? images { get; set; } // Ảnh của dự án
