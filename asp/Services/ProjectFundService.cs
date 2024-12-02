@@ -81,6 +81,34 @@ namespace asp.Respositories
 
 
         // lấy 1 dự án
+        //public async Task<ProjectFunds> GetByIdAsync(string id)
+        //{
+        //    try
+        //    {
+        //        var objectId = ObjectId.Parse(id);
+        //        var filter = Builders<ProjectFunds>.Filter.Eq("_id", objectId);
+
+        //        // Chỉ lấy các trường không bao gồm password
+        //        //var projection = Builders<Users>.Projection.Exclude("passWord");
+
+        //        // Dùng projection để loại bỏ passWord và chỉ lấy các trường còn lại
+        //        var result = await _collection.Find(filter)
+        //                                      //.Project<Users>(projection)
+        //                                      .FirstOrDefaultAsync();
+
+        //        return result; // Trả về kết quả đã loại bỏ password
+        //    }
+        //    catch (FormatException ex)
+        //    {
+        //        Console.WriteLine($"Format exception: {ex.Message}");
+        //        return null;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        Console.WriteLine($"Error retrieving user: {ex.Message}");
+        //        return null;
+        //    }
+        //}
         public async Task<ProjectFunds> GetByIdAsync(string id)
         {
             try
@@ -88,15 +116,45 @@ namespace asp.Respositories
                 var objectId = ObjectId.Parse(id);
                 var filter = Builders<ProjectFunds>.Filter.Eq("_id", objectId);
 
-                // Chỉ lấy các trường không bao gồm password
-                //var projection = Builders<Users>.Projection.Exclude("passWord");
+                // Truy vấn ProjectFunds bằng id
+                var projectFunds = await _collection.Find(filter).FirstOrDefaultAsync();
 
-                // Dùng projection để loại bỏ passWord và chỉ lấy các trường còn lại
-                var result = await _collection.Find(filter)
-                                              //.Project<Users>(projection)
-                                              .FirstOrDefaultAsync();
+                if (projectFunds == null)
+                {
+                    return null;
+                }
 
-                return result; // Trả về kết quả đã loại bỏ password
+                // Truy vấn charityFund bằng idFund của ProjectFunds
+                CharityFunds charityFund = null;
+                if (projectFunds.idFund != null)
+                {
+                    charityFund = await _collectionCharityFund
+                        .Find(fund => fund.Id == projectFunds.idFund)
+                        .FirstOrDefaultAsync();
+                }
+
+                // Truy vấn category bằng idCategory của ProjectFunds
+                Categorys category = null;
+                if (projectFunds.idCategory != null)
+                {
+                    category = await _collectionCategory
+                        .Find(cat => cat.Id == projectFunds.idCategory)
+                        .FirstOrDefaultAsync();
+                }
+
+                // Gán tên và hình ảnh của charityFund và category vào ProjectFunds
+                if (charityFund != null)
+                {
+                    projectFunds.nameFund = charityFund.name;
+                    projectFunds.imageFund = charityFund.images;
+                }
+
+                if (category != null)
+                {
+                    projectFunds.nameCategory = category.name;
+                }
+
+                return projectFunds;
             }
             catch (FormatException ex)
             {
@@ -105,10 +163,11 @@ namespace asp.Respositories
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error retrieving user: {ex.Message}");
+                Console.WriteLine($"Error retrieving project fund: {ex.Message}");
                 return null;
             }
         }
+
         // hàm update thông tin dự án
         public async Task<bool> UpdateAsync(string id, ProjectFunds updatedEntity)
         {
