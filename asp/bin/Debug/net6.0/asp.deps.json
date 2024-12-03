@@ -11,6 +11,7 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "6.0.29",
           "MongoDB.Driver": "2.25.0",
           "Newtonsoft.Json.Bson": "1.0.3",
+          "RestSharp": "112.1.0",
           "Swashbuckle.AspNetCore": "6.2.3",
           "System.Security.Cryptography.Cng": "4.7.0"
         },
@@ -234,6 +235,14 @@
           "lib/netstandard2.0/Newtonsoft.Json.Bson.dll": {
             "assemblyVersion": "1.0.0.0",
             "fileVersion": "1.0.3.29904"
+          }
+        }
+      },
+      "RestSharp/112.1.0": {
+        "runtime": {
+          "lib/net6.0/RestSharp.dll": {
+            "assemblyVersion": "112.1.0.0",
+            "fileVersion": "112.1.0.0"
           }
         }
       },
@@ -505,6 +514,13 @@
       "sha512": "sha512-bCcwagnHfYnhwQfY1criEcn6Hy9PtBuVnZu0pA8hmRhuR3jI/8WxVgoVAdNw9BJ3JHkxmWJzpj/AQy+PMMLqxg==",
       "path": "newtonsoft.json.bson/1.0.3",
       "hashPath": "newtonsoft.json.bson.1.0.3.nupkg.sha512"
+    },
+    "RestSharp/112.1.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-bOUGNZqhhv/QeCXHTKEUil846yBjwWXpzPKjO67kFvaAOoF361z7jLY5BMnuZ6WD2WQRA750sNMcK7MSPCQ5Mg==",
+      "path": "restsharp/112.1.0",
+      "hashPath": "restsharp.112.1.0.nupkg.sha512"
     },
     "SharpCompress/0.30.1": {
       "type": "package",

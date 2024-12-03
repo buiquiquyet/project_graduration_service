@@ -726,6 +726,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "asp.Controllers.PaymentController",
+    "Method": "CreatePaymentUrl",
+    "RelativePath": "api/payment/CreatePaymentUrl",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "OrderInfoModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "asp.Controllers.ProjectFundController",
     "Method": "Create",
     "RelativePath": "api/project-fund",

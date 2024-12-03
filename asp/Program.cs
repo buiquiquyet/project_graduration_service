@@ -27,6 +27,12 @@ builder.Services.AddSingleton<RegisterAuthService>();
 builder.Services.AddSingleton<CharityFundService>();
 builder.Services.AddSingleton<ProjectFundService>();
 builder.Services.AddSingleton<CategoryService>();
+
+// MOMO
+//builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+builder.Services.AddSingleton< MomoService>();
+
+
 //JWT
 //var key = Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]);
 string key = KeyGenerator.Generate256BitKey();

@@ -1170,6 +1170,37 @@
         }
       }
     },
+    "/api/payment/CreatePaymentUrl": {
+      "post": {
+        "tags": [
+          "Payment"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderInfoModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderInfoModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrderInfoModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
     "/api/project-fund": {
       "post": {
         "tags": [
@@ -2374,6 +2405,28 @@
             "nullable": true
           },
           "ky_id": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "OrderInfoModel": {
+        "type": "object",
+        "properties": {
+          "FullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "OrderId": {
+            "type": "string",
+            "nullable": true
+          },
+          "OrderInfo": {
+            "type": "string",
+            "nullable": true
+          },
+          "Amount": {
             "type": "string",
             "nullable": true
           }
