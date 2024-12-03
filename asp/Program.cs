@@ -28,9 +28,11 @@ builder.Services.AddSingleton<CharityFundService>();
 builder.Services.AddSingleton<ProjectFundService>();
 builder.Services.AddSingleton<CategoryService>();
 
+builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
+builder.Services.AddScoped<IMomoService, MomoService>();
 // MOMO
 //builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
-builder.Services.AddSingleton< MomoService>();
+//builder.Services.AddSingleton< MomoService>();
 
 
 //JWT

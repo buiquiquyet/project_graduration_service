@@ -2,6 +2,7 @@
 using asp.Models;
 using asp.Services;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 using Microsoft.OpenApi.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -21,6 +22,7 @@ namespace asp.Respositories
     public class MomoService : IMomoService
     {
         private readonly IOptions<MomoOptionModel> _options;
+
         public MomoService(IOptions<MomoOptionModel> options)
         {
             _options = options;
@@ -29,17 +31,18 @@ namespace asp.Respositories
         {
             model.OrderId = DateTime.UtcNow.Ticks.ToString();
             model.OrderInfo = "Khách hàng: " + model.FullName + ". Nội dung: " + model.OrderInfo;
+           
             var rawData =
                 $"partnerCode={_options.Value.PartnerCode}" +
                 $"&accessKey={_options.Value.AccessKey}" +
                 $"&requestId={model.OrderId}" +
+                $"&userId={model.UserId}" +
                 $"&amount={model.Amount}" +
                 $"&orderId={model.OrderId}" +
                 $"&orderInfo={model.OrderInfo}" +
                 $"&returnUrl={_options.Value.ReturnUrl}" +
                 $"&notifyUrl={_options.Value.NotifyUrl}" +
                 $"&extraData=";
-
             var signature = ComputeHmacSha256(rawData, _options.Value.SecretKey);
 
             var client = new RestClient(_options.Value.MomoApiUrl);
@@ -55,6 +58,7 @@ namespace asp.Respositories
                 notifyUrl = _options.Value.NotifyUrl,
                 returnUrl = _options.Value.ReturnUrl,
                 orderId = model.OrderId,
+                userId = model.UserId,
                 amount = model.Amount.ToString(),
                 orderInfo = model.OrderInfo,
                 requestId = model.OrderId,
@@ -65,25 +69,41 @@ namespace asp.Respositories
             request.AddParameter("application/json", JsonConvert.SerializeObject(requestData), ParameterType.RequestBody);
 
             var response = await client.ExecuteAsync(request);
-            var momoResponse = JsonConvert.DeserializeObject<MomoCreatePaymentResponseModel>(response.Content);
-            return momoResponse;
 
+            return JsonConvert.DeserializeObject<MomoCreatePaymentResponseModel>(response.Content);
         }
 
         public MomoExecuteResponseModel PaymentExecuteAsync(IQueryCollection collection)
         {
-            var amount = collection.First(s => s.Key == "amount").Value;
-            var orderInfo = collection.First(s => s.Key == "orderInfo").Value;
-            var orderId = collection.First(s => s.Key == "orderId").Value;
+            // Sử dụng FirstOrDefault để tránh ngoại lệ nếu không có tham số
+            var amountPair = collection.FirstOrDefault(s => s.Key == "amount");
+            var userId = collection.FirstOrDefault(s => s.Key == "userId");
+            var orderInfoPair = collection.FirstOrDefault(s => s.Key == "orderInfo");
+            var orderIdPair = collection.FirstOrDefault(s => s.Key == "orderId");
+
+            // Kiểm tra nếu không tìm thấy phần tử
+            if (amountPair.Equals(default(KeyValuePair<string, StringValues>)) ||
+                orderInfoPair.Equals(default(KeyValuePair<string, StringValues>)) ||
+                userId.Equals(default(KeyValuePair<string, StringValues>)) ||
+                orderIdPair.Equals(default(KeyValuePair<string, StringValues>)))
+            {
+                // Trả về null nếu không tìm thấy bất kỳ tham số nào
+                return null;
+            }
 
             return new MomoExecuteResponseModel()
             {
-                Amount = amount,
-                OrderId = orderId,
-                OrderInfo = orderInfo
-
+                Amount = amountPair.Value.ToString(),  // Chuyển đổi giá trị sang chuỗi
+                OrderId = orderIdPair.Value.ToString(),
+                OrderInfo = orderInfoPair.Value.ToString(),
+                UserId = userId.Value.ToString()
             };
         }
+
+
+
+
+
 
         private string ComputeHmacSha256(string message, string secretKey)
         {
@@ -102,6 +122,7 @@ namespace asp.Respositories
             return hashString;
         }
     }
+
 
 
 
