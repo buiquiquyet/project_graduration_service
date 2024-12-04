@@ -24,9 +24,11 @@ builder.Services.AddSingleton<InstructorService>();
 builder.Services.AddSingleton<SubjectService>();
 // controlName đăng ký login
 builder.Services.AddSingleton<RegisterAuthService>();
+
 builder.Services.AddSingleton<CharityFundService>();
 builder.Services.AddSingleton<ProjectFundService>();
 builder.Services.AddSingleton<CategoryService>();
+builder.Services.AddSingleton<CommentService>();
 
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
 builder.Services.AddScoped<IMomoService, MomoService>();

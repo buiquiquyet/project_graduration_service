@@ -28,15 +28,17 @@ namespace asp.Controllers
             {
                 return BadRequest(new { message = response?.Message ?? "Error processing payment" });
             }
-            var res = new
+            if(response.PayUrl != null)
             {
-                PayUrl = response.PayUrl // hoặc PayUrl khác từ phản hồi của MoMo API
-            };
-            return Ok(new ApiResponseDTO<Object> { data = new { response }, message = "Thành công." });
+            return Ok(new ApiResponseDTO<Object> { data = new { response }, message = "Success." });
+
+            }
+            return BadRequest(new ApiResponseDTO<Object> { data = new { response }, message = "Error." });
+
+
         }
-        [HttpGet]
         [Route("paymentCallback")]
-        public IActionResult PaymentCallBack()
+        public async Task<IActionResult> PaymentCallBack()
         {
             var response = _momoService.PaymentExecuteAsync(HttpContext.Request.Query);
 
@@ -46,7 +48,7 @@ namespace asp.Controllers
                 return BadRequest(new { message = "Error processing payment: Missing parameters" });
             }
 
-            return Ok(new ApiResponseDTO<Object> { data = new { response }, message = "Thành công." });
+            return Ok(new ApiResponseDTO<Object> { data = new { response }, message = "Success." });
         }
 
     }

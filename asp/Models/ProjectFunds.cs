@@ -19,6 +19,7 @@ public class ProjectFunds
     public string? nameCategory{ get; set; } // Tên danh mục
     public string? percent { get; set; } // phần trăm đang đạt được
 
+    public int? evaluate { get; set; } // lượt like
 
     //public string? images { get; set; } // Ảnh của dự án
     //public IFormFile? imagesIFormFile { get; set; } // Ảnh của dự án

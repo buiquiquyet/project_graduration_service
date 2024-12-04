@@ -379,6 +379,93 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "asp.Controllers.CommentController",
+    "Method": "Create",
+    "RelativePath": "api/comment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "content",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "projectFundId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "createdAt",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "updatedAt",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "userName",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "userAvatar",
+        "Type": "System.String",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "asp.Controllers.CommentController",
+    "Method": "GetCommentsByProjectFundId",
+    "RelativePath": "api/comment/byProjectFundId/{projectFundId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "projectFundId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "size",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[Comments, asp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "asp.Controllers.DepartmentController",
     "Method": "GetAllDepartment",
     "RelativePath": "api/department",
@@ -745,7 +832,7 @@
     "ContainingType": "asp.Controllers.PaymentController",
     "Method": "PaymentCallBack",
     "RelativePath": "api/payment/paymentCallback",
-    "HttpMethod": "GET",
+    "HttpMethod": "",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
@@ -797,6 +884,11 @@
       {
         "Name": "percent",
         "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "evaluate",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
@@ -940,6 +1032,11 @@
       {
         "Name": "percent",
         "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "evaluate",
+        "Type": "System.Nullable\u00601[[System.Int32, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {

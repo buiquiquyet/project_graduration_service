@@ -4,10 +4,12 @@ using System;
 
 public class MomoExecuteResponseModel
 {
-    public string OrderId { get; set; }
     public string Amount { get; set; }
-    public string FullName { get; set; }
-    public string OrderInfo { get; set; }
+    public string UserId { get; set; }
+    public string ProjectFundId { get; set; }
+
+    public DateTime CreatedAt { get; set; }
+
 }
 
 

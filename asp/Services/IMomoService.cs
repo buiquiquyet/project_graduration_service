@@ -5,6 +5,6 @@ namespace asp.Services
     public interface IMomoService
     {
         Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(OrderInfoModel orderInfo);
-        MomoExecuteResponseModel PaymentExecuteAsync(IQueryCollection collection);
+        Task<MomoExecuteResponseModel> PaymentExecuteAsync(IQueryCollection collection);
     }
 }
