@@ -1170,7 +1170,7 @@
         }
       }
     },
-    "/api/payment/CreatePaymentUrl": {
+    "/api/payment/createPaymentUrl": {
       "post": {
         "tags": [
           "Payment"
@@ -1194,6 +1194,18 @@
             }
           }
         },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/payment/paymentCallback": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
         "responses": {
           "200": {
             "description": "Success"

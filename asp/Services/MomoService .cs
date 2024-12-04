@@ -36,7 +36,6 @@ namespace asp.Respositories
                 $"partnerCode={_options.Value.PartnerCode}" +
                 $"&accessKey={_options.Value.AccessKey}" +
                 $"&requestId={model.OrderId}" +
-                $"&userId={model.UserId}" +
                 $"&amount={model.Amount}" +
                 $"&orderId={model.OrderId}" +
                 $"&orderInfo={model.OrderInfo}" +
@@ -58,7 +57,6 @@ namespace asp.Respositories
                 notifyUrl = _options.Value.NotifyUrl,
                 returnUrl = _options.Value.ReturnUrl,
                 orderId = model.OrderId,
-                userId = model.UserId,
                 amount = model.Amount.ToString(),
                 orderInfo = model.OrderInfo,
                 requestId = model.OrderId,
@@ -96,7 +94,6 @@ namespace asp.Respositories
                 Amount = amountPair.Value.ToString(),  // Chuyển đổi giá trị sang chuỗi
                 OrderId = orderIdPair.Value.ToString(),
                 OrderInfo = orderInfoPair.Value.ToString(),
-                UserId = userId.Value.ToString()
             };
         }
 
