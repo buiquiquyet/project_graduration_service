@@ -4,6 +4,7 @@ using asp.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.Data;
+using System.Drawing;
 using System.Threading.Tasks;
 
 namespace asp.Controllers
@@ -85,6 +86,24 @@ namespace asp.Controllers
             }
 
             return Ok(new ApiResponseDTO<Object> { data = new { response }, message = "success" });
+        }
+        [HttpGet("export-excel/{projectFundId}")]
+        public async Task<IActionResult> ExportDonatesToExcelAsync(string projectFundId, int page, int size = 10)
+        {
+            try
+            {
+                var skipAmount = (page - 1) * size;
+                // Call the service to generate the Excel file as a byte array
+                var fileBytes = await _momoService.GenerateDonatesExcelAsync(projectFundId, skipAmount, size);
+
+                // Return the file as a response with the correct Excel MIME type
+                return File(fileBytes, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "Donates.xlsx");
+            }
+            catch (Exception ex)
+            {
+                // Handle errors and log or return a friendly message
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
         }
 
     }

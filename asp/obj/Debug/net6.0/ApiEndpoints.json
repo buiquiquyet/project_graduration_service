@@ -882,6 +882,32 @@
   },
   {
     "ContainingType": "asp.Controllers.PaymentController",
+    "Method": "ExportDonatesToExcelAsync",
+    "RelativePath": "api/payment/export-excel/{projectFundId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "projectFundId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "size",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "asp.Controllers.PaymentController",
     "Method": "PaymentCallBack",
     "RelativePath": "api/payment/paymentCallback",
     "HttpMethod": "",
