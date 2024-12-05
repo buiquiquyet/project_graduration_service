@@ -357,44 +357,53 @@ namespace asp.Respositories
                 .SortByDescending(comment => comment.CreatedAt)
                 .ToListAsync();
 
-            // Check if there are no donations
-            if (donates == null || donates.Count == 0)
-            {
-                throw new Exception("No donations found for the given project fund.");
-            }
-
-            // Get unique userIds from donations, filter valid ObjectIds
-            var userIds = donates
-                .Select(donate => donate.UserId)
-                .Where(userId => IsValidObjectId(userId))
-                .Distinct()
-                .ToList();
-
-            // Fetch user data from the "Users" collection
-            var users = await _collectionUser
-                .Find(user => userIds.Contains(user.Id))
-                .ToListAsync();
-
-            // Create a dictionary to map UserId to FullName
-            var userDictionary = users.ToDictionary(user => user.Id, user => user.fullName);
-
-            // Combine user info into donations
-            foreach (var donate in donates)
-            {
-                if (userDictionary.TryGetValue(donate.UserId, out var fullName))
-                {
-                    donate.FullName = fullName;
-                }
-                else
-                {
-                    donate.FullName = "Nhà hảo tâm ẩn danh"; // Set default name if not found
-                }
-            }
-
             // Create the Excel file using EPPlus
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("Donates");
+
+                // Check if there are no donations
+                if (donates == null || donates.Count == 0)
+                {
+                    // If no donations, set a message in the Excel file
+                    worksheet.Cells[1, 1].Value = "Chưa có dữ liệu lịch sử ủng hộ.";
+                    worksheet.Cells[1, 1].Style.Font.Bold = true;
+                    worksheet.Cells[1, 1].Style.Font.Size = 14;
+                    worksheet.Cells[1, 1].Style.HorizontalAlignment = OfficeOpenXml.Style.ExcelHorizontalAlignment.Center;
+                    worksheet.Cells[1, 1].Style.VerticalAlignment = OfficeOpenXml.Style.ExcelVerticalAlignment.Center;
+                    worksheet.Cells[1, 1, 1, 4].Merge = true;  // Merge all columns to show the message
+
+                    // Return the file as a byte array
+                    return package.GetAsByteArray();
+                }
+
+                // Get unique userIds from donations, filter valid ObjectIds
+                var userIds = donates
+                    .Select(donate => donate.UserId)
+                    .Where(userId => IsValidObjectId(userId))
+                    .Distinct()
+                    .ToList();
+
+                // Fetch user data from the "Users" collection
+                var users = await _collectionUser
+                    .Find(user => userIds.Contains(user.Id))
+                    .ToListAsync();
+
+                // Create a dictionary to map UserId to FullName
+                var userDictionary = users.ToDictionary(user => user.Id, user => user.fullName);
+
+                // Combine user info into donations
+                foreach (var donate in donates)
+                {
+                    if (userDictionary.TryGetValue(donate.UserId, out var fullName))
+                    {
+                        donate.FullName = fullName;
+                    }
+                    else
+                    {
+                        donate.FullName = "Nhà hảo tâm ẩn danh"; // Set default name if not found
+                    }
+                }
 
                 // Set column headers
                 worksheet.Cells[1, 1].Value = "Id người dùng";
@@ -416,6 +425,7 @@ namespace asp.Respositories
                 return package.GetAsByteArray();
             }
         }
+
 
 
     }
