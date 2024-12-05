@@ -52,16 +52,6 @@ namespace asp.Respositories
                 throw new Exception("Có lỗi xảy ra trong quá trình chèn dữ liệu vào cơ sở dữ liệu: " + ex.Message, ex);
             }
         }
-        // lấy 1 list bình luận theo id của project fund
-        //public async Task<List<Comments>> GetCommentsByProjectFundIdAsync(string projectFundId, int skipAmount, int pageSize)
-        //{
-        //    var sortDefinition = Builders<Comments>.Sort.Descending(x => x.Id);
-        //    return await _collection.Find(comment => comment.projectFundId == projectFundId)
-        //                .Skip(skipAmount)
-        //                .Sort(sortDefinition)
-        //                .Limit(pageSize)
-        //                .ToListAsync();
-        //}
         public async Task<List<Comments>> GetCommentsByProjectFundIdAsync(string projectFundId, int skipAmount, int pageSize)
         {
             // Lấy danh sách các comment dựa theo projectFundId
@@ -100,7 +90,11 @@ namespace asp.Respositories
         {
             return await _collection.CountDocumentsAsync(comment => comment.projectFundId == projectFundId);
         }
-
+        public async Task RemoveAsync(string id)
+        {
+            var filter = Builders<Comments>.Filter.Eq("_id", ObjectId.Parse(id));
+            await _collection.DeleteOneAsync(filter);
+        }
 
     }
 }

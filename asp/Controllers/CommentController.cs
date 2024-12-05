@@ -57,7 +57,7 @@ namespace asp.Controllers
             datas = await _resp.GetCommentsByProjectFundIdAsync(projectFundId, skipAmount, size);
             totalProjectFunds = await _resp.CountAsync(projectFundId);
 
-            if (datas != null && datas.Count > 0)
+            if (datas != null )
             {
                 var response = new
                 {
@@ -75,5 +75,19 @@ namespace asp.Controllers
                 return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi." });
             }
         }
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteComment(string id)
+        {
+            try
+            {
+                await _resp.RemoveAsync(id);
+                return Ok(new ApiResponseDTO<object> { data = new { success = "Success" }, message = "Xóa thành công." });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi." });
+            }
+        }
+
     }
 }

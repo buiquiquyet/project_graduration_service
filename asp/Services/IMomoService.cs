@@ -1,4 +1,5 @@
 ﻿using asp.Respositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace asp.Services
 {
@@ -6,5 +7,9 @@ namespace asp.Services
     {
         Task<MomoCreatePaymentResponseModel> CreatePaymentAsync(OrderInfoModel orderInfo);
         Task<MomoExecuteResponseModel> PaymentExecuteAsync(IQueryCollection collection);
+        Task<List<MomoExecuteResponseModel>> GetDonatesByProjectFundIdAsync(string projectFundId, int skipAmount, int pageSize);
+        Task<long> CountAsync(string projectFundId);
+
+        Task<List<MomoExecuteResponseModel>> GetTop3DonorsAsync();
     }
 }

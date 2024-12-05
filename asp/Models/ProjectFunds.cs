@@ -18,6 +18,7 @@ public class ProjectFunds
     public string? idCategory { get; set; } // id của danh mục
     public string? nameCategory{ get; set; } // Tên danh mục
     public string? percent { get; set; } // phần trăm đang đạt được
+    public long? numberOfDonate { get; set; } // số người donate
 
     public int? evaluate { get; set; } // lượt like
 

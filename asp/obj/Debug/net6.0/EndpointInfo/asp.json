@@ -593,6 +593,147 @@
         }
       }
     },
+    "/api/comment": {
+      "post": {
+        "tags": [
+          "Comment"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "Id": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  },
+                  "userId": {
+                    "type": "string"
+                  },
+                  "projectFundId": {
+                    "type": "string"
+                  },
+                  "createdAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "updatedAt": {
+                    "type": "string",
+                    "format": "date-time"
+                  },
+                  "userName": {
+                    "type": "string"
+                  },
+                  "userAvatar": {
+                    "type": "string"
+                  }
+                }
+              },
+              "encoding": {
+                "Id": {
+                  "style": "form"
+                },
+                "content": {
+                  "style": "form"
+                },
+                "userId": {
+                  "style": "form"
+                },
+                "projectFundId": {
+                  "style": "form"
+                },
+                "createdAt": {
+                  "style": "form"
+                },
+                "updatedAt": {
+                  "style": "form"
+                },
+                "userName": {
+                  "style": "form"
+                },
+                "userAvatar": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/comment/byProjectFundId/{projectFundId}": {
+      "get": {
+        "tags": [
+          "Comment"
+        ],
+        "parameters": [
+          {
+            "name": "projectFundId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comments"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comments"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Comments"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/department": {
       "get": {
         "tags": [
@@ -1213,6 +1354,72 @@
         }
       }
     },
+    "/api/payment/byProjectFundId/{projectFundId}": {
+      "get": {
+        "tags": [
+          "Payment"
+        ],
+        "parameters": [
+          {
+            "name": "projectFundId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 1
+            }
+          },
+          {
+            "name": "size",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MomoExecuteResponseModel"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MomoExecuteResponseModel"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MomoExecuteResponseModel"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/project-fund": {
       "post": {
         "tags": [
@@ -1247,6 +1454,14 @@
                   },
                   "percent": {
                     "type": "string"
+                  },
+                  "numberOfDonate": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "evaluate": {
+                    "type": "integer",
+                    "format": "int32"
                   },
                   "images": {
                     "type": "array",
@@ -1309,6 +1524,12 @@
                   "style": "form"
                 },
                 "percent": {
+                  "style": "form"
+                },
+                "numberOfDonate": {
+                  "style": "form"
+                },
+                "evaluate": {
                   "style": "form"
                 },
                 "images": {
@@ -1452,6 +1673,14 @@
                   "percent": {
                     "type": "string"
                   },
+                  "numberOfDonate": {
+                    "type": "integer",
+                    "format": "int64"
+                  },
+                  "evaluate": {
+                    "type": "integer",
+                    "format": "int32"
+                  },
                   "images": {
                     "type": "array",
                     "items": {
@@ -1513,6 +1742,12 @@
                   "style": "form"
                 },
                 "percent": {
+                  "style": "form"
+                },
+                "numberOfDonate": {
+                  "style": "form"
+                },
+                "evaluate": {
                   "style": "form"
                 },
                 "images": {
@@ -2375,6 +2610,44 @@
   },
   "components": {
     "schemas": {
+      "Comments": {
+        "type": "object",
+        "properties": {
+          "Id": {
+            "type": "string",
+            "nullable": true
+          },
+          "content": {
+            "type": "string",
+            "nullable": true
+          },
+          "userId": {
+            "type": "string",
+            "nullable": true
+          },
+          "projectFundId": {
+            "type": "string",
+            "nullable": true
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "userName": {
+            "type": "string",
+            "nullable": true
+          },
+          "userAvatar": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "Files": {
         "type": "object",
         "properties": {
@@ -2423,6 +2696,32 @@
         },
         "additionalProperties": false
       },
+      "MomoExecuteResponseModel": {
+        "type": "object",
+        "properties": {
+          "Amount": {
+            "type": "string",
+            "nullable": true
+          },
+          "UserId": {
+            "type": "string",
+            "nullable": true
+          },
+          "ProjectFundId": {
+            "type": "string",
+            "nullable": true
+          },
+          "FullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "CreatedAt": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
       "OrderInfoModel": {
         "type": "object",
         "properties": {
@@ -2439,6 +2738,10 @@
             "nullable": true
           },
           "Amount": {
+            "type": "string",
+            "nullable": true
+          },
+          "UserId": {
             "type": "string",
             "nullable": true
           }

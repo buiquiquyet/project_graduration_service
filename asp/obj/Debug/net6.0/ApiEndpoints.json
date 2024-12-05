@@ -431,6 +431,22 @@
   },
   {
     "ContainingType": "asp.Controllers.CommentController",
+    "Method": "DeleteComment",
+    "RelativePath": "api/comment/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "asp.Controllers.CommentController",
     "Method": "GetCommentsByProjectFundId",
     "RelativePath": "api/comment/byProjectFundId/{projectFundId}",
     "HttpMethod": "GET",
@@ -814,6 +830,42 @@
   },
   {
     "ContainingType": "asp.Controllers.PaymentController",
+    "Method": "GetDonatesByProjectFundId",
+    "RelativePath": "api/payment/byProjectFundId/{projectFundId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "projectFundId",
+        "Type": "System.String",
+        "IsRequired": true
+      },
+      {
+        "Name": "page",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "size",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[MomoExecuteResponseModel, asp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "asp.Controllers.PaymentController",
     "Method": "CreatePaymentUrl",
     "RelativePath": "api/payment/createPaymentUrl",
     "HttpMethod": "POST",
@@ -837,6 +889,26 @@
     "Order": 0,
     "Parameters": [],
     "ReturnTypes": []
+  },
+  {
+    "ContainingType": "asp.Controllers.PaymentController",
+    "Method": "GetTop3Donors",
+    "RelativePath": "api/payment/top-donors",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[MomoExecuteResponseModel, asp, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "asp.Controllers.ProjectFundController",
@@ -884,6 +956,11 @@
       {
         "Name": "percent",
         "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "numberOfDonate",
+        "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {
@@ -1032,6 +1109,11 @@
       {
         "Name": "percent",
         "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "numberOfDonate",
+        "Type": "System.Nullable\u00601[[System.Int64, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
         "IsRequired": false
       },
       {

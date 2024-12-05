@@ -17,13 +17,15 @@ namespace asp.Respositories
     {
         private readonly IMongoCollection<ProjectFunds> _collection;
         private readonly IMongoCollection<CharityFunds> _collectionCharityFund;
-        private readonly IMongoCollection<Categorys> _collectionCategory;
+        private readonly IMongoCollection<Categorys> _collectionCategory; 
+        private readonly IMongoCollection<MomoExecuteResponseModel> _collectionMomoCreatePaymentResponseModel; 
 
         public ProjectFundService(ConnectDbHelper dbHelper)
         {
             _collection = dbHelper.GetCollection<ProjectFunds>();
             _collectionCharityFund = dbHelper.GetCollection<CharityFunds>();
             _collectionCategory = dbHelper.GetCollection<Categorys>();
+            _collectionMomoCreatePaymentResponseModel = dbHelper.GetCollection<MomoExecuteResponseModel>();
         }
         //tạo dự án
         public async Task<ProjectFunds> Create(ProjectFunds request)
@@ -148,11 +150,26 @@ namespace asp.Respositories
                     projectFunds.nameFund = charityFund.name;
                     projectFunds.imageFund = charityFund.images;
                 }
-
+                // lấy tên danh mục
                 if (category != null)
                 {
                     projectFunds.nameCategory = category.name;
                 }
+                // Tính phần trăm đạt được
+                if (!string.IsNullOrEmpty(projectFunds.currentAmount) &&
+                    decimal.TryParse(projectFunds.currentAmount, out var currentAmount) &&
+                    decimal.TryParse(projectFunds.targetAmount, out var targetAmount) &&
+                    targetAmount > 0)
+                {
+                    projectFunds.percent = ((currentAmount / targetAmount) * 100).ToString("0.##");
+                }
+                else
+                {
+                    projectFunds.percent = "0";
+                }
+                // Đếm số lượng bản ghi trong MomoCreatePaymentResponseModel với projectFundId tương ứng
+                var paymentFilter = Builders<MomoExecuteResponseModel>.Filter.Eq("ProjectFundId", projectFunds.Id);
+                projectFunds.numberOfDonate = await _collectionMomoCreatePaymentResponseModel.CountDocumentsAsync(paymentFilter);
 
                 return projectFunds;
             }
@@ -291,6 +308,18 @@ namespace asp.Respositories
                 {
                     // Nếu không có idFund hợp lệ, bạn có thể gán giá trị mặc định hoặc bỏ qua
                     project.nameFund = "Unknown Fund"; // Hoặc bạn có thể để trống (null)
+                }
+                // Tính phần trăm đạt được
+                if (!string.IsNullOrEmpty(project.currentAmount) &&
+                    decimal.TryParse(project.currentAmount, out var currentAmount) &&
+                    decimal.TryParse(project.targetAmount, out var targetAmount) &&
+                    targetAmount > 0)
+                {
+                    project.percent = ((currentAmount / targetAmount) * 100).ToString("0.##");
+                }
+                else
+                {
+                    project.percent = "0";
                 }
             }
 
