@@ -1,12 +1,13 @@
 ﻿/*using asp.Services;*/
 using asp.Models;
-using asp.Respositories;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using asp.Services;
 using asp.Helper;
+using asp.Services.Comment;
+using asp.Helper.ApiResponse;
 
-namespace asp.Controllers 
+namespace asp.Controllers
 {
     [ApiController]
     [Route("api/comment")]

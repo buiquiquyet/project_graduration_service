@@ -1,13 +1,15 @@
 ﻿/*using asp.Services;*/
 using asp.Models;
-using asp.Respositories;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using asp.Services;
 using asp.Helper;
 using MongoDB.Bson;
-using asp.Constants;
-namespace asp.Controllers 
+using asp.Services.ProjectFundDone;
+using asp.Helper.ApiResponse;
+using asp.Constants.ProjectFundConst;
+using asp.Respositories;
+namespace asp.Controllers
 {
     [ApiController]
     [Route("api/project-fund")]
@@ -57,7 +59,7 @@ namespace asp.Controllers
             datas = await _resp.GetAllAsync(skipAmount, size, filterType);
             totalProjectFunds = await _resp.CountAsync();
 
-            if (datas != null && datas.Count > 0)
+            if (datas != null )
             {
                 var response = new
                 {
@@ -122,7 +124,7 @@ namespace asp.Controllers
             try
             {
                 var deletedCount = await _resp.DeleteByIdsAsync(ids);
-                return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = $"Xóa thành công {deletedCount} quỹ." });
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = $"Xóa thành công {deletedCount} dự án." });
             }
             catch (ArgumentException ex)
             {

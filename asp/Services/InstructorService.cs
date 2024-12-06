@@ -1,4 +1,5 @@
 ﻿using asp.Models;
+using asp.Models.MongoSetting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;

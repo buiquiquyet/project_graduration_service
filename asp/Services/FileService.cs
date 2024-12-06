@@ -1,5 +1,6 @@
 ﻿using asp.DTO;
 using asp.Models;
+using asp.Models.MongoSetting;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;

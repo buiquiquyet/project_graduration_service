@@ -1,4 +1,5 @@
 ﻿using asp.Models;
+using asp.Models.MongoSetting;
 using Microsoft.Extensions.Options;
 using MongoDB.Bson;
 using MongoDB.Driver;
@@ -8,8 +9,8 @@ using System.Text.RegularExpressions;
 
 namespace asp.Respositories
 {
-   
-   
+
+
     public class ClassService
     {
         private readonly IMongoCollection<Classes> _collection;

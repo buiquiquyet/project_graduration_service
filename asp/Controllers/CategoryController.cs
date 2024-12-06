@@ -1,12 +1,13 @@
 ﻿/*using asp.Services;*/
 using asp.Models;
-using asp.Respositories;
 using Microsoft.AspNetCore.Mvc;
 using MongoDB.Bson;
 using asp.Services;
 using asp.Helper;
 using MongoDB.Bson;
-namespace asp.Controllers 
+using asp.Services.Category;
+using asp.Helper.ApiResponse;
+namespace asp.Controllers
 {
     [ApiController]
     [Route("api/category")]
@@ -56,7 +57,7 @@ namespace asp.Controllers
             datas = await _resp.GetAllAsync(skipAmount, size);
             totalCharityFunds = await _resp.CountAsync();
 
-            if (datas != null && datas.Count > 0)
+            if (datas != null )
             {
                 var response = new
                 {

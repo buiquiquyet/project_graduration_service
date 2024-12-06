@@ -1,7 +1,15 @@
-﻿using asp.Helper;
-using asp.Models;
+﻿using asp.Helper.ConnectDb;
+using asp.Models.MongoSetting;
 using asp.Respositories;
-using asp.Services;
+using asp.Services.Category;
+using asp.Services.Comment;
+using asp.Services.Fund;
+using asp.Services.JWT;
+using asp.Services.KeyGenerator;
+using asp.Services.LoginGoogle;
+using asp.Services.Momo;
+using asp.Services.ProjectFundDone;
+using asp.Services.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http.Features;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
@@ -26,6 +34,7 @@ builder.Services.AddSingleton<SubjectService>();
 builder.Services.AddSingleton<RegisterAuthService>();
 
 builder.Services.AddSingleton<CharityFundService>();
+builder.Services.AddSingleton<ProjectFundProcessingService>();
 builder.Services.AddSingleton<ProjectFundService>();
 builder.Services.AddSingleton<CategoryService>();
 builder.Services.AddSingleton<CommentService>();
