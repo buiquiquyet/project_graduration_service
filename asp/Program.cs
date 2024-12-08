@@ -38,6 +38,7 @@ builder.Services.AddSingleton<ProjectFundProcessingService>();
 builder.Services.AddSingleton<ProjectFundService>();
 builder.Services.AddSingleton<CategoryService>();
 builder.Services.AddSingleton<CommentService>();
+builder.Services.AddSingleton<GetCommonApiService>();
 
 builder.Services.Configure<MomoOptionModel>(builder.Configuration.GetSection("MomoAPI"));
 builder.Services.AddScoped<IMomoService, MomoService>();

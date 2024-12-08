@@ -21,6 +21,8 @@ public class ProjectFunds
     public long? numberOfDonate { get; set; } // số người donate
 
     public int? evaluate { get; set; } // lượt like
+    public string? idProjectFundProcessing { get; set; } // id của bản ghi sứ giả được duyệt thành công
+    public List<string>? likedByUsers { get; set; } = new List<string>(); // Danh sách userId thả tim
     public string? userId { get; set; } // id của sứ giả người dùng
     public string? userName { get; set; } // tên của sứ giả người dùng
 

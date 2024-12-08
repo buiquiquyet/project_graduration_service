@@ -50,7 +50,7 @@ namespace asp.Controllers
             datas = await _momoService.GetDonatesByProjectFundIdAsync(projectFundId, skipAmount, size);
             totalDonates = await _momoService.CountAsync(projectFundId);
 
-            if (datas != null && datas.Count > 0)
+            if (datas != null)
             {
                 var response = new
                 {

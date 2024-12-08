@@ -6,6 +6,7 @@ using asp.Services.User;
 using asp.Services.JWT;
 using asp.Models.User;
 using asp.Helper.ApiResponse;
+using System.Data;
 
 namespace asp.Controllers
 {
@@ -54,6 +55,21 @@ namespace asp.Controllers
                 return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Cập nhật thất bại." });
             }
         }
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetUserById(string id)
+        {
+            if (string.IsNullOrEmpty(id))
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Lấy thông tin thất bại." });
+            }
+
+            var user = await _resp.GetByIdAsync(id);
+            if (user == null)
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Lấy thông tin thất bại." });
+            }
+            return Ok(new ApiResponseDTO<Object> { data = user , message = "Lấy thông tin thành công." });
+        }
         [HttpPost("update-avatar/{id}")]
         public async Task<IActionResult> UpdateAvatarAsync(string id, [FromForm] IFormFile avatar)
         {
@@ -75,7 +91,7 @@ namespace asp.Controllers
 
                 if (isUpdated)
                 {
-                    return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = "Cập nhật thành công." });
+                    return Ok(new ApiResponseDTO<object> { data = new { success = "Success" }, message = "Cập nhật thành công." });
                 }
                 else
                 {
@@ -116,26 +132,7 @@ namespace asp.Controllers
         //        return Json(errorObject);
         //    }
         //}
-        //[HttpGet("{id}")]
-        //public async Task<IActionResult> GetUserById(string id)
-        //{
-        //    if (!IsValidObjectId(id))
-        //    {
-        //        return BadRequest("Invalid ObjectId format.");
-        //    }
-
-        //    var user = await _resp.GetByIdAsync(id);
-        //    if (user == null)
-        //    {
-        //        return NotFound();
-        //    }
-        //    var response = new
-        //    {
-        //        message = "success",
-        //        data = user
-        //    };
-        //    return Ok(response);
-        //}
+       
         //[HttpGet("tendangnhap/{tendangnhap}")]
         //public async Task<IActionResult> GetByTenDangNhapAsync(string tendangnhap)
         //{

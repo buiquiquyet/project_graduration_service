@@ -995,6 +995,16 @@
         "IsRequired": false
       },
       {
+        "Name": "idProjectFundProcessing",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "likedByUsers",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
         "Name": "userId",
         "Type": "System.String",
         "IsRequired": false
@@ -1479,6 +1489,16 @@
         "IsRequired": false
       },
       {
+        "Name": "idProjectFundProcessing",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "likedByUsers",
+        "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      },
+      {
         "Name": "userId",
         "Type": "System.String",
         "IsRequired": false
@@ -1538,6 +1558,22 @@
   },
   {
     "ContainingType": "asp.Controllers.ProjectFundController",
+    "Method": "GetLikesCount",
+    "RelativePath": "api/project-fund/countLikes/{projectId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "projectId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "asp.Controllers.ProjectFundController",
     "Method": "DeleteRecords",
     "RelativePath": "api/project-fund/deleteByIds",
     "HttpMethod": "DELETE",
@@ -1547,6 +1583,38 @@
       {
         "Name": "ids",
         "Type": "System.Collections.Generic.List\u00601[[System.String, System.Private.CoreLib, Version=6.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "asp.Controllers.ProjectFundController",
+    "Method": "LikeProject",
+    "RelativePath": "api/project-fund/like",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "asp.Models.ProjectFund.LikeProjectFund",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "asp.Controllers.ProjectFundController",
+    "Method": "UnlikeProject",
+    "RelativePath": "api/project-fund/unlike",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "asp.Models.ProjectFund.LikeProjectFund",
         "IsRequired": true
       }
     ],
@@ -1868,6 +1936,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "asp.Controllers.GetApiCommon",
+    "Method": "GetFundsStatistics",
+    "RelativePath": "api/statistics",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "asp.Controllers.SubjecController",
     "Method": "GetAllSubjects",
     "RelativePath": "api/subject",
@@ -1941,6 +2019,22 @@
       {
         "Name": "updatedUser",
         "Type": "asp.Models.User.Users",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "asp.Controllers.UserController",
+    "Method": "GetUserById",
+    "RelativePath": "api/user/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.String",
         "IsRequired": true
       }
     ],

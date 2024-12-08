@@ -21,6 +21,7 @@ namespace asp.Services.ProjectFundDone
         private readonly IMongoCollection<ProjectFundsProcessing> _collection;
         private readonly IMongoCollection<CharityFunds> _collectionCharityFund;
         private readonly IMongoCollection<Categorys> _collectionCategory;
+        private readonly IMongoCollection<ProjectFunds> _collectionProjectFunds;
         private readonly IMongoCollection<MomoExecuteResponseModel> _collectionMomoCreatePaymentResponseModel;
 
         public ProjectFundProcessingService(ConnectDbHelper dbHelper)
@@ -28,6 +29,7 @@ namespace asp.Services.ProjectFundDone
             _collection = dbHelper.GetCollection<ProjectFundsProcessing>();
             _collectionCharityFund = dbHelper.GetCollection<CharityFunds>();
             _collectionCategory = dbHelper.GetCollection<Categorys>();
+            _collectionProjectFunds = dbHelper.GetCollection<ProjectFunds>();
             _collectionMomoCreatePaymentResponseModel = dbHelper.GetCollection<MomoExecuteResponseModel>();
         }
         //tạo dự án
@@ -172,8 +174,131 @@ namespace asp.Services.ProjectFundDone
             var update = Builders<ProjectFundsProcessing>.Update.Set(p => p.isApproved, dto.isApproved)
                                                                .Set(p => p.updatedAt, DateTime.Now);
             var result = await _collection.UpdateManyAsync(filter, update);
+
+            if (result.ModifiedCount > 0)
+            {
+                foreach (var id in dto.Ids)
+                {
+                    var project = await _collection.Find(p => p.Id == id).FirstOrDefaultAsync();
+
+                    if (project != null)
+                    {
+                        if (dto.isApproved == ApprovedConst.APPROVED)
+                        {
+                            var newRecord = new ProjectFunds
+                            {
+                                idFund = project.idFund,
+                                idCategory = project.idCategory,
+                                name = project.name,
+                                images = project.images,
+                                description = project.description,
+                                targetAmount = project.targetAmount,
+                                currentAmount = project.currentAmount,
+                                startDate = project.startDate,
+                                idProjectFundProcessing = project.Id,
+                                endDate = project.endDate,
+                                createdAt = DateTime.UtcNow,
+                                updatedAt = DateTime.UtcNow,
+                                userId = project.userId,
+                                userName = project.userName,
+                            };
+
+                            try
+                            {
+                                await _collectionProjectFunds.InsertOneAsync(newRecord);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new Exception("Có lỗi xảy ra trong quá trình chèn dữ liệu vào cơ sở dữ liệu: " + ex.Message, ex);
+                            }
+                        }
+                        else if (dto.isApproved == ApprovedConst.PROCESSING || dto.isApproved == ApprovedConst.REJECTED)
+                        {
+                            // Check if there is a matching record in ProjectFunds
+                            var projectFundsFilter = Builders<ProjectFunds>.Filter.Eq(p => p.idProjectFundProcessing, project.Id);
+                            var existingProjectFund = await _collectionProjectFunds.Find(projectFundsFilter).FirstOrDefaultAsync();
+
+                            if (existingProjectFund != null)
+                            {
+                                var deleteResult = await _collectionProjectFunds.DeleteOneAsync(projectFundsFilter);
+
+                                if (!deleteResult.IsAcknowledged)
+                                {
+                                    throw new Exception("Có lỗi xảy ra trong quá trình xóa dữ liệu từ cơ sở dữ liệu.");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
             return result.ModifiedCount > 0;
         }
+
+        //public async Task<bool> UpdateApprovalStatusAsync(UpdateApprovalStatusDTO dto)
+        //{
+        //    if (dto.Ids == null || !dto.Ids.Any() || string.IsNullOrEmpty(dto.isApproved))
+        //    {
+        //        throw new ArgumentException("Ids and IsApproved are required.");
+        //    }
+
+        //    var filter = Builders<ProjectFundsProcessing>.Filter.In(p => p.Id, dto.Ids);
+        //    var update = Builders<ProjectFundsProcessing>.Update.Set(p => p.isApproved, dto.isApproved)
+        //                                                       .Set(p => p.updatedAt, DateTime.Now);
+        //    var result = await _collection.UpdateManyAsync(filter, update);
+
+        //    // Nếu isApproved là "approved" và có ít nhất một bản ghi được cập nhật, tạo bản ghi mới
+        //    if (dto.isApproved == ApprovedConst.APPROVED && result.ModifiedCount > 0)
+        //    {
+        //        foreach (var id in dto.Ids)
+        //        {
+        //            var project = await _collection.Find(p => p.Id == id).FirstOrDefaultAsync();
+        //            if (project != null)
+        //            {
+        //                var newRecord = new ProjectFunds
+        //                {
+        //                    idFund = project.idFund,
+        //                    idCategory = project.idCategory,
+        //                    name = project.name,
+        //                    images = project.images, // hoặc logic xử lý ảnh tương tự hàm Create
+        //                    description = project.description,
+        //                    targetAmount = project.targetAmount,
+        //                    currentAmount = project.currentAmount,
+        //                    startDate = project.startDate,
+        //                    endDate = project.endDate,
+        //                    createdAt = DateTime.UtcNow,
+        //                    updatedAt = DateTime.UtcNow,
+        //                };
+
+        //                try
+        //                {
+        //                    // Chèn dữ liệu vào collection MongoDB
+        //                    await _collectionProjectFunds.InsertOneAsync(newRecord);
+        //                }
+        //                catch (Exception ex)
+        //                {
+        //                    throw new Exception("Có lỗi xảy ra trong quá trình chèn dữ liệu vào cơ sở dữ liệu: " + ex.Message, ex);
+        //                }
+        //            }
+        //        }
+        //    }
+
+        //    return result.ModifiedCount > 0;
+        //}
+
+        //public async Task<bool> UpdateApprovalStatusAsync(UpdateApprovalStatusDTO dto)
+        //{
+        //    if (dto.Ids == null || !dto.Ids.Any() || string.IsNullOrEmpty(dto.isApproved))
+        //    {
+        //        throw new ArgumentException("Ids and IsApproved are required.");
+        //    }
+
+        //    var filter = Builders<ProjectFundsProcessing>.Filter.In(p => p.Id, dto.Ids);
+        //    var update = Builders<ProjectFundsProcessing>.Update.Set(p => p.isApproved, dto.isApproved)
+        //                                                       .Set(p => p.updatedAt, DateTime.Now);
+        //    var result = await _collection.UpdateManyAsync(filter, update);
+        //    return result.ModifiedCount > 0;
+        //}
         // hàm update thông tin dự án
         public async Task<bool> UpdateAsync(string id, ProjectFundsProcessing updatedEntity)
         {
