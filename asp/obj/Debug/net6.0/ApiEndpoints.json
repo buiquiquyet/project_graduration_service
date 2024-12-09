@@ -1946,6 +1946,22 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "asp.Controllers.GetApiCommon",
+    "Method": "GetDetailFundsStatistics",
+    "RelativePath": "api/statistics/detailFund/{fundId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "fundId",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "asp.Controllers.SubjecController",
     "Method": "GetAllSubjects",
     "RelativePath": "api/subject",

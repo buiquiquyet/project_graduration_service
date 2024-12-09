@@ -26,14 +26,14 @@ namespace asp.Services.Momo
     {
         private readonly IOptions<MomoOptionModel> _options;
         private readonly IMongoCollection<MomoExecuteResponseModel> _collection;
-        private readonly IMongoCollection<ProjectFundsProcessing> _collectionProjectFund;
+        private readonly IMongoCollection<ProjectFunds> _collectionProjectFund;
         private readonly IMongoCollection<Users> _collectionUser;
         public MomoService(IOptions<MomoOptionModel> options, IOptions<MongoDbSetting> databaseSettings)
         {
             var client = new MongoClient(databaseSettings.Value.ConnectionURI);
             var database = client.GetDatabase(databaseSettings.Value.DatabaseName);
             _collection = database.GetCollection<MomoExecuteResponseModel>(typeof(MomoExecuteResponseModel).Name.ToLower());
-            _collectionProjectFund = database.GetCollection<ProjectFundsProcessing>(typeof(ProjectFundsProcessing).Name.ToLower());
+            _collectionProjectFund = database.GetCollection<ProjectFunds>(typeof(ProjectFunds).Name.ToLower());
             _collectionUser = database.GetCollection<Users>(typeof(Users).Name.ToLower());
             _options = options;
         }
@@ -98,6 +98,7 @@ namespace asp.Services.Momo
 
             return hashString;
         }
+        // lưu giao dịch donate
         public async Task<MomoExecuteResponseModel> PaymentExecuteAsync(IQueryCollection collection)
         {
             // Sử dụng FirstOrDefault để tránh ngoại lệ nếu không có tham số

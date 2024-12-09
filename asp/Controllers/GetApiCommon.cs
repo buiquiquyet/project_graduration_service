@@ -29,5 +29,12 @@ namespace asp.Controllers
             var statistics = await _resp.GetFundsStatisticsAsync();
             return Ok(new ApiResponseDTO<Object> { data = statistics, message = "Success" });
         }
+
+        [HttpGet("detailFund/{fundId}")]
+        public async Task<IActionResult> GetDetailFundsStatistics(string fundId)
+        {
+            var statistics = await _resp.GetDetailFundsStatisticsAsync(fundId);
+            return Ok(new ApiResponseDTO<Object> { data = statistics, message = "Success" });
+        }
     }
 }
