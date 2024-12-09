@@ -29,7 +29,7 @@ namespace asp.Services.ProjectFundDone
             _collectionProjectFunds = dbHelper.GetCollection<ProjectFunds>();
             _collectionMomoCreatePaymentResponseModel = dbHelper.GetCollection<MomoExecuteResponseModel>();
         }
-        //tạo dự án
+        //get thông tin dự án, sứ giả, tổ chức và tiền ủng hộ
         public async Task<FundsStatisticsDTO> GetFundsStatisticsAsync()
         {
             var projectFundsCount = await _collectionProjectFunds.CountDocumentsAsync(Builders<ProjectFunds>.Filter.Empty);
