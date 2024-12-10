@@ -52,15 +52,15 @@ namespace asp.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllProjectFunds(int page = 1, int size = 10, string filterType = FilterListProjectFund.ALL)
+        public async Task<IActionResult> GetAllProjectFunds(int page = 1, int size = 10, string filterType = FilterListProjectFund.ALL, string? fundId = null)
         {
             var skipAmount = (page - 1) * size;
             List<ProjectFunds> datas;
             long totalProjectFunds;
-            datas = await _resp.GetAllAsync(skipAmount, size, filterType);
+            datas = await _resp.GetAllAsync(skipAmount, size, filterType, fundId);
             totalProjectFunds = await _resp.CountAsync();
 
-            if (datas != null )
+            if (datas != null)
             {
                 var response = new
                 {
@@ -78,7 +78,35 @@ namespace asp.Controllers
                 return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi." });
             }
         }
-        
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetAllProjectFunds(int page = 1, int size = 10, string filterType = FilterListProjectFund.ALL)
+        //{
+        //    var skipAmount = (page - 1) * size;
+        //    List<ProjectFunds> datas;
+        //    long totalProjectFunds;
+        //    datas = await _resp.GetAllAsync(skipAmount, size, filterType);
+        //    totalProjectFunds = await _resp.CountAsync();
+
+        //    if (datas != null )
+        //    {
+        //        var response = new
+        //        {
+        //            message = "success",
+        //            datas,
+        //            totalPages = (int)Math.Ceiling((double)totalProjectFunds / size),
+        //            currentPage = page,
+        //            totalRecords = totalProjectFunds
+        //        };
+
+        //        return Ok(response);
+        //    }
+        //    else
+        //    {
+        //        return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi." });
+        //    }
+        //}
+
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProjectFundById(string id)
         {

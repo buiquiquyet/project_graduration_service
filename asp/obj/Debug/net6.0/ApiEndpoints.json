@@ -1084,6 +1084,11 @@
         "Name": "filterType",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "fundId",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
