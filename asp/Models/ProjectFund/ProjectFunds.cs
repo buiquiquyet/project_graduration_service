@@ -29,9 +29,10 @@ public class ProjectFunds
     //public string? images { get; set; } // Ảnh của dự án
     //public IFormFile? imagesIFormFile { get; set; } // Ảnh của dự án
     public List<string>? images { get; set; } // Cập nhật để lưu danh sách tên ảnh
-                                             //public IFormFileCollection imagesIFormFile { get; set; } // Danh sách các tệp ảnh
+    public List<string>? video { get; set; } // Cập nhật để lưu danh sách video
     [NotMapped]
     public List<IFormFile>? imagesIFormFile { get; set; } // Danh sách các file ảnh gửi lên từ client
+    public List<IFormFile>? videoIFormFile { get; set; } // Danh sách các file video gửi lên từ client
     public string? description { get; set; } // Mô tả của dự án
     public string? targetAmount { get; set; } // số tiền mục tiêu
     public string? currentAmount { get; set; } // số tiền hiện tại
