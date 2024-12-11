@@ -123,9 +123,64 @@ namespace asp.Services.User
             return result.MatchedCount > 0;
         }
 
+        // lấy list người dùng
+        public async Task<List<Users>> GetAllAsync(int skipAmount, int pageSize)
+        {
+            var sortDefinition = Builders<Users>.Sort.Descending(x => x.Id);
 
+            // Lấy tất cả ProjectFunds với các trang (skip và limit)
+            var projectFunds = await _collection.Find(_ => true)
+                                                .Skip(skipAmount)
+                                                .Sort(sortDefinition)
+                                                .Limit(pageSize)
+                                                .ToListAsync();
 
+            return projectFunds;
+        }
 
+        public async Task<long> CountAsync()
+        {
+            return await _collection.CountDocumentsAsync(_ => true);
+        }
+        // xoá danh sách các người dùng
+        public async Task<long> DeleteByIdsAsync(List<string> ids)
+        {
+            if (ids == null || ids.Count == 0)
+            {
+                throw new ArgumentException("The list of ids cannot be null or empty.");
+            }
+
+            var objectIdList = new List<ObjectId>();
+
+            foreach (var id in ids)
+            {
+                if (ObjectId.TryParse(id, out var objectId))
+                {
+                    // Tạo filter để tìm tài liệu cần cập nhật theo _id
+                    var filterFund = Builders<Users>.Filter.Eq("_id", ObjectId.Parse(id));
+
+                    // Tìm tài liệu trước khi cập nhật để lấy ảnh cũ
+                    var existingEntity = await _collection.Find(filterFund).FirstOrDefaultAsync();
+                    // Nếu có ảnh cũ trong cơ sở dữ liệu và có ảnh mới, xóa ảnh cũ
+                    if (existingEntity != null && !string.IsNullOrEmpty(existingEntity.avatar))
+                    {
+                        // Xóa ảnh cũ
+                        SaveFileHelper.DeleteProjectFile(existingEntity.avatar);
+                    }
+
+                    objectIdList.Add(objectId);
+                }
+                else
+                {
+                    throw new ArgumentException($"Invalid id format: {id}");
+                }
+            }
+
+            var filter = Builders<Users>.Filter.In("_id", objectIdList);
+            var result = await _collection.DeleteManyAsync(filter);
+
+            return result.DeletedCount;
+        }
 
         //// lưu file vào server khi đẩy lên
         //private async Task<string> SaveFileAsync(IFormFile file)
@@ -200,10 +255,7 @@ namespace asp.Services.User
         //                                    .Limit(pageSize)
         //                                    .ToListAsync();
         //        }
-        //        public async Task<long> CountAsync()
-        //        {
-        //                return await _collection.CountDocumentsAsync(_ => true);
-        //        }
+
         //        
         //        public async Task<Users?> GetByTenDangNhapAsync(string tendangnhap) =>
         //            await _collection.Find(Builders<Users>.Filter.Eq("tendangnhap", tendangnhap)).FirstOrDefaultAsync();

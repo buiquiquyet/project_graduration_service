@@ -104,6 +104,56 @@ namespace asp.Controllers
                 return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Upload thất bại." });
             }
         }
+        [HttpGet]
+        public async Task<IActionResult> GetAllUsers(int page = 1, int size = 10)
+        {
+            var skipAmount = (page - 1) * size;
+            List<Users> datas;
+            long totalCharityFunds;
+            datas = await _resp.GetAllAsync(skipAmount, size);
+            totalCharityFunds = await _resp.CountAsync();
+
+            if (datas != null)
+            {
+                var response = new
+                {
+                    message = "success",
+                    datas,
+                    totalPages = (int)Math.Ceiling((double)totalCharityFunds / size),
+                    currentPage = page,
+                    totalRecords = totalCharityFunds
+                };
+
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi." });
+            }
+        }
+
+        [HttpDelete("deleteByIds")]
+        public async Task<IActionResult> DeleteRecords([FromBody] List<string> ids)
+        {
+            if (ids == null || ids.Count == 0)
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Danh sách ID không được để trống." });
+            }
+
+            try
+            {
+                var deletedCount = await _resp.DeleteByIdsAsync(ids);
+                return Ok(new ApiResponseDTO<object> { data = new { error = "Success" }, message = $"Xóa thành công {deletedCount} người dùng." });
+            }
+            catch (ArgumentException ex)
+            {
+                return BadRequest(new ApiResponseDTO<object> { data = new { error = "Error" }, message = ex.Message });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new ApiResponseDTO<object> { data = new { error = "Error" }, message = "Đã xảy ra lỗi trong quá trình xử lý yêu cầu." });
+            }
+        }
         //[HttpGet]
         //public async Task<IActionResult> GetAllUsers(int page = 1 , int size = 10 )
         //{
@@ -132,7 +182,7 @@ namespace asp.Controllers
         //        return Json(errorObject);
         //    }
         //}
-       
+
         //[HttpGet("tendangnhap/{tendangnhap}")]
         //public async Task<IActionResult> GetByTenDangNhapAsync(string tendangnhap)
         //{
