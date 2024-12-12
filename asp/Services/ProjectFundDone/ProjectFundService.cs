@@ -36,7 +36,6 @@ namespace asp.Respositories
         {
             // Biến lưu danh sách tên file ảnh
             var imageFileNames = new List<string>();
-
             // Kiểm tra và xử lý file ảnh
             if (request.imagesIFormFile != null && request.imagesIFormFile.Count > 0)
             {
@@ -53,6 +52,24 @@ namespace asp.Respositories
                 imageFileNames = new List<string>();
             }
 
+            // lưu file video
+            var videoFileNames = new List<string>();
+            // Kiểm tra và xử lý file video
+            if (request.videoIFormFile != null && request.videoIFormFile.Count > 0)
+            {
+                foreach (var videoFile in request.videoIFormFile)
+                {
+                    // Lưu từng file và lấy tên file
+                    var fileName = await SaveFileHelper.SaveFileAsync(videoFile);
+                    videoFileNames.Add(fileName);
+                }
+            }
+            else
+            {
+                // Trường hợp không có ảnh (nếu cần thiết có thể gán giá trị mặc định)
+                videoFileNames = new List<string>();
+            }
+
             // Tạo đối tượng ProjectFunds từ dữ liệu request
             var registerAuth = new ProjectFunds
             {
@@ -60,6 +77,7 @@ namespace asp.Respositories
                 idCategory = request.idCategory,
                 name = request.name,
                 images = imageFileNames, // Gán danh sách tên file ảnh
+                video = videoFileNames, // Gán danh sách tên file video
                 description = request.description,
                 targetAmount = request.targetAmount,
                 currentAmount = request.currentAmount,
@@ -222,6 +240,30 @@ namespace asp.Respositories
                 // Cập nhật file ảnh mới
                 updates.Add(Builders<ProjectFunds>.Update.Set(x => x.images, newImageFilePaths));
             }
+            // Xử lý video mới nếu có
+            if (updatedEntity.videoIFormFile != null && updatedEntity.videoIFormFile.Count > 0)
+            {
+                // Lưu tất cả các ảnh mới và lấy đường dẫn của các video
+                var newVideoFilePaths = new List<string>();
+                foreach (var videoFile in updatedEntity.videoIFormFile)
+                {
+                    var newImageFilePath = await SaveFileHelper.SaveFileAsync(videoFile);
+                    newVideoFilePaths.Add(newImageFilePath);
+                }
+
+                // Nếu có video cũ trong cơ sở dữ liệu và có video mới, xóa video cũ
+                if (existingEntity != null && existingEntity.video != null && existingEntity.video.Count > 0)
+                {
+                    foreach (var oldVideo in existingEntity.video)
+                    {
+                        // Xóa video cũ
+                        SaveFileHelper.DeleteProjectFile(oldVideo);
+                    }
+                }
+
+                // Cập nhật file video mới
+                updates.Add(Builders<ProjectFunds>.Update.Set(x => x.video, newVideoFilePaths));
+            }
 
             // Kết hợp tất cả các cập nhật thành một UpdateDefinition
             var updateDefinition = Builders<ProjectFunds>.Update.Combine(updates);
@@ -233,93 +275,6 @@ namespace asp.Respositories
             return result.MatchedCount > 0;
         }
 
-
-        // lấy list các dự án
-        //public async Task<List<ProjectFunds>> GetAllAsync(int skipAmount, int pageSize, string filterType = FilterListProjectFund.ALL)
-        //{
-        //    var sortDefinition = Builders<ProjectFunds>.Sort.Descending(x => x.Id);
-
-        //    // Lấy tất cả ProjectFunds với các trang (skip và limit)
-        //    var projectFunds = await _collection.Find(_ => true)
-        //                                        .Skip(skipAmount)
-        //                                        .Sort(sortDefinition)
-        //                                        .Limit(pageSize)
-        //                                        .ToListAsync();
-
-        //    // Lấy danh sách các idFund duy nhất từ ProjectFunds
-        //    var fundIds = projectFunds.Select(p => p.idFund).Distinct().ToList();
-        //    // Lấy danh sách các idCategory duy nhất từ ProjectFunds
-        //    var categoryIds = projectFunds.Select(p => p.idCategory).Distinct().ToList();
-
-        //    // Truy vấn CharityFunds theo danh sách fundIds
-        //    var charityFunds = await _collectionCharityFund
-        //        .Find(fund => fundIds.Contains(fund.Id))
-        //        .ToListAsync();
-        //    // Truy vấn Categorys theo danh sách categoryIds
-        //    var categorys = await _collectionCategory
-        //        .Find(fund => categoryIds.Contains(fund.Id))
-        //        .ToListAsync();
-
-        //    // Tạo một dictionary ánh xạ idFund -> name từ CharityFunds
-        //    var fundNamesMapping = charityFunds.ToDictionary(fund => fund.Id,  fund => new { fund.name, fund.images });
-        //    // Tạo một dictionary ánh xạ idFund -> name từ Categorys
-        //    var categoryNamesMapping = categorys.ToDictionary(category => category.Id, category => category.name);
-
-        //    // Gán tên của CharityFund vào ProjectFunds
-        //    foreach (var project in projectFunds)
-        //    {
-        //        // Kiểm tra xem idFund có phải là null không
-        //        if (project.idFund != null && fundNamesMapping.ContainsKey(project.idFund))
-        //        {
-        //            var fund = fundNamesMapping[project.idFund];
-        //            project.nameFund = fund.name; // Gán tên vào thuộc tính nameFund
-        //            project.imageFund = fund.images; // Gán danh sách ảnh vào thuộc tính imageFund
-        //        }
-        //        // Kiểm tra xem idFund có phải là null không
-        //        if (project.idCategory != null && categoryNamesMapping.ContainsKey(project.idCategory))
-        //        {
-        //            project.nameCategory = categoryNamesMapping[project.idCategory]; // Gán tên vào thuộc tính nameFund
-        //        }
-        //        else
-        //        {
-        //            // Nếu không có idFund hợp lệ, bạn có thể gán giá trị mặc định hoặc bỏ qua
-        //            project.nameFund = "Unknown Fund"; // Hoặc bạn có thể để trống (null)
-        //        }
-        //        // Tính phần trăm đạt được
-        //        if (!string.IsNullOrEmpty(project.currentAmount) &&
-        //            decimal.TryParse(project.currentAmount, out var currentAmount) &&
-        //            decimal.TryParse(project.targetAmount, out var targetAmount) &&
-        //            targetAmount > 0)
-        //        {
-        //            project.percent = ((currentAmount / targetAmount) * 100).ToString("0.##");
-        //        }
-        //        else
-        //        {
-        //            project.percent = "0";
-        //        }
-        //    }
-
-        //    // Lọc các dự án theo endDate
-        //    var currentDate = DateTime.Now;
-
-        //    if (filterType == FilterListProjectFund.ENDED)
-        //    {
-        //        // Lọc các dự án có endDate trước ngày hôm nay
-        //        projectFunds = projectFunds
-        //            .Where(p => !string.IsNullOrEmpty(p.endDate) && DateTime.TryParse(p.endDate, out DateTime endDateValue) && endDateValue.Date < currentDate.Date)
-        //            .ToList();
-        //    }
-        //    else if (filterType == FilterListProjectFund.IN_PROCESSING)
-        //    {
-        //        // Lọc các dự án có endDate sau ngày hôm nay
-        //        projectFunds = projectFunds
-        //            .Where(p => !string.IsNullOrEmpty(p.endDate) && DateTime.TryParse(p.endDate, out DateTime endDateValue) && endDateValue.Date >= currentDate.Date)
-        //            .ToList();
-        //    }
-
-        //    // Nếu không có filterType, lấy tất cả các dự án mà không lọc theo endDate
-        //    return projectFunds;
-        //}
         public async Task<List<ProjectFunds>> GetAllAsync(int skipAmount, int pageSize, string filterType = FilterListProjectFund.ALL, string fundId = null)
         {
             var sortDefinition = Builders<ProjectFunds>.Sort.Descending(x => x.Id);
@@ -441,7 +396,7 @@ namespace asp.Respositories
                     // Tạo filter để tìm tài liệu cần xóa theo _id
                     var filterFund = Builders<ProjectFunds>.Filter.Eq("_id", ObjectId.Parse(id));
 
-                    // Tìm tài liệu trước khi xóa để lấy ảnh cũ
+                    // Tìm tài liệu trước khi xóa để lấy ảnh cũ, video cũ
                     var existingEntity = await _collection.Find(filterFund).FirstOrDefaultAsync();
 
                     // Nếu tài liệu tồn tại và có ảnh, xóa tất cả ảnh cũ
@@ -452,6 +407,17 @@ namespace asp.Respositories
                         {
                             // Xóa từng ảnh
                             SaveFileHelper.DeleteProjectFile(image);
+                        }
+                    }
+
+                    // Nếu tài liệu tồn tại và có video, xóa tất cả video cũ
+                    if (existingEntity != null && existingEntity.video != null && existingEntity.video.Count > 0)
+                    {
+                        // Lặp qua danh sách video và xóa từng video
+                        foreach (var video in existingEntity.video)
+                        {
+                            // Xóa từng video
+                            SaveFileHelper.DeleteProjectFile(video);
                         }
                     }
 
