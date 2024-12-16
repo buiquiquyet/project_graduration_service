@@ -75,6 +75,8 @@ namespace asp.Controllers
             var topDonors = await _momoService.GetTop3DonorsAsync();
             return Ok(new ApiResponseDTO<Object> { data = new { topDonors }, message = "success" });
         }
+
+
         [Route("paymentCallback")]
         public async Task<IActionResult> PaymentCallBack()
         {
@@ -85,8 +87,36 @@ namespace asp.Controllers
             {
                 return BadRequest(new { message = "Error processing payment: Missing parameters" });
             }
+            // Tạo HTML đẹp với nội dung thông báo thanh toán thành công hoặc thất bại
+            string htmlResponse = "<html lang='en'>";
+            htmlResponse += "<head>";
+            htmlResponse += "<meta charset='UTF-8' />";
+            htmlResponse += "<meta name='viewport' content='width=device-width, initial-scale=1.0' />";
+            htmlResponse += "<title>Payment Status</title>";
+            htmlResponse += "<style>";
+            htmlResponse += "body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; display: flex; justify-content: center; align-items: center; height: 100vh;}";
+            htmlResponse += "h1 { color: #27ae60; font-size: 2rem; text-align: center; margin-bottom: 20px;}";
+            htmlResponse += "p { color: #555; text-align: center; font-size: 1.2rem; margin-bottom: 30px;}";
+            htmlResponse += ".btn { background-color: #3498db; color: white; border: none; padding: 10px 20px; font-size: 1rem; cursor: pointer; border-radius: 5px; text-align: center;}";
+            htmlResponse += ".btn:hover { background-color: #2980b9; }";
+            htmlResponse += "</style>";
+            htmlResponse += "</head>";
+            htmlResponse += "<body>";
 
-            return Ok(new ApiResponseDTO<Object> { data = new { response }, message = "success" });
+            //if (response.Amount != null && response.Amount == "ExpectedAmount") // Điều kiện thanh toán thành công
+            //{
+            htmlResponse += "<h1>Thanh toán thành công!</h1>";
+            htmlResponse += "<p>Cảm ơn bạn đã đóng góp cho dự án.</p>";
+            htmlResponse += "<p>Vui lòng quay lại trang dự án để xem chi tiết.</p>";
+            htmlResponse += $"<a href='http://localhost:5173/project-fund-detail/{response.ProjectFundId}' class='btn'>Quay lại trang Donate</a>";
+            //}
+           
+
+            htmlResponse += "</body>";
+            htmlResponse += "</html>";
+
+            return Content(htmlResponse, "text/html");
+            //return Ok(new ApiResponseDTO<Object> { data = new { response }, message = "success" });
         }
         [HttpGet("export-excel/{projectFundId}")]
         public async Task<IActionResult> ExportDonatesToExcelAsync(string projectFundId, int page, int size = 10)

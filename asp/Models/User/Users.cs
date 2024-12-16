@@ -25,7 +25,10 @@ namespace asp.Models.User
 
         //public IFormFile? avatarFile { get; set; } // File avatar
         [BsonElement("isEmissary")]
-        public bool? isEmissary { get; set; } = true;  // có là sứ giả
+        public bool? isEmissary { get; set; } = false;  // có là sứ giả
+
+        [BsonElement("isEmissaryApproved")]
+        public string? isEmissaryApproved { get; set; } = "";  // đã duyệt thành sứ giả
         public string? avatar { get; set; } = ""; // ảnh
 
         [BsonElement("verificationCode")]
@@ -57,6 +60,12 @@ namespace asp.Models.User
 
         [BsonElement("phone")]
         public string? phone { get; set; } = "";  // số điện thoại
+
+        [BsonElement("cccd1")]
+        public string? cccd1 { get; set; } = "";  // mặt trước căn cước công dân
+
+        [BsonElement("cccd2")]
+        public string? cccd2 { get; set; } = "";  // mặt sau căn cước công dân
 
         [BsonElement("createdAt")]
         public DateTime createdAt { get; set; } = DateTime.Now;  // tạo lúc

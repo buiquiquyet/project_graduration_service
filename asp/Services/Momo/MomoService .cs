@@ -99,76 +99,160 @@ namespace asp.Services.Momo
             return hashString;
         }
         // lưu giao dịch donate
+        //public async Task<MomoExecuteResponseModel> PaymentExecuteAsync(IQueryCollection collection)
+        //{
+        //    // Sử dụng FirstOrDefault để tránh ngoại lệ nếu không có tham số
+        //    var amountPair = collection.FirstOrDefault(s => s.Key == "amount");
+        //    var orderInfoPair = collection.FirstOrDefault(s => s.Key == "orderInfo");
+        //    var storeId = collection.FirstOrDefault(s => s.Key == "extraData");
+        //    var orderIdPair = collection.FirstOrDefault(s => s.Key == "orderId");
+        //    Console.WriteLine("The answer is: " + collection);
+        //    // Kiểm tra nếu không tìm thấy phần tử
+        //    if (amountPair.Equals(default(KeyValuePair<string, StringValues>)) ||
+        //        orderInfoPair.Equals(default(KeyValuePair<string, StringValues>)) ||
+        //        orderIdPair.Equals(default(KeyValuePair<string, StringValues>)))
+        //    {
+        //        // Trả về null nếu không tìm thấy bất kỳ tham số nào
+        //        return null;
+        //    }
+
+        //    var data = new MomoExecuteResponseModel()
+        //    {
+        //        Amount = amountPair.Value.ToString(),  // Chuyển đổi giá trị sang chuỗi
+        //        //OrderId = orderIdPair.Value.ToString(),
+        //        //OrderInfo = orderInfoPair.Value.ToString(),
+        //        UserId = storeId.Value.ToString(), // id của người dùng
+        //        ProjectFundId = orderInfoPair.Value.ToString(), // id của người từ thiện
+        //        CreatedAt = DateTime.Now // Ghi nhận thời gian tạo
+        //    };
+        //    try
+        //    {
+        //        // Chèn dữ liệu vào collection MongoDB
+        //        await _collection.InsertOneAsync(data);
+        //        // Tìm bản ghi ProjectFunds dựa trên ProjectFundId
+        //        var projectFund = await _collectionProjectFund
+        //            .Find(pf => pf.Id == data.ProjectFundId)
+        //            .FirstOrDefaultAsync();
+
+        //        if (projectFund != null)
+        //        {
+        //            // Kiểm tra và xử lý các giá trị currentAmount không hợp lệ
+        //            if (string.IsNullOrEmpty(projectFund.currentAmount) || !decimal.TryParse(projectFund.currentAmount, out var currentAmount))
+        //            {
+        //                currentAmount = 0;
+        //            }
+        //            // Cộng số tiền giao dịch vào currentAmount
+        //            if (decimal.TryParse(data.Amount, out var transactionAmount))
+        //            {
+        //                projectFund.currentAmount = (currentAmount + transactionAmount).ToString();
+        //                projectFund.updatedAt = DateTime.Now;
+
+        //                // Cập nhật bản ghi ProjectFunds trong cơ sở dữ liệu
+        //                await _collectionProjectFund.ReplaceOneAsync(
+        //                    pf => pf.Id == projectFund.Id,
+        //                    projectFund);
+        //            }
+        //        }
+        //        // Trả về đối tượng đã chèn, bao gồm cả Id từ MongoDB nếu có
+        //        return data;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Xử lý lỗi (ghi log, ném ngoại lệ, v.v.)
+        //        // Ví dụ: ghi log chi tiết (có thể dùng log framework như NLog, Serilog)
+        //        throw new Exception("Có lỗi xảy ra trong quá trình chèn dữ liệu vào cơ sở dữ liệu: " + ex.Message, ex);
+        //    }
+        //}
         public async Task<MomoExecuteResponseModel> PaymentExecuteAsync(IQueryCollection collection)
         {
-            // Sử dụng FirstOrDefault để tránh ngoại lệ nếu không có tham số
             var amountPair = collection.FirstOrDefault(s => s.Key == "amount");
             var orderInfoPair = collection.FirstOrDefault(s => s.Key == "orderInfo");
             var storeId = collection.FirstOrDefault(s => s.Key == "extraData");
             var orderIdPair = collection.FirstOrDefault(s => s.Key == "orderId");
-            Console.WriteLine("The answer is: " + collection);
-            // Kiểm tra nếu không tìm thấy phần tử
-            if (amountPair.Equals(default(KeyValuePair<string, StringValues>)) ||
-                orderInfoPair.Equals(default(KeyValuePair<string, StringValues>)) ||
-                orderIdPair.Equals(default(KeyValuePair<string, StringValues>)))
+
+            Console.WriteLine("The query parameters: " + string.Join(", ", collection.Select(kv => $"{kv.Key}: {kv.Value}")));
+
+            if (string.IsNullOrEmpty(amountPair.Value) ||
+                string.IsNullOrEmpty(orderInfoPair.Value) ||
+                string.IsNullOrEmpty(orderIdPair.Value) ||
+                string.IsNullOrEmpty(storeId.Value))
             {
-                // Trả về null nếu không tìm thấy bất kỳ tham số nào
                 return null;
             }
 
             var data = new MomoExecuteResponseModel()
             {
-                Amount = amountPair.Value.ToString(),  // Chuyển đổi giá trị sang chuỗi
-                //OrderId = orderIdPair.Value.ToString(),
-                //OrderInfo = orderInfoPair.Value.ToString(),
-                UserId = storeId.Value.ToString(), // id của người dùng
-                ProjectFundId = orderInfoPair.Value.ToString(), // id của người từ thiện
-                CreatedAt = DateTime.Now // Ghi nhận thời gian tạo
+                Amount = amountPair.Value.ToString(),
+                UserId = storeId.Value.ToString(),
+                ProjectFundId = orderInfoPair.Value.ToString(),
+                CreatedAt = DateTime.Now
             };
+
             try
             {
-                // Chèn dữ liệu vào collection MongoDB
+                // Insert transaction data into MongoDB collection
                 await _collection.InsertOneAsync(data);
-                // Tìm bản ghi ProjectFunds dựa trên ProjectFundId
-                var projectFund = await _collectionProjectFund
-                    .Find(pf => pf.Id == data.ProjectFundId)
-                    .FirstOrDefaultAsync();
 
-                if (projectFund != null)
+                // Calculate totalAmount for the store/user (storeId or userId)
+                var pipeline = new[] {
+                    new BsonDocument("$match", new BsonDocument("UserId", data.UserId)),  // Match documents by UserId (storeId)
+                    new BsonDocument("$group", new BsonDocument {
+                        { "_id", "$UserId" },  // Group by UserId (or storeId)
+                        { "totalAmount", new BsonDocument("$sum", new BsonDocument("$toDecimal", "$Amount")) }  // Sum up the Amount
+                    })
+                };
+
+                var result = await _collection.AggregateAsync<BsonDocument>(pipeline);
+                var sumResult = await result.FirstOrDefaultAsync();
+
+                decimal totalAmount = 0;
+                if (sumResult != null && sumResult.Contains("totalAmount"))
                 {
-                    // Kiểm tra và xử lý các giá trị currentAmount không hợp lệ
-                    if (string.IsNullOrEmpty(projectFund.currentAmount) || !decimal.TryParse(projectFund.currentAmount, out var currentAmount))
-                    {
-                        currentAmount = 0;
-                    }
-                    // Cộng số tiền giao dịch vào currentAmount
-                    if (decimal.TryParse(data.Amount, out var transactionAmount))
-                    {
-                        projectFund.currentAmount = (currentAmount + transactionAmount).ToString();
-                        projectFund.updatedAt = DateTime.Now;
+                    totalAmount = sumResult["totalAmount"].ToDecimal();
+                }
 
-                        // Cập nhật bản ghi ProjectFunds trong cơ sở dữ liệu
-                        await _collectionProjectFund.ReplaceOneAsync(
-                            pf => pf.Id == projectFund.Id,
-                            projectFund);
+                Console.WriteLine($"Total Amount for User {data.UserId}: {totalAmount}");
+
+                // Update the user record if totalAmount exceeds 100000
+                if (totalAmount >= 100000)
+                {
+                    var user = await _collectionUser
+                        .Find(u => u.Id == data.UserId)
+                        .FirstOrDefaultAsync();
+
+                    if (user != null)
+                    {
+                        // Check and update isEmissary status if not already true
+                        if (user.isEmissary != true)
+                        {
+                            user.isEmissary = true;
+                            user.updatedAt = DateTime.Now;
+
+                            var updateResult = await _collectionUser.ReplaceOneAsync(u => u.Id == user.Id, user);
+                            Console.WriteLine($"User status updated to Emissary: {updateResult.ModifiedCount} records updated");
+                        }
                     }
                 }
-                // Trả về đối tượng đã chèn, bao gồm cả Id từ MongoDB nếu có
                 return data;
             }
             catch (Exception ex)
             {
-                // Xử lý lỗi (ghi log, ném ngoại lệ, v.v.)
-                // Ví dụ: ghi log chi tiết (có thể dùng log framework như NLog, Serilog)
+                Console.Error.WriteLine("Error occurred while processing payment: " + ex.Message);
                 throw new Exception("Có lỗi xảy ra trong quá trình chèn dữ liệu vào cơ sở dữ liệu: " + ex.Message, ex);
             }
         }
+
+
+
+
+
+
         private bool IsValidObjectId(string id)
         {
             return ObjectId.TryParse(id, out _);
         }
-        // dếm số lượng donate
 
+        // dếm số lượng donate
         public async Task<List<MomoExecuteResponseModel>> GetDonatesByProjectFundIdAsync(string projectFundId, int skipAmount, int pageSize)
         {
             // Lấy danh sách các donate dựa theo projectFundId
@@ -217,197 +301,70 @@ namespace asp.Services.Momo
 
 
         // lấy 3 người donate nhiều nhất
-        //public async Task<List<MomoExecuteResponseModel>> GetTop3DonorsAsync()
-        //{
-        //    var pipeline = new[]
-        //    {
-        //    // Nhóm theo UserId và tính tổng số tiền quyên góp
-        //       new BsonDocument("$group", new BsonDocument
-        //    {
-        //        { "_id", "$UserId" },  // UserId trong MomoExecuteResponseModel
-        //        { "totalAmount", new BsonDocument("$sum", new BsonDocument("$toDecimal", "$Amount")) },
-        //    }),
-        //         new BsonDocument("$addFields", new BsonDocument
-        //    {
-        //        { "UserId",
-        //            new BsonDocument("$cond", new BsonArray
-        //            {
-        //                new BsonDocument("$eq", new BsonArray { "$_id", "" }), // Kiểm tra trường hợp _id là chuỗi rỗng
-        //                "", // Nếu _id là chuỗi rỗng, giữ nguyên chuỗi rỗng
-        //                new BsonDocument("$toObjectId", "$_id") // Nếu không phải chuỗi rỗng, chuyển _id thành ObjectId
-        //            })
-        //        }
-        //    }),
-        //    // Đổi tên _id thành UserId
-        //    new BsonDocument("$project", new BsonDocument
-        //    {
-        //        { "UserId", "$_id" },
-        //        { "totalAmount", 1 },
-        //        { "_id", 0 }
-        //    }),
-        //    // Thực hiện phép nối (join) với bảng Users để lấy thông tin từ bảng Users
-        //       new BsonDocument("$lookup", new BsonDocument
-        //    {
-        //        { "from", "users" }, // Tên bảng (collection) Users
-        //        { "localField", "UserId" }, // Trường trong MomoExecuteResponseModel (UserId)
-        //        { "foreignField", "_id" }, // Trường trong bảng Users để nối với UserId
-        //        { "as", "userInfo" } // Tên trường mới để lưu kết quả nối
-        //    }),
-
-        //    // Chỉ lấy thông tin của người quyên góp đầu tiên trong userInfo
-        //    new BsonDocument("$unwind", new BsonDocument { { "path", "$userInfo" }, { "preserveNullAndEmptyArrays", true } }),
-        //    // Sắp xếp theo tổng số tiền quyên góp giảm dần
-        //    new BsonDocument("$sort", new BsonDocument("totalAmount", -1)),
-        //    // Lấy ra 3 người đứng đầu
-        //    new BsonDocument("$limit", 3)
-        //};
-
-        //    var result = await _collection.AggregateAsync<BsonDocument>(pipeline);
-        //    var topDonors = new List<MomoExecuteResponseModel>();
-
-        //    await result.ForEachAsync(doc =>
-        //    {
-        //        // Lấy thông tin userInfo nếu có
-        //        var userInfo = doc.Contains("userInfo") ? doc["userInfo"].AsBsonDocument : null;
-
-        //        // Nếu userInfo có dữ liệu, lấy thông tin FullName và Avatar, nếu không thì trả về null
-        //        topDonors.Add(new MomoExecuteResponseModel
-        //        {
-        //            UserId = doc["UserId"].AsString,
-        //            Amount = doc["totalAmount"].ToString(),
-        //            FullName = userInfo != null && userInfo.Contains("fullName") ? userInfo["fullName"].AsString : null,
-        //            Avatar = userInfo != null && userInfo.Contains("avatar") ? userInfo["avatar"].AsString : null
-        //        });
-        //    });
-
-        //    return topDonors;
-        //}
         public async Task<List<MomoExecuteResponseModel>> GetTop3DonorsAsync()
         {
-            var pipeline = new[] {
-        // Nhóm theo UserId và tính tổng số tiền quyên góp
-        new BsonDocument("$group", new BsonDocument {
-            { "_id", "$UserId" },  // UserId trong MomoExecuteResponseModel
-            { "totalAmount", new BsonDocument("$sum", new BsonDocument("$toDecimal", "$Amount")) },
-        }),
-        new BsonDocument("$addFields", new BsonDocument {
-            { "UserId",
-                new BsonDocument("$cond", new BsonArray {
-                    new BsonDocument("$eq", new BsonArray { "$_id", "" }), // Kiểm tra trường hợp _id là chuỗi rỗng
-                    "", // Nếu _id là chuỗi rỗng, giữ nguyên chuỗi rỗng
-                    new BsonDocument("$toObjectId", "$_id") // Nếu không phải chuỗi rỗng, chuyển _id thành ObjectId
-                })
-            }
-        }),
-        // Đổi tên _id thành UserId
-        new BsonDocument("$project", new BsonDocument {
-            { "UserId", "$_id" },
-            { "totalAmount", 1 },
-            { "_id", 0 }
-        }),
-        // Thực hiện phép nối (join) với bảng Users để lấy thông tin từ bảng Users
-        new BsonDocument("$lookup", new BsonDocument {
-            { "from", "users" }, // Tên bảng (collection) Users
-            { "localField", "UserId" }, // Trường trong MomoExecuteResponseModel (UserId)
-            { "foreignField", "_id" }, // Trường trong bảng Users để nối với UserId
-            { "as", "userInfo" } // Tên trường mới để lưu kết quả nối
-        }),
-
-        // Chỉ lấy thông tin của người quyên góp đầu tiên trong userInfo
-        new BsonDocument("$unwind", new BsonDocument {
-            { "path", "$userInfo" },
-            { "preserveNullAndEmptyArrays", true }
-        }),
-        // Sắp xếp theo tổng số tiền quyên góp giảm dần
-        new BsonDocument("$sort", new BsonDocument("totalAmount", -1)),
-        // Lấy ra 3 người đứng đầu
-        new BsonDocument("$limit", 3)
-    };
+            var pipeline = new[]
+            {
+                // Nhóm theo UserId và tính tổng số tiền quyên góp
+                new BsonDocument("$group", new BsonDocument
+                {
+                    { "_id", "$UserId" },  // UserId trong MomoExecuteResponseModel
+                    { "totalAmount", new BsonDocument("$sum", new BsonDocument("$toDecimal", "$Amount")) }
+                }),
+                // Đổi tên _id thành UserId
+                new BsonDocument("$project", new BsonDocument
+                {
+                    { "UserId", "$_id" },
+                    { "totalAmount", 1 }
+                }),
+                // Sắp xếp theo tổng số tiền quyên góp giảm dần
+                new BsonDocument("$sort", new BsonDocument("totalAmount", -1)),
+                // Lấy ra 3 người đứng đầu
+                new BsonDocument("$limit", 3)
+            };
 
             var result = await _collection.AggregateAsync<BsonDocument>(pipeline);
             var topDonors = new List<MomoExecuteResponseModel>();
 
+            var userIds = new List<string>();
+
             await result.ForEachAsync(doc =>
             {
-                // Lấy thông tin userInfo nếu có
-                var userInfo = doc.Contains("userInfo") ? doc["userInfo"].AsBsonDocument : null;
-
-                // Nếu userInfo có dữ liệu, lấy thông tin FullName và Avatar, nếu không thì trả về null
+                var userId = doc.Contains("UserId") ? doc["UserId"].AsString : null;
+                if (userId != null && ObjectId.TryParse(userId, out _))
+                {
+                    userIds.Add(userId);
+                }
                 topDonors.Add(new MomoExecuteResponseModel
                 {
-                    UserId = doc["UserId"].AsString,
-                    Amount = doc["totalAmount"].ToString(),
-                    FullName = userInfo != null && userInfo.Contains("fullName") ? userInfo["fullName"].AsString : null,
-                    Avatar = userInfo != null && userInfo.Contains("avatar") ? userInfo["avatar"].AsString : null
+                    UserId = userId,
+                    Amount = doc.Contains("totalAmount") ? doc["totalAmount"].ToString() : null,
+                    FullName = null,  // Mặc định FullName là null
+                    Avatar = null     // Mặc định Avatar là null
                 });
             });
 
+            if (userIds.Count > 0)
+            {
+                var filter = Builders<Users>.Filter.In(u => u.Id, userIds);
+                var users = await _collectionUser.Find(filter).ToListAsync();
+
+                foreach (var donor in topDonors)
+                {
+                    if (!string.IsNullOrEmpty(donor.UserId))
+                    {
+                        var user = users.FirstOrDefault(u => u.Id == donor.UserId);
+                        if (user != null)
+                        {
+                            donor.FullName = user.fullName;
+                            donor.Avatar = user.avatar;
+                        }
+                    }
+                }
+            }
+
             return topDonors;
         }
-
-
-
-
-
-        //    public async Task<List<MomoExecuteResponseModel>> GetTop3DonorsAsync()
-        //    {
-        //        var pipeline = new[] {
-        //    // Nhóm theo UserId và tính tổng số tiền quyên góp
-        //    new BsonDocument("$group", new BsonDocument
-        //    {
-        //        { "_id", "$UserId" },  // UserId trong MomoExecuteResponseModel
-        //        { "totalAmount", new BsonDocument("$sum", new BsonDocument("$toDecimal", "$Amount")) },
-        //    }),
-
-        //    // Chuyển UserId thành ObjectId nếu cần thiết
-        //    new BsonDocument("$addFields", new BsonDocument
-        //    {
-        //        { "UserId",
-        //            new BsonDocument("$cond", new BsonArray
-        //            {
-        //                new BsonDocument("$eq", new BsonArray { "$_id", "" }), // Kiểm tra trường hợp _id là chuỗi rỗng
-        //                "", // Nếu _id là chuỗi rỗng, giữ nguyên chuỗi rỗng
-        //                new BsonDocument("$toObjectId", "$_id") // Nếu không phải chuỗi rỗng, chuyển _id thành ObjectId
-        //            })
-        //        }
-        //    }),
-
-        //    // Thực hiện phép nối (join) với bảng Users để lấy thông tin từ bảng Users
-        //    new BsonDocument("$lookup", new BsonDocument
-        //    {
-        //        { "from", "users" }, // Tên bảng (collection) Users
-        //        { "localField", "UserId" }, // Trường trong MomoExecuteResponseModel (UserId)
-        //        { "foreignField", "_id" }, // Trường trong bảng Users để nối với UserId
-        //        { "as", "userInfo" } // Tên trường mới để lưu kết quả nối
-        //    }),
-
-        //    // Chỉ lấy thông tin của người quyên góp đầu tiên trong userInfo
-        //    new BsonDocument("$unwind", new BsonDocument { { "path", "$userInfo" } }),
-
-        //    // Sắp xếp theo tổng số tiền quyên góp giảm dần
-        //    new BsonDocument("$sort", new BsonDocument("totalAmount", -1)),
-
-        //    // Lấy ra 3 người đứng đầu
-        //    new BsonDocument("$limit", 3)
-        //};
-
-        //        var result = await _collection.AggregateAsync<BsonDocument>(pipeline);
-        //        var topDonors = new List<MomoExecuteResponseModel>();
-
-        //        await result.ForEachAsync(doc =>
-        //        {
-        //            topDonors.Add(new MomoExecuteResponseModel
-        //            {
-        //                UserId = doc["_id"].BsonType == BsonType.Null ? null : doc["_id"].AsString,
-        //                Amount = doc["totalAmount"].ToString(),
-        //                FullName = doc["userInfo"]["fullName"].BsonType == BsonType.Null ? null : doc["userInfo"]["fullName"].AsString, // Lấy fullName từ userInfo
-        //                Avatar = doc["userInfo"]["avatar"].BsonType == BsonType.Null ? null : doc["userInfo"]["avatar"].AsString  // Lấy avatar từ userInfo
-        //            });
-        //        });
-
-        //        return topDonors;
-        //    }
-
 
         //export excel danh sách người donate
         public async Task<byte[]> GenerateDonatesExcelAsync(string projectFundId, int skipAmount, int pageSize)
