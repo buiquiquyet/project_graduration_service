@@ -373,7 +373,7 @@ namespace asp.Services.ProjectFundDone
 
 
         // lấy list các dự án
-        public async Task<List<ProjectFundsProcessing>> GetAllAsync(int skipAmount, int pageSize, string filterType = ApprovedConst.PROCESSING, string userId = "")
+        public async Task<List<ProjectFundsProcessing>> GetAllAsync(int skipAmount, int pageSize, string filterType = ApprovedConst.PROCESSING, string userId = "", string searchValue = null)
         {
             var sortDefinition = Builders<ProjectFundsProcessing>.Sort.Descending(x => x.Id);
 
@@ -386,7 +386,19 @@ namespace asp.Services.ProjectFundDone
                 filterDefinition &= Builders<ProjectFundsProcessing>.Filter.Eq(p => p.userId, userId);
             }
 
-            // Lấy tất cả ProjectFunds với các trang (skip và limit)
+            // Xử lý tìm kiếm (loại bỏ dấu và chuyển sang chữ thường)
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+
+                // Tạo bộ lọc tìm kiếm không dấu và không phân biệt hoa thường cho trường fullName
+                var searchFilter = Builders<ProjectFundsProcessing>.Filter.Regex(
+                    x => x.name, new BsonRegularExpression($"(?i).*{searchValue}.*")
+                );
+               
+                filterDefinition &= searchFilter; // Áp dụng điều kiện tìm kiếm vào filter
+            }
+
+            // Lấy danh sách các dự án theo các điều kiện và phân trang
             var projectFunds = await _collection.Find(filterDefinition)
                                                 .Skip(skipAmount)
                                                 .Sort(sortDefinition)
@@ -409,29 +421,34 @@ namespace asp.Services.ProjectFundDone
 
             // Tạo một dictionary ánh xạ idFund -> name từ CharityFunds
             var fundNamesMapping = charityFunds.ToDictionary(fund => fund.Id, fund => new { fund.name, fund.images });
-            // Tạo một dictionary ánh xạ idFund -> name từ Categorys
+            // Tạo một dictionary ánh xạ idCategory -> name từ Categorys
             var categoryNamesMapping = categorys.ToDictionary(category => category.Id, category => category.name);
 
-            // Gán tên của CharityFund vào ProjectFunds
+            // Gán tên của CharityFund và Category vào ProjectFunds
             foreach (var project in projectFunds)
             {
-                // Kiểm tra xem idFund có phải là null không
+                // Kiểm tra và gán tên của CharityFund
                 if (project.idFund != null && fundNamesMapping.ContainsKey(project.idFund))
                 {
                     var fund = fundNamesMapping[project.idFund];
-                    project.nameFund = fund.name; // Gán tên vào thuộc tính nameFund
-                    project.imageFund = fund.images; // Gán danh sách ảnh vào thuộc tính imageFund
-                }
-                // Kiểm tra xem idFund có phải là null không
-                if (project.idCategory != null && categoryNamesMapping.ContainsKey(project.idCategory))
-                {
-                    project.nameCategory = categoryNamesMapping[project.idCategory]; // Gán tên vào thuộc tính nameCategory
+                    project.nameFund = fund.name;
+                    project.imageFund = fund.images;
                 }
                 else
                 {
-                    // Nếu không có idFund hợp lệ, bạn có thể gán giá trị mặc định hoặc bỏ qua
-                    project.nameFund = "Unknown Fund"; // Hoặc bạn có thể để trống (null)
+                    project.nameFund = "Unknown Fund"; // Gán giá trị mặc định nếu không tìm thấy
                 }
+
+                // Kiểm tra và gán tên của Category
+                if (project.idCategory != null && categoryNamesMapping.ContainsKey(project.idCategory))
+                {
+                    project.nameCategory = categoryNamesMapping[project.idCategory];
+                }
+                else
+                {
+                    project.nameCategory = "Unknown Category"; // Gán giá trị mặc định nếu không tìm thấy
+                }
+
                 // Tính phần trăm đạt được
                 if (!string.IsNullOrEmpty(project.currentAmount) &&
                     decimal.TryParse(project.currentAmount, out var currentAmount) &&
@@ -446,35 +463,23 @@ namespace asp.Services.ProjectFundDone
                 }
             }
 
-            // Lọc các dự án theo endDate
-            var currentDate = DateTime.Now;
-
-            // Lọc các dự án dựa trên isApproved và endDate
+            // Lọc các dự án theo trạng thái isApproved (processing, approved, rejected)
             if (filterType == ApprovedConst.PROCESSING)
             {
-                // Lọc các dự án có isApproved là PROCESSING
-                projectFunds = projectFunds
-                    .Where(p => p.isApproved == ApprovedConst.PROCESSING)
-                    .ToList();
+                projectFunds = projectFunds.Where(p => p.isApproved == ApprovedConst.PROCESSING).ToList();
             }
             else if (filterType == ApprovedConst.APPROVED)
             {
-                // Lọc các dự án có isApproved là APPROVED
-                projectFunds = projectFunds
-                    .Where(p => p.isApproved == ApprovedConst.APPROVED)
-                    .ToList();
+                projectFunds = projectFunds.Where(p => p.isApproved == ApprovedConst.APPROVED).ToList();
             }
             else if (filterType == ApprovedConst.REJECTED)
             {
-                // Lọc các dự án có isApproved là REJECTED
-                projectFunds = projectFunds
-                    .Where(p => p.isApproved == ApprovedConst.REJECTED)
-                    .ToList();
+                projectFunds = projectFunds.Where(p => p.isApproved == ApprovedConst.REJECTED).ToList();
             }
 
-            // Nếu không có filterType, lấy tất cả các dự án mà không lọc theo endDate
             return projectFunds;
         }
+
 
 
         // đếm số lượng bản ghi

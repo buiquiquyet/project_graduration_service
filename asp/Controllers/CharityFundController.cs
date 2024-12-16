@@ -49,12 +49,12 @@ namespace asp.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllCharityFunds(int page = 1, int size = 10)
+        public async Task<IActionResult> GetAllCharityFunds(int page = 1, int size = 10, string? searchValue = null)
         {
             var skipAmount = (page - 1) * size;
             List<CharityFunds> datas;
             long totalCharityFunds;
-            datas = await _resp.GetAllAsync(skipAmount, size);
+            datas = await _resp.GetAllAsync(skipAmount, size, searchValue);
             totalCharityFunds = await _resp.CountAsync();
 
             if (datas != null )

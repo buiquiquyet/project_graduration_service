@@ -52,12 +52,12 @@ namespace asp.Controllers
             }
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllProjectFunds(int page = 1, int size = 10, string filterType = FilterListProjectFund.ALL, string? fundId = null)
+        public async Task<IActionResult> GetAllProjectFunds(int page = 1, int size = 10, string filterType = FilterListProjectFund.ALL, string? fundId = null, string? searchValue = null)
         {
             var skipAmount = (page - 1) * size;
             List<ProjectFunds> datas;
             long totalProjectFunds;
-            datas = await _resp.GetAllAsync(skipAmount, size, filterType, fundId);
+            datas = await _resp.GetAllAsync(skipAmount, size, filterType, fundId, searchValue);
             totalProjectFunds = await _resp.CountAsync();
 
             if (datas != null)

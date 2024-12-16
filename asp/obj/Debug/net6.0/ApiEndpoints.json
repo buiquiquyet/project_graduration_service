@@ -47,6 +47,11 @@
         "Name": "size",
         "Type": "System.Int32",
         "IsRequired": false
+      },
+      {
+        "Name": "searchValue",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -196,6 +201,11 @@
       {
         "Name": "size",
         "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "searchValue",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],
@@ -1099,6 +1109,11 @@
         "Name": "fundId",
         "Type": "System.String",
         "IsRequired": false
+      },
+      {
+        "Name": "searchValue",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []
@@ -1244,6 +1259,11 @@
       },
       {
         "Name": "userId",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "searchValue",
         "Type": "System.String",
         "IsRequired": false
       }
@@ -2060,6 +2080,11 @@
       {
         "Name": "size",
         "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "searchValue",
+        "Type": "System.String",
         "IsRequired": false
       }
     ],

@@ -274,8 +274,8 @@ namespace asp.Respositories
             // Kiểm tra xem có tài liệu nào được cập nhật không
             return result.MatchedCount > 0;
         }
-
-        public async Task<List<ProjectFunds>> GetAllAsync(int skipAmount, int pageSize, string filterType = FilterListProjectFund.ALL, string fundId = null)
+        // lấy list của các dự án
+        public async Task<List<ProjectFunds>> GetAllAsync(int skipAmount, int pageSize, string filterType = FilterListProjectFund.ALL, string fundId = null, string searchValue = null)
         {
             var sortDefinition = Builders<ProjectFunds>.Sort.Descending(x => x.Id);
 
@@ -286,6 +286,34 @@ namespace asp.Respositories
                 filter = Builders<ProjectFunds>.Filter.Eq(x => x.idFund, fundId);
             }
 
+            // Điều chỉnh filter để bao gồm điều kiện tìm kiếm nếu searchTerm không rỗng hoặc null
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                var normalizedSearchValue = SearchVie.RemoveDiacritics(searchValue);
+
+                // Tìm kiếm trên các trường có sẵn trong tài liệu gốc
+                var searchFilter = Builders<ProjectFunds>.Filter.Or(
+                    Builders<ProjectFunds>.Filter.Regex(x => x.name, new BsonRegularExpression($".*{searchValue}.*", "i")),
+                    Builders<ProjectFunds>.Filter.Regex(x => x.name, new BsonRegularExpression($".*{normalizedSearchValue}.*", "i"))
+                );
+
+                // Tìm kiếm nameFund trong bộ sưu tập CharityFunds trước
+                var charityFundFilter = Builders<CharityFunds>.Filter.Or(
+                    Builders<CharityFunds>.Filter.Regex(x => x.name, new BsonRegularExpression($".*{searchValue}.*", "i")),
+                    Builders<CharityFunds>.Filter.Regex(x => x.name, new BsonRegularExpression($".*{normalizedSearchValue}.*", "i"))
+                );
+                var charityFundsSearch = await _collectionCharityFund.Find(charityFundFilter).ToListAsync();
+                var fundIds = charityFundsSearch.Select(f => f.Id).ToList();
+
+                if (fundIds.Any())
+                {
+                    var fundIdFilter = Builders<ProjectFunds>.Filter.In(x => x.idFund, fundIds);
+                    searchFilter = Builders<ProjectFunds>.Filter.Or(searchFilter, fundIdFilter);
+                }
+
+                filter = Builders<ProjectFunds>.Filter.And(filter, searchFilter);
+            }
+
             // Lấy tất cả ProjectFunds với các trang (skip và limit)
             var projectFunds = await _collection.Find(filter)
                                                 .Skip(skipAmount)
@@ -294,22 +322,22 @@ namespace asp.Respositories
                                                 .ToListAsync();
 
             // Lấy danh sách các idFund duy nhất từ ProjectFunds
-            var fundIds = projectFunds.Select(p => p.idFund).Distinct().ToList();
+            var uniqueFundIds = projectFunds.Select(p => p.idFund).Distinct().ToList();
             // Lấy danh sách các idCategory duy nhất từ ProjectFunds
-            var categoryIds = projectFunds.Select(p => p.idCategory).Distinct().ToList();
+            var uniqueCategoryIds = projectFunds.Select(p => p.idCategory).Distinct().ToList();
 
-            // Truy vấn CharityFunds theo danh sách fundIds
+            // Truy vấn CharityFunds theo danh sách uniqueFundIds
             var charityFunds = await _collectionCharityFund
-                .Find(fund => fundIds.Contains(fund.Id))
+                .Find(fund => uniqueFundIds.Contains(fund.Id))
                 .ToListAsync();
-            // Truy vấn Categorys theo danh sách categoryIds
+            // Truy vấn Categorys theo danh sách uniqueCategoryIds
             var categorys = await _collectionCategory
-                .Find(fund => categoryIds.Contains(fund.Id))
+                .Find(category => uniqueCategoryIds.Contains(category.Id))
                 .ToListAsync();
 
             // Tạo một dictionary ánh xạ idFund -> name từ CharityFunds
             var fundNamesMapping = charityFunds.ToDictionary(fund => fund.Id, fund => new { fund.name, fund.images });
-            // Tạo một dictionary ánh xạ idFund -> name từ Categorys
+            // Tạo một dictionary ánh xạ idCategory -> name từ Categorys
             var categoryNamesMapping = categorys.ToDictionary(category => category.Id, category => category.name);
 
             // Gán tên của CharityFund vào ProjectFunds
@@ -322,15 +350,15 @@ namespace asp.Respositories
                     project.nameFund = fund.name; // Gán tên vào thuộc tính nameFund
                     project.imageFund = fund.images; // Gán danh sách ảnh vào thuộc tính imageFund
                 }
-                // Kiểm tra xem idFund có phải là null không
+                // Kiểm tra xem idCategory có phải là null không
                 if (project.idCategory != null && categoryNamesMapping.ContainsKey(project.idCategory))
                 {
-                    project.nameCategory = categoryNamesMapping[project.idCategory]; // Gán tên vào thuộc tính nameFund
+                    project.nameCategory = categoryNamesMapping[project.idCategory]; // Gán tên vào thuộc tính nameCategory
                 }
                 else
                 {
-                    // Nếu không có idFund hợp lệ, bạn có thể gán giá trị mặc định hoặc bỏ qua
-                    project.nameFund = "Unknown Fund"; // Hoặc bạn có thể để trống (null)
+                    // Nếu không có idCategory hợp lệ, bạn có thể gán giá trị mặc định hoặc bỏ qua
+                    project.nameCategory = "Unknown Category"; // Hoặc bạn có thể để trống (null)
                 }
                 // Tính phần trăm đạt được
                 if (!string.IsNullOrEmpty(project.currentAmount) &&
@@ -367,9 +395,6 @@ namespace asp.Respositories
             // Nếu không có filterType, lấy tất cả các dự án mà không lọc theo endDate
             return projectFunds;
         }
-
-
-
 
 
 

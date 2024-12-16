@@ -124,19 +124,37 @@ namespace asp.Services.User
         }
 
         // lấy list người dùng
-        public async Task<List<Users>> GetAllAsync(int skipAmount, int pageSize)
+        public async Task<List<Users>> GetAllAsync(int skipAmount, int pageSize, string searchValue = null)
         {
             var sortDefinition = Builders<Users>.Sort.Descending(x => x.Id);
 
-            // Lấy tất cả ProjectFunds với các trang (skip và limit)
-            var projectFunds = await _collection.Find(_ => true)
-                                                .Skip(skipAmount)
-                                                .Sort(sortDefinition)
-                                                .Limit(pageSize)
-                                                .ToListAsync();
+            // Tạo bộ lọc tìm kiếm mặc định (không có điều kiện)
+            var filter = Builders<Users>.Filter.Empty;
 
-            return projectFunds;
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                // Tạo bộ lọc tìm kiếm gần đúng cho trường fullName (dùng Regex với cả dấu và không dấu)
+                var searchFilter = Builders<Users>.Filter.Or(
+                    Builders<Users>.Filter.Regex(x => x.fullName, new BsonRegularExpression($"(?i).*{searchValue}.*")), // Tìm kiếm không dấu, không phân biệt hoa thường
+                    Builders<Users>.Filter.Regex(x => x.fullName, new BsonRegularExpression($"(?i).*{searchValue.ToLowerInvariant()}.*")) // Tìm kiếm có dấu, không phân biệt hoa thường
+                );
+
+                // Áp dụng bộ lọc tìm kiếm gần đúng
+                filter = Builders<Users>.Filter.And(filter, searchFilter);
+            }
+
+            // Lấy danh sách Users với các trang (skip và limit)
+            var users = await _collection.Find(filter)
+                                         .Skip(skipAmount)
+                                         .Sort(sortDefinition)
+                                         .Limit(pageSize)
+                                         .ToListAsync();
+
+            return users;
         }
+
+
+
 
         public async Task<long> CountAsync()
         {

@@ -149,16 +149,35 @@ namespace asp.Services.Fund
         }
 
         // lấy list các quỹ
-        public async Task<List<CharityFunds>> GetAllAsync(int skipAmount, int pageSize)
+        public async Task<List<CharityFunds>> GetAllAsync(int skipAmount, int pageSize, string searchValue = null)
         {
             var sortDefinition = Builders<CharityFunds>.Sort.Descending(x => x.Id);
 
-            return await _collection.Find(_ => true)
+            // Xây dựng điều kiện truy vấn cơ bản
+            var filterDefinition = Builders<CharityFunds>.Filter.Empty;
+
+            // Nếu có searchValue, thêm bộ lọc tìm kiếm
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                // Loại bỏ dấu và chuyển thành chữ thường
+
+                // Tạo bộ lọc tìm kiếm cho trường name, không phân biệt hoa thường
+                var searchFilter = Builders<CharityFunds>.Filter.Regex(
+                    x => x.name, new BsonRegularExpression($"(?i).*{searchValue}.*")
+                );
+
+                // Áp dụng bộ lọc tìm kiếm vào filterDefinition
+                filterDefinition &= searchFilter;
+            }
+
+            // Truy vấn và phân trang kết quả
+            return await _collection.Find(filterDefinition)
                                     .Skip(skipAmount)
                                     .Sort(sortDefinition)
                                     .Limit(pageSize)
                                     .ToListAsync();
         }
+
         // lấy list các quỹ để fill vào options
         public async Task<List<CharityFundsv2>> GetAllAsyncForOptions(int skipAmount, int pageSize)
         {

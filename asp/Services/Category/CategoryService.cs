@@ -186,21 +186,36 @@ namespace asp.Services.Category
 
 
         // lấy list các dự án
-        public async Task<List<Categorys>> GetAllAsync(int skipAmount, int pageSize)
+        public async Task<List<Categorys>> GetAllAsync(int skipAmount, int pageSize, string searchValue = null)
         {
             var sortDefinition = Builders<Categorys>.Sort.Descending(x => x.Id);
 
-            // Lấy tất cả ProjectFunds với các trang (skip và limit)
-            var projectFunds = await _collection.Find(_ => true)
-                                                .Skip(skipAmount)
-                                                .Sort(sortDefinition)
-                                                .Limit(pageSize)
-                                                .ToListAsync();
+            // Xây dựng điều kiện truy vấn cơ bản
+            var filterDefinition = Builders<Categorys>.Filter.Empty;
 
-            // Lấy danh sách các idFund duy nhất từ ProjectFunds
+            // Nếu có searchValue, thêm bộ lọc tìm kiếm
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                // Loại bỏ dấu và chuyển thành chữ thường
 
-            return projectFunds;
+                // Tạo bộ lọc tìm kiếm cho trường name không phân biệt hoa thường
+                var searchFilter = Builders<Categorys>.Filter.Regex(
+                    x => x.name, new BsonRegularExpression($"(?i).*{searchValue}.*")
+                );
+
+                filterDefinition &= searchFilter; // Áp dụng bộ lọc tìm kiếm vào filter
+            }
+
+            // Lấy danh sách các Categorys với điều kiện lọc, phân trang và sắp xếp
+            var categorys = await _collection.Find(filterDefinition)
+                                            .Skip(skipAmount)
+                                            .Sort(sortDefinition)
+                                            .Limit(pageSize)
+                                            .ToListAsync();
+
+            return categorys;
         }
+
 
 
 

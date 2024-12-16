@@ -217,50 +217,112 @@ namespace asp.Services.Momo
 
 
         // lấy 3 người donate nhiều nhất
+        //public async Task<List<MomoExecuteResponseModel>> GetTop3DonorsAsync()
+        //{
+        //    var pipeline = new[]
+        //    {
+        //    // Nhóm theo UserId và tính tổng số tiền quyên góp
+        //       new BsonDocument("$group", new BsonDocument
+        //    {
+        //        { "_id", "$UserId" },  // UserId trong MomoExecuteResponseModel
+        //        { "totalAmount", new BsonDocument("$sum", new BsonDocument("$toDecimal", "$Amount")) },
+        //    }),
+        //         new BsonDocument("$addFields", new BsonDocument
+        //    {
+        //        { "UserId",
+        //            new BsonDocument("$cond", new BsonArray
+        //            {
+        //                new BsonDocument("$eq", new BsonArray { "$_id", "" }), // Kiểm tra trường hợp _id là chuỗi rỗng
+        //                "", // Nếu _id là chuỗi rỗng, giữ nguyên chuỗi rỗng
+        //                new BsonDocument("$toObjectId", "$_id") // Nếu không phải chuỗi rỗng, chuyển _id thành ObjectId
+        //            })
+        //        }
+        //    }),
+        //    // Đổi tên _id thành UserId
+        //    new BsonDocument("$project", new BsonDocument
+        //    {
+        //        { "UserId", "$_id" },
+        //        { "totalAmount", 1 },
+        //        { "_id", 0 }
+        //    }),
+        //    // Thực hiện phép nối (join) với bảng Users để lấy thông tin từ bảng Users
+        //       new BsonDocument("$lookup", new BsonDocument
+        //    {
+        //        { "from", "users" }, // Tên bảng (collection) Users
+        //        { "localField", "UserId" }, // Trường trong MomoExecuteResponseModel (UserId)
+        //        { "foreignField", "_id" }, // Trường trong bảng Users để nối với UserId
+        //        { "as", "userInfo" } // Tên trường mới để lưu kết quả nối
+        //    }),
+
+        //    // Chỉ lấy thông tin của người quyên góp đầu tiên trong userInfo
+        //    new BsonDocument("$unwind", new BsonDocument { { "path", "$userInfo" }, { "preserveNullAndEmptyArrays", true } }),
+        //    // Sắp xếp theo tổng số tiền quyên góp giảm dần
+        //    new BsonDocument("$sort", new BsonDocument("totalAmount", -1)),
+        //    // Lấy ra 3 người đứng đầu
+        //    new BsonDocument("$limit", 3)
+        //};
+
+        //    var result = await _collection.AggregateAsync<BsonDocument>(pipeline);
+        //    var topDonors = new List<MomoExecuteResponseModel>();
+
+        //    await result.ForEachAsync(doc =>
+        //    {
+        //        // Lấy thông tin userInfo nếu có
+        //        var userInfo = doc.Contains("userInfo") ? doc["userInfo"].AsBsonDocument : null;
+
+        //        // Nếu userInfo có dữ liệu, lấy thông tin FullName và Avatar, nếu không thì trả về null
+        //        topDonors.Add(new MomoExecuteResponseModel
+        //        {
+        //            UserId = doc["UserId"].AsString,
+        //            Amount = doc["totalAmount"].ToString(),
+        //            FullName = userInfo != null && userInfo.Contains("fullName") ? userInfo["fullName"].AsString : null,
+        //            Avatar = userInfo != null && userInfo.Contains("avatar") ? userInfo["avatar"].AsString : null
+        //        });
+        //    });
+
+        //    return topDonors;
+        //}
         public async Task<List<MomoExecuteResponseModel>> GetTop3DonorsAsync()
         {
-            var pipeline = new[]
-            {
-            // Nhóm theo UserId và tính tổng số tiền quyên góp
-               new BsonDocument("$group", new BsonDocument
-            {
-                { "_id", "$UserId" },  // UserId trong MomoExecuteResponseModel
-                { "totalAmount", new BsonDocument("$sum", new BsonDocument("$toDecimal", "$Amount")) },
-            }),
-                 new BsonDocument("$addFields", new BsonDocument
-            {
-                { "UserId",
-                    new BsonDocument("$cond", new BsonArray
-                    {
-                        new BsonDocument("$eq", new BsonArray { "$_id", "" }), // Kiểm tra trường hợp _id là chuỗi rỗng
-                        "", // Nếu _id là chuỗi rỗng, giữ nguyên chuỗi rỗng
-                        new BsonDocument("$toObjectId", "$_id") // Nếu không phải chuỗi rỗng, chuyển _id thành ObjectId
-                    })
-                }
-            }),
-            // Đổi tên _id thành UserId
-            new BsonDocument("$project", new BsonDocument
-            {
-                { "UserId", "$_id" },
-                { "totalAmount", 1 },
-                { "_id", 0 }
-            }),
-            // Thực hiện phép nối (join) với bảng Users để lấy thông tin từ bảng Users
-               new BsonDocument("$lookup", new BsonDocument
-            {
-                { "from", "users" }, // Tên bảng (collection) Users
-                { "localField", "UserId" }, // Trường trong MomoExecuteResponseModel (UserId)
-                { "foreignField", "_id" }, // Trường trong bảng Users để nối với UserId
-                { "as", "userInfo" } // Tên trường mới để lưu kết quả nối
-            }),
+            var pipeline = new[] {
+        // Nhóm theo UserId và tính tổng số tiền quyên góp
+        new BsonDocument("$group", new BsonDocument {
+            { "_id", "$UserId" },  // UserId trong MomoExecuteResponseModel
+            { "totalAmount", new BsonDocument("$sum", new BsonDocument("$toDecimal", "$Amount")) },
+        }),
+        new BsonDocument("$addFields", new BsonDocument {
+            { "UserId",
+                new BsonDocument("$cond", new BsonArray {
+                    new BsonDocument("$eq", new BsonArray { "$_id", "" }), // Kiểm tra trường hợp _id là chuỗi rỗng
+                    "", // Nếu _id là chuỗi rỗng, giữ nguyên chuỗi rỗng
+                    new BsonDocument("$toObjectId", "$_id") // Nếu không phải chuỗi rỗng, chuyển _id thành ObjectId
+                })
+            }
+        }),
+        // Đổi tên _id thành UserId
+        new BsonDocument("$project", new BsonDocument {
+            { "UserId", "$_id" },
+            { "totalAmount", 1 },
+            { "_id", 0 }
+        }),
+        // Thực hiện phép nối (join) với bảng Users để lấy thông tin từ bảng Users
+        new BsonDocument("$lookup", new BsonDocument {
+            { "from", "users" }, // Tên bảng (collection) Users
+            { "localField", "UserId" }, // Trường trong MomoExecuteResponseModel (UserId)
+            { "foreignField", "_id" }, // Trường trong bảng Users để nối với UserId
+            { "as", "userInfo" } // Tên trường mới để lưu kết quả nối
+        }),
 
-            // Chỉ lấy thông tin của người quyên góp đầu tiên trong userInfo
-            new BsonDocument("$unwind", new BsonDocument { { "path", "$userInfo" }, { "preserveNullAndEmptyArrays", true } }),
-            // Sắp xếp theo tổng số tiền quyên góp giảm dần
-            new BsonDocument("$sort", new BsonDocument("totalAmount", -1)),
-            // Lấy ra 3 người đứng đầu
-            new BsonDocument("$limit", 3)
-        };
+        // Chỉ lấy thông tin của người quyên góp đầu tiên trong userInfo
+        new BsonDocument("$unwind", new BsonDocument {
+            { "path", "$userInfo" },
+            { "preserveNullAndEmptyArrays", true }
+        }),
+        // Sắp xếp theo tổng số tiền quyên góp giảm dần
+        new BsonDocument("$sort", new BsonDocument("totalAmount", -1)),
+        // Lấy ra 3 người đứng đầu
+        new BsonDocument("$limit", 3)
+    };
 
             var result = await _collection.AggregateAsync<BsonDocument>(pipeline);
             var topDonors = new List<MomoExecuteResponseModel>();
