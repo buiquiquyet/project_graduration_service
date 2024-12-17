@@ -1,0 +1,90 @@
+[{
+  "_id": {
+    "$oid": "67557efcef75d3ac90bf1cd4"
+  },
+  "name": "Quỹ Vì Tầm Vóc Việt",
+  "images": "2_20241208181156579.jpg",
+  "imagesIFormFile": null,
+  "description": "“Quỹ Vì Tầm Vóc Việt (VSF) là tổ chức phi lợi nhuận được thành lập năm 2014 với sứ mệnh đóng góp cho Mục tiêu Phát triển Bền vững (SDGs), đặc biệt là các mục tiêu về giáo dục, sức khỏe, công bằng và phát triển bền vững. Các dự án chính hiện tại là: i) Xây dựng năng lực và kết nối mạng lưới cho sinh viên – DynaGen Initiative; ii) Cải thiện sức khỏe cho người lao động; iii) Các chiến dịch truyền thông nhằm nâng cao nhận thức cộng đồng về quyền sức khỏe và quyền giáo dục; iv) Các hoạt động nhân đạo và từ thiện; v) Tham gia nhóm điều phối của Liên minh Doanh nghiệp vì Môi trường Việt Nam (VB4E). Năm 2019, Quỹ đã đạt được giải thưởng “Tổ chức phi lợi nhuận tốt nhất tại Châu Á” do Asia Philanthropy Award bình chọn. ”",
+  "address": "http://vitamvocviet.vn",
+  "phone": "02438238008",
+  "email": "lienhe@vitamvocviet.vn",
+  "createdAt": {
+    "$date": "2024-12-08T11:11:56.581Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:11:56.581Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67557f2aef75d3ac90bf1cd5"
+  },
+  "name": "Quỹ Hỗ trợ đổi mới giáo dục phổ thông Việt Nam",
+  "images": "3_20241208181242877.jpeg",
+  "imagesIFormFile": null,
+  "description": "“Quỹ Hỗ trợ đổi mới giáo dục phổ thông Việt Nam là Quỹ xã hội, phi lợi nhuận hàng đầu trong việc thực hiện các chương trình đổi mới giáo dục. Quỹ được thành lập theo Quyết định số 2455/QĐ-BNV của Bộ Nội Vụ ngày 23/08/2017”",
+  "address": "Việt Nam",
+  "phone": "0941959922",
+  "email": "info@vigef.org",
+  "createdAt": {
+    "$date": "2024-12-08T11:12:42.877Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:12:42.877Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67557f4bef75d3ac90bf1cd6"
+  },
+  "name": "MSD United Way Vietnam",
+  "images": "5_20241208181315763.png",
+  "imagesIFormFile": null,
+  "description": "“MSD UNITED WAY chúng tôi nỗ lực cải thiện chất lượng cuộc sống bền vững của các nhóm cộng đồng dễ bị tổn thương thông qua sự huy động và liên kết sức mạnh, xây dựng hệ sinh thái đoàn kết hợp tác trong thực hành phát triển bền vững. Chúng tôi hướng tới một Việt Nam bền vững, công bằng và bình đẳng – nơi tất cả các cá nhân và gia đình có thể phát huy tối đa các tiềm năng của mình thông qua giáo dục chất lượng, thu nhập ổn định và cuộc sống mạnh khoẻ.”",
+  "address": "Việt Nam",
+  "phone": "02462769056",
+  "email": "contact@msdvietnam.org",
+  "createdAt": {
+    "$date": "2024-12-08T11:13:15.763Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:13:15.763Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67557f8bef75d3ac90bf1cd7"
+  },
+  "name": "Quỹ Từ tâm Đắk Lắk",
+  "images": "4_20241208181419011.jpg",
+  "imagesIFormFile": null,
+  "description": "“Quỹ Từ tâm Đắk Lắk hoạt động theo các quy định của Nghị định 93/2019/NĐ-CP, với mục đích hỗ trợ nạn nhân bị ảnh hưởng nghiêm trọng bởi thiên tai, hỏa hoạn, dịch bệnh, tai nạn và các đối tượng đặc biệt nghèo khó, yếu thế, cần sự trợ giúp của xã hội. Quỹ Từ Tâm Đắk Lắk cũng tham gia các hoạt động vì mục tiêu phát triển bền vững, xây dựng xã hội văn minh, như góp phần bảo vệ môi trường, trao học bổng, đào tạo kỹ năng sống, đem lại nhiều giá trị tốt đẹp cho thế hệ trẻ, không vì mục tiêu lợi nhuận.”",
+  "address": "Việt Nam",
+  "phone": "0869654747",
+  "email": "quytutam@quytutamdaklak.com",
+  "createdAt": {
+    "$date": "2024-12-08T11:14:19.012Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:14:19.012Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67557fcfef75d3ac90bf1cd8"
+  },
+  "name": "Quỹ Từ thiện Nâng bước tuổi thơ",
+  "images": "1_20241208181527892.jpeg",
+  "imagesIFormFile": null,
+  "description": "“Nâng Bước Tuổi Thơ là tổ chức từ thiện duy nhất tại Việt Nam cung cấp chuyên môn điều trị bệnh lý & phẫu thuật đa khoa theo tiêu chuẩn quốc tế cho trẻ em dị tật bẩm sinh có hoàn cảnh khó khăn. Thắp sáng bởi ngọn lửa của tình thương vô điều kiện, Quỹ Nâng Bước Tuổi Thơ ấp ủ khát vọng cùng sứ mệnh mang tới cơ thể lành lặn và tương lai tốt đẹp nhất cho những trẻ em kém may mắn trên khắp mọi miền đất Việt.”",
+  "address": "Việt Nam",
+  "phone": "0903035030",
+  "email": "contact@children-of-vietnam.org",
+  "createdAt": {
+    "$date": "2024-12-08T11:15:27.892Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:15:27.892Z"
+  }
+}]

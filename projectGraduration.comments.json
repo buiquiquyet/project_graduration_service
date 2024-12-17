@@ -1,0 +1,70 @@
+[{
+  "_id": {
+    "$oid": "67506910d631f08a24955866"
+  },
+  "content": "bình luận đầu tiên",
+  "userId": "674c5305803f1a037f0c5a11",
+  "projectFundId": "674dd44bad6de739aa6a5764",
+  "createdAt": {
+    "$date": "2024-12-04T14:37:04.400Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-04T14:37:04.400Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "675076b6705e342bf3dabab8"
+  },
+  "content": "bình luận thứ 2",
+  "userId": "674c5305803f1a037f0c5a11",
+  "projectFundId": "674dd44bad6de739aa6a5764",
+  "createdAt": {
+    "$date": "2024-12-04T15:35:18.901Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-04T15:35:18.901Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "675076c8705e342bf3dabab9"
+  },
+  "content": "agadgasdgdsagdasgdsgdsagsadgdsagasdgasdgasdgsadgasdgsadgsadgsdaasdgsadgdsagasddddddddddddddggggggggg",
+  "userId": "674c5305803f1a037f0c5a11",
+  "projectFundId": "674dd44bad6de739aa6a5764",
+  "createdAt": {
+    "$date": "2024-12-04T15:35:36.969Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-04T15:35:36.969Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67507eb3705e342bf3dababd"
+  },
+  "content": "tấm lòng việt",
+  "userId": "674c5305803f1a037f0c5a11",
+  "projectFundId": "674dd366ad6de739aa6a5763",
+  "createdAt": {
+    "$date": "2024-12-04T16:09:23.198Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-04T16:09:23.198Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67507f75646b39650e5c52e8"
+  },
+  "content": "tấm lòng việt vậy a hai",
+  "userId": "67507f67646b39650e5c52e7",
+  "projectFundId": "674dd366ad6de739aa6a5763",
+  "createdAt": {
+    "$date": "2024-12-04T16:12:37.807Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-04T16:12:37.807Z"
+  }
+}]

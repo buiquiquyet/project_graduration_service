@@ -31,6 +31,10 @@ namespace asp.Models.User
         public string? isEmissaryApproved { get; set; } = "";  // đã duyệt thành sứ giả
         public string? avatar { get; set; } = ""; // ảnh
 
+        [BsonElement("cccd")]
+        public List<string>? cccd { get; set; }  // mặt trước căn cước công dân
+        public List<IFormFile>? cccdIFormFile { get; set; } // Danh sách các file ảnh cccd gửi lên từ client
+
         [BsonElement("verificationCode")]
         public string? verificationCode { get; set; } = ""; // Mã xác thực gửi đến người dùng
 
@@ -60,12 +64,6 @@ namespace asp.Models.User
 
         [BsonElement("phone")]
         public string? phone { get; set; } = "";  // số điện thoại
-
-        [BsonElement("cccd1")]
-        public string? cccd1 { get; set; } = "";  // mặt trước căn cước công dân
-
-        [BsonElement("cccd2")]
-        public string? cccd2 { get; set; } = "";  // mặt sau căn cước công dân
 
         [BsonElement("createdAt")]
         public DateTime createdAt { get; set; } = DateTime.Now;  // tạo lúc

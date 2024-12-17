@@ -99,70 +99,6 @@ namespace asp.Services.Momo
             return hashString;
         }
         // lưu giao dịch donate
-        //public async Task<MomoExecuteResponseModel> PaymentExecuteAsync(IQueryCollection collection)
-        //{
-        //    // Sử dụng FirstOrDefault để tránh ngoại lệ nếu không có tham số
-        //    var amountPair = collection.FirstOrDefault(s => s.Key == "amount");
-        //    var orderInfoPair = collection.FirstOrDefault(s => s.Key == "orderInfo");
-        //    var storeId = collection.FirstOrDefault(s => s.Key == "extraData");
-        //    var orderIdPair = collection.FirstOrDefault(s => s.Key == "orderId");
-        //    Console.WriteLine("The answer is: " + collection);
-        //    // Kiểm tra nếu không tìm thấy phần tử
-        //    if (amountPair.Equals(default(KeyValuePair<string, StringValues>)) ||
-        //        orderInfoPair.Equals(default(KeyValuePair<string, StringValues>)) ||
-        //        orderIdPair.Equals(default(KeyValuePair<string, StringValues>)))
-        //    {
-        //        // Trả về null nếu không tìm thấy bất kỳ tham số nào
-        //        return null;
-        //    }
-
-        //    var data = new MomoExecuteResponseModel()
-        //    {
-        //        Amount = amountPair.Value.ToString(),  // Chuyển đổi giá trị sang chuỗi
-        //        //OrderId = orderIdPair.Value.ToString(),
-        //        //OrderInfo = orderInfoPair.Value.ToString(),
-        //        UserId = storeId.Value.ToString(), // id của người dùng
-        //        ProjectFundId = orderInfoPair.Value.ToString(), // id của người từ thiện
-        //        CreatedAt = DateTime.Now // Ghi nhận thời gian tạo
-        //    };
-        //    try
-        //    {
-        //        // Chèn dữ liệu vào collection MongoDB
-        //        await _collection.InsertOneAsync(data);
-        //        // Tìm bản ghi ProjectFunds dựa trên ProjectFundId
-        //        var projectFund = await _collectionProjectFund
-        //            .Find(pf => pf.Id == data.ProjectFundId)
-        //            .FirstOrDefaultAsync();
-
-        //        if (projectFund != null)
-        //        {
-        //            // Kiểm tra và xử lý các giá trị currentAmount không hợp lệ
-        //            if (string.IsNullOrEmpty(projectFund.currentAmount) || !decimal.TryParse(projectFund.currentAmount, out var currentAmount))
-        //            {
-        //                currentAmount = 0;
-        //            }
-        //            // Cộng số tiền giao dịch vào currentAmount
-        //            if (decimal.TryParse(data.Amount, out var transactionAmount))
-        //            {
-        //                projectFund.currentAmount = (currentAmount + transactionAmount).ToString();
-        //                projectFund.updatedAt = DateTime.Now;
-
-        //                // Cập nhật bản ghi ProjectFunds trong cơ sở dữ liệu
-        //                await _collectionProjectFund.ReplaceOneAsync(
-        //                    pf => pf.Id == projectFund.Id,
-        //                    projectFund);
-        //            }
-        //        }
-        //        // Trả về đối tượng đã chèn, bao gồm cả Id từ MongoDB nếu có
-        //        return data;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Xử lý lỗi (ghi log, ném ngoại lệ, v.v.)
-        //        // Ví dụ: ghi log chi tiết (có thể dùng log framework như NLog, Serilog)
-        //        throw new Exception("Có lỗi xảy ra trong quá trình chèn dữ liệu vào cơ sở dữ liệu: " + ex.Message, ex);
-        //    }
-        //}
         public async Task<MomoExecuteResponseModel> PaymentExecuteAsync(IQueryCollection collection)
         {
             var amountPair = collection.FirstOrDefault(s => s.Key == "amount");
@@ -252,7 +188,7 @@ namespace asp.Services.Momo
             return ObjectId.TryParse(id, out _);
         }
 
-        // dếm số lượng donate
+        // lấy số lượng donate
         public async Task<List<MomoExecuteResponseModel>> GetDonatesByProjectFundIdAsync(string projectFundId, int skipAmount, int pageSize)
         {
             // Lấy danh sách các donate dựa theo projectFundId

@@ -1,0 +1,93 @@
+[{
+  "_id": {
+    "$oid": "674c5305803f1a037f0c5a11"
+  },
+  "email": "quyetbq@saokhue.io",
+  "passWord": "anh123456",
+  "fullName": "bùi quí quyết",
+  "role": "admin",
+  "avatar": "bgmain3_20241208183804417.jpg",
+  "verificationCode": "181573",
+  "expirationTime": {
+    "$date": "2024-12-01T12:18:57.290Z"
+  },
+  "isVerified": true,
+  "city": "30",
+  "district": "297",
+  "address": "Khu 6 thị trấn Gia Lộc, Gia Lộc, Hải Dương",
+  "gender": "male",
+  "ward": "10999",
+  "birthDay": "2024-12-29",
+  "phone": "0379952714",
+  "createdAt": {
+    "$date": "2024-12-01T12:13:57.290Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-01T12:13:57.290Z"
+  },
+  "isEmissary": true
+},
+{
+  "_id": {
+    "$oid": "67507f67646b39650e5c52e7"
+  },
+  "email": "quyetbuiqui@gmail.com",
+  "passWord": "1234567",
+  "fullName": "Quyêta Bùi",
+  "role": "user",
+  "isEmissary": true,
+  "isEmissaryApproved": "approved",
+  "avatar": "f70703ec-9f60-4553-a365-7b205e10ca28.jpg",
+  "verificationCode": "",
+  "expirationTime": {
+    "$date": "2024-12-04T16:17:23.445Z"
+  },
+  "isVerified": true,
+  "city": "89",
+  "district": "886",
+  "address": "124214",
+  "gender": "male",
+  "ward": "30337",
+  "birthDay": "2024-12-05",
+  "phone": "124214",
+  "createdAt": {
+    "$date": "2024-12-04T16:12:23.445Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-17T17:22:21.291Z"
+  },
+  "cccd": [
+    "z6125227949036_1f6c965be20688808b34b003b00cd820_20241218002221292.jpg",
+    "z6125227955680_bf237f602bac5cdc869080dc193c6f6d_20241218002221295.jpg"
+  ]
+},
+{
+  "_id": {
+    "$oid": "67541b90856e5ba12c5448d0"
+  },
+  "email": "tungbuiqui188@gmail.com",
+  "passWord": "anh123456",
+  "fullName": "trần văn b",
+  "role": "user",
+  "isEmissary": true,
+  "isEmissaryApproved": "",
+  "avatar": "bgmain3_20241209222330088.jpg",
+  "verificationCode": "954679",
+  "expirationTime": {
+    "$date": "2024-12-09T15:25:47.857Z"
+  },
+  "isVerified": true,
+  "city": "89",
+  "district": "886",
+  "address": "214124214124",
+  "gender": "male",
+  "ward": "30341",
+  "birthDay": "2024-12-09",
+  "phone": "12312321",
+  "createdAt": {
+    "$date": "2024-12-07T09:55:28.721Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-16T16:10:35.924Z"
+  }
+}]

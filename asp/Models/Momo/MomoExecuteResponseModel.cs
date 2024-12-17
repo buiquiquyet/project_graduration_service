@@ -16,6 +16,14 @@ public class MomoExecuteResponseModel
 
     public DateTime CreatedAt { get; set; }
 
+    public string? ProjectName { get; set; } = ""; // tên dự án
+    public string? ProjectNameFund { get; set; } = ""; // tên quỹ
+    public string? ProjectNameCategory { get; set; } = ""; // tổng danh mục
+    public string? ProjectCurrentAmount { get; set; } = ""; // số tiền hiện tại
+    public string? ProjectTargetAmount { get; set; } = ""; // số tiền cần đạt
+    public string? ProjectStartDate { get; set; } = ""; // ngày bắt đầu
+    public string? ProjectEndDate { get; set; } = ""; // ngày bắt đầu
+
 }
 
 

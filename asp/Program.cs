@@ -18,7 +18,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
-
+builder.Services.AddHttpClient();
 builder.Services.Configure<MongoDbSetting>(builder.Configuration.GetSection("MongoDB"));
 // Đăng ký ConnectDbHelper
 builder.Services.AddSingleton<ConnectDbHelper>();

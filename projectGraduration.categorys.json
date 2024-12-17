@@ -1,0 +1,72 @@
+[{
+  "_id": {
+    "$oid": "67557d99ef75d3ac90bf1cce"
+  },
+  "name": "Trẻ em",
+  "createdAt": {
+    "$date": "2024-12-08T11:06:01.695Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:06:01.695Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67557da5ef75d3ac90bf1ccf"
+  },
+  "name": "Giáo dục",
+  "createdAt": {
+    "$date": "2024-12-08T11:06:13.219Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:06:13.219Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67557dafef75d3ac90bf1cd0"
+  },
+  "name": "Người già neo đơn",
+  "createdAt": {
+    "$date": "2024-12-08T11:06:23.660Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:06:23.660Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67557db6ef75d3ac90bf1cd1"
+  },
+  "name": "Thiên tai",
+  "createdAt": {
+    "$date": "2024-12-08T11:06:30.756Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:06:30.756Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67557db9ef75d3ac90bf1cd2"
+  },
+  "name": "Y tế",
+  "createdAt": {
+    "$date": "2024-12-08T11:06:33.538Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:06:33.538Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "67557dc5ef75d3ac90bf1cd3"
+  },
+  "name": "Hoàn cảnh khó khăn",
+  "createdAt": {
+    "$date": "2024-12-08T11:06:45.213Z"
+  },
+  "updatedAt": {
+    "$date": "2024-12-08T11:06:45.213Z"
+  }
+}]
