@@ -97,7 +97,7 @@ namespace asp.Services.User
             if (updatedEntity.isEmissaryApproved == "")
             {
                 // Nếu isEmissaryApproved rỗng và isEmissary là true, cập nhật là "processing"
-                AddUpdate(x => x.isEmissaryApproved, updatedEntity.isEmissary == true ? ApprovedConst.PROCESSING : null);
+                AddUpdate(x => x.isEmissaryApproved, existingEntity.isEmissary == true ? ApprovedConst.PROCESSING : null);
             }
             // Xử lý ảnh mới nếu có
             if (updatedEntity.cccdIFormFile != null && updatedEntity.cccdIFormFile.Count > 0)

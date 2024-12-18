@@ -860,6 +860,11 @@
         "Name": "size",
         "Type": "System.Int32",
         "IsRequired": false
+      },
+      {
+        "Name": "valueSearch",
+        "Type": "System.String",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": [

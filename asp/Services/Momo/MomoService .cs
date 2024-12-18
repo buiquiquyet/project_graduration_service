@@ -129,6 +129,30 @@ namespace asp.Services.Momo
                 // Insert transaction data into MongoDB collection
                 await _collection.InsertOneAsync(data);
 
+                // Tìm bản ghi ProjectFunds dựa trên ProjectFundId
+                var projectFund = await _collectionProjectFund
+                    .Find(pf => pf.Id == data.ProjectFundId)
+                    .FirstOrDefaultAsync();
+
+                if (projectFund != null)
+                {
+                    // Kiểm tra và xử lý các giá trị currentAmount không hợp lệ
+                    if (string.IsNullOrEmpty(projectFund.currentAmount) || !decimal.TryParse(projectFund.currentAmount, out var currentAmount))
+                    {
+                        currentAmount = 0;
+                    }
+                    // Cộng số tiền giao dịch vào currentAmount
+                    if (decimal.TryParse(data.Amount, out var transactionAmount))
+                    {
+                        projectFund.currentAmount = (currentAmount + transactionAmount).ToString();
+                        projectFund.updatedAt = DateTime.Now;
+                        // Cập nhật bản ghi ProjectFunds trong cơ sở dữ liệu
+                        await _collectionProjectFund.ReplaceOneAsync(
+                            pf => pf.Id == projectFund.Id,
+                            projectFund);
+                    }
+                }
+
                 // Calculate totalAmount for the store/user (storeId or userId)
                 var pipeline = new[] {
                     new BsonDocument("$match", new BsonDocument("UserId", data.UserId)),  // Match documents by UserId (storeId)
@@ -188,8 +212,50 @@ namespace asp.Services.Momo
             return ObjectId.TryParse(id, out _);
         }
 
-        // lấy số lượng donate
-        public async Task<List<MomoExecuteResponseModel>> GetDonatesByProjectFundIdAsync(string projectFundId, int skipAmount, int pageSize)
+        // lấy số lượng donate của 1 dự án
+        //public async Task<List<MomoExecuteResponseModel>> GetDonatesByProjectFundIdAsync(string projectFundId, int skipAmount, int pageSize, string searchValue = "")
+        //{
+        //    // Lấy danh sách các donate dựa theo projectFundId
+        //    var donates = await _collection
+        //        .Find(comment => comment.ProjectFundId == projectFundId)
+        //        .Skip(skipAmount)
+        //        .Limit(pageSize)
+        //        .SortByDescending(comment => comment.CreatedAt)
+        //        .ToListAsync();
+
+        //    // Lấy danh sách userId duy nhất từ donate và chỉ giữ lại các ObjectId hợp lệ
+        //    var userIds = donates
+        //        .Select(donate => donate.UserId)
+        //        .Where(userId => IsValidObjectId(userId))
+        //        .Distinct()
+        //        .ToList();
+
+        //    // Lấy thông tin người dùng từ collection "Users"
+        //    var users = await _collectionUser
+        //        .Find(user => userIds.Contains(user.Id))
+        //        .ToListAsync();
+
+        //    // Kết hợp thông tin người dùng vào các comment
+        //    foreach (var donate in donates)
+        //    {
+        //        var user = users.FirstOrDefault(u => u.Id == donate.UserId);
+        //        if (user != null)
+        //        {
+        //            donate.FullName = user.fullName; // Gán tên người dùng
+        //        }
+        //        else
+        //        {
+        //            donate.FullName = "Nhà hảo tâm ẩn danh"; // Gán tên người dùng
+        //        }
+        //    }
+
+        //    return donates;
+        //}
+        public async Task<List<MomoExecuteResponseModel>> GetDonatesByProjectFundIdAsync(
+    string projectFundId,
+    int skipAmount,
+    int pageSize,
+    string searchValue = "")
         {
             // Lấy danh sách các donate dựa theo projectFundId
             var donates = await _collection
@@ -211,7 +277,7 @@ namespace asp.Services.Momo
                 .Find(user => userIds.Contains(user.Id))
                 .ToListAsync();
 
-            // Kết hợp thông tin người dùng vào các comment
+            // Kết hợp thông tin người dùng vào các donate
             foreach (var donate in donates)
             {
                 var user = users.FirstOrDefault(u => u.Id == donate.UserId);
@@ -225,8 +291,22 @@ namespace asp.Services.Momo
                 }
             }
 
+            // Nếu có searchValue, lọc donate theo tên người dùng (fullName) hoặc amount
+            if (!string.IsNullOrEmpty(searchValue))
+            {
+                donates = donates.Where(donate =>
+                    // Lọc theo tên người dùng (fullName)
+                    (donate.FullName != null && donate.FullName.IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0) ||
+                    // Lọc theo số tiền (amount)
+                    donate.Amount.ToString().IndexOf(searchValue, StringComparison.OrdinalIgnoreCase) >= 0)
+                    .ToList();
+            }
+
             return donates;
         }
+
+
+
 
 
         // đếm số lượng bản ghi

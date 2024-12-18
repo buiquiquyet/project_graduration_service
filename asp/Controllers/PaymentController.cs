@@ -42,12 +42,12 @@ namespace asp.Controllers
 
         [HttpGet]
         [Route("byProjectFundId/{projectFundId}")]
-        public async Task<ActionResult<List<MomoExecuteResponseModel>>> GetDonatesByProjectFundId(string projectFundId, int page = 1, int size = 10)
+        public async Task<ActionResult<List<MomoExecuteResponseModel>>> GetDonatesByProjectFundId(string projectFundId, int page = 1, int size = 10, string? valueSearch = "")
         {
             var skipAmount = (page - 1) * size;
             List<MomoExecuteResponseModel> datas;
             long totalDonates;
-            datas = await _momoService.GetDonatesByProjectFundIdAsync(projectFundId, skipAmount, size);
+            datas = await _momoService.GetDonatesByProjectFundIdAsync(projectFundId, skipAmount, size, valueSearch);
             totalDonates = await _momoService.CountAsync(projectFundId);
 
             if (datas != null)
@@ -94,28 +94,25 @@ namespace asp.Controllers
             htmlResponse += "<meta name='viewport' content='width=device-width, initial-scale=1.0' />";
             htmlResponse += "<title>Payment Status</title>";
             htmlResponse += "<style>";
-            htmlResponse += "body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; display: flex; justify-content: center; align-items: center; height: 100vh;}";
-            htmlResponse += "h1 { color: #27ae60; font-size: 2rem; text-align: center; margin-bottom: 20px;}";
-            htmlResponse += "p { color: #555; text-align: center; font-size: 1.2rem; margin-bottom: 30px;}";
-            htmlResponse += ".btn { background-color: #3498db; color: white; border: none; padding: 10px 20px; font-size: 1rem; cursor: pointer; border-radius: 5px; text-align: center;}";
+            htmlResponse += "body { font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f4f4f9; color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; flex-direction: column; text-align: center; }";
+            htmlResponse += "h1 { color: #27ae60; font-size: 2.5rem; text-align: center; margin-bottom: 20px; font-weight: bold; }";
+            htmlResponse += "p { color: #555; text-align: center; font-size: 1.2rem; margin-bottom: 30px; line-height: 1.6; }";
+            htmlResponse += ".btn { background-color: #3498db; color: white; border: none; padding: 12px 24px; font-size: 1.1rem; cursor: pointer; border-radius: 8px; text-align: center; text-decoration: none; }"; // Thêm text-decoration: none vào đây
             htmlResponse += ".btn:hover { background-color: #2980b9; }";
+            htmlResponse += ".container { background-color: white; border-radius: 8px; padding: 30px 40px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); max-width: 600px; width: 100%; margin: 0 20px; }";
             htmlResponse += "</style>";
             htmlResponse += "</head>";
             htmlResponse += "<body>";
-
-            //if (response.Amount != null && response.Amount == "ExpectedAmount") // Điều kiện thanh toán thành công
-            //{
+            htmlResponse += "<div class='container'>";
             htmlResponse += "<h1>Thanh toán thành công!</h1>";
-            htmlResponse += "<p>Cảm ơn bạn đã đóng góp cho dự án.</p>";
-            htmlResponse += "<p>Vui lòng quay lại trang dự án để xem chi tiết.</p>";
+            htmlResponse += "<p>Cảm ơn bạn đã đóng góp cho dự án.Vui lòng quay lại trang dự án để xem chi tiết.</p>";
             htmlResponse += $"<a href='http://localhost:5173/project-fund-detail/{response.ProjectFundId}' class='btn'>Quay lại trang Donate</a>";
-            //}
-           
-
+            htmlResponse += "</div>";
             htmlResponse += "</body>";
             htmlResponse += "</html>";
 
             return Content(htmlResponse, "text/html");
+
             //return Ok(new ApiResponseDTO<Object> { data = new { response }, message = "success" });
         }
         [HttpGet("export-excel/{projectFundId}")]
